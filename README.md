@@ -43,16 +43,24 @@ and perform test, project will be moved to 'public'
 
 Project Summary
 ===============
-**project documentation**
+**DOCUMENTATION**
   - [x] Project architecture and algorithms description (doc) - not public 
 
 **IMPLEMENTATION**
-  - [x] Python inplementation ( Fast prototyping and tresting)  not public    
+  - [x] Python inplementation ( Fast prototyping and tresting) - not public  
   - [ ] Micropython implementation   :exclamation: - IN PROGRESS
-  - [ ] C implementation (for esp-idf)
- 
-**Tools*
+  
+**Tools**
   - [ ] serial protocol comunication ( data excange and controller configuration) 
-  - [ ] desctop APP for configuration ,testing and validation 
+  - [ ] desctop APP for configuration , simulation and testing
+
+**END NOTE:** with hope in the future i will add more functionalities like:
+  - Setpoint curve generation functions
+  - PID controller autotuning functions
+  - more advanced API: Cascade , fedforward control implementation examples 
+ 
+
+  
+  
  
  
