@@ -45,14 +45,15 @@ Project Summary
 ===============
 **DOCUMENTATION**
   - [x] Project architecture and algorithms description (doc) - not public 
-
+  - [ ] micropython usage documentation 
+ 
 **IMPLEMENTATION**
   - [x] Python inplementation ( Fast prototyping and tresting) - not public  
   - [ ] Micropython implementation   :exclamation: - IN PROGRESS
   
 **Tools**
   - [ ] serial protocol comunication ( data excange and controller configuration) 
-  - [ ] desctop APP for configuration , simulation and testing
+  - [ ] desctop APP for configuration , simulation and testing 
 
 **END NOTE:** with hope in the future i will add more functionalities like:
   - Setpoint curve generation functions
