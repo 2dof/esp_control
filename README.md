@@ -1,24 +1,26 @@
 # esp_control
-Fuzzy Functional System
+ESP32 MIKROPYTHON CONTROL LIB
 =======================
-Functional Fuzzy System (ffs) is intended to be a very simple library for modeling fuzzy system for
-Mamdani and Sugeno inference.
+Standard PID control library for esp32 with 2 versions:
+* Micropython code version
+* C code version (for esp-idf)
 
 .. note::
-I use this simple library for R&D fuzzy control and process simulation based on Python.
-I'm used to working with fuzzy tolboxes from Matlab and Scilab(sciFLT) so i tried to keep similar convention.
+At this stage all work has 'private' status, after ported project from Python version 
+and perform test, project will be moved to 'public'
 
-API docs: https://2dof.github.io/ffs/ 
+API docs: .....
 
 Project Summary
 ===============
 
+
 Actual status
 -------------
-:Version: 1.0.1
-:Status:    developing
+:Version: 0.0.0
+:Status:  
 
 Done:
 +++++
-* added tutorial for Mamdani and TSK inference
-* added flags: **outOfRange** and **NoRuleFired**
+* Project architecture and alghoritm description (doc) - not public 
+* .....
