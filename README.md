@@ -2,9 +2,8 @@
 ESP32 MIKROPYTHON CONTROL LIB
 =============================
 
-Standard PID control library for esp32 with 2 versions:
-* Micropython code version
-* C code version (for esp-idf)
+Standard PID control library for esp32 Micropython implementation  
+ 
 
 Basic architecture of control lib will be based on PID-ISA schematic (see PID_ISA_SCHEMA.pdf) with
 additionals functionalities as for control outout value postprocessing (not shown on schematic):
@@ -37,19 +36,23 @@ Main functionalities
   - signal saturation 
   
 
-
 :exclamation: 
 At this stage all work has 'private' status, after ported project from Python version 
 and perform test, project will be moved to 'public'
-
-GOALS 
------ 
+ 
 
 Project Summary
 ===============
 **project documentation**
-- [x] Project architecture and algorithms description (doc) - not public 
-- [ ]  
-- [ ]  
+  - [x] Project architecture and algorithms description (doc) - not public 
 
+**IMPLEMENTATION**
+  - [x] Python inplementation ( Fast prototyping and tresting)  not public    
+  - [ ] Micropython implementation   :exclamation: - IN PROGRESS
+  - [ ] C implementation (for esp-idf)
+ 
+**Tools*
+  - [ ] serial protocol comunication ( data excange and controller configuration) 
+  - [ ] desctop APP for configuration ,testing and validation 
+ 
  
