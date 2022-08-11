@@ -72,6 +72,6 @@ Relay
  
 ![alt text][logo]
 
-[logo]: https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png "relay "
+[logo]: https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png =250x250 "relay "
  
  
