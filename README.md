@@ -68,10 +68,10 @@ Project Summary
 Relay
 ![alt text](https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png "relay ")
   
-  
+  https://your-image-url.type
  
 ![alt text][logo]
 
-[logo]: https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png =250x250 "relay "
+[logo]: <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="100" height="100">
  
  
