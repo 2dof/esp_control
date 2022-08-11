@@ -77,7 +77,7 @@ Relay
     <td> 
          <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75"></td>
       
- <td> description </td>
+ <td> relay   </td>
   </tr>
 </table>
 
