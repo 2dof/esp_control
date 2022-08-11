@@ -65,11 +65,13 @@ Project Summary
  Functional desctiption 
  ====================== 
  
-Relay
 
-![alt text](https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png "relay ")
-  
+
+| Relay        | 
+| -------------|:-------------:|  
+|<img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="100" height="100"> | relay() | 
+
+
  
- <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="100" height="100">
  
  
