@@ -1,6 +1,9 @@
 
 ESP32 MIKROPYTHON CONTROL LIB
 =============================
+![image info](./drawnings/PID_diagram_neg.png "P-I-D Controller")
+
+https://github.com/2dof/esp_control/blob/main/drawnings/PID_diagram_neg.png
 
 Standard PID control library for esp32 Micropython implementation  
  
