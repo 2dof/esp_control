@@ -89,3 +89,20 @@ Project Summary
 :       ├── ...
 
 ```
+
+```
+ 
+PID_PARAM  - data structure  
+│ 
+├─PID1     →   defined by ISA_REGS  struct
+│        
+├─SP       →  defined by SP_REGS  struct 
+│  
+├─PV       →  defined by PV_REGS  struct
+├─
+├─CV       →  defined by CV_REGS  struct
+│   
+└─(alarms) →  defined by bit field 
+   
+
+```
