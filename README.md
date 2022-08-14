@@ -9,10 +9,10 @@ ESP32 MIKROPYTHON CONTROL LIB
 Standard PID control library for esp32 Micropython implementation  
  
 
-Basic architecture of control lib will be based on PID-ISA schematic (see PID_ISA_SCHEMA.pdf) with
-additional functionalities as for control output value post-processing (not shown on schematic):
+Basic architecture of control lib will be based on PID-ISA Control shematic (abowe) with
+additional functionalities as for control value post-processing (not shown on schematic):
+
 - relays: 2, 3 positional relays (with or without hysteresis)
-- dead band function for control error value
 -- pulse generator for binary manipulated value output
 
 Main functionalities
@@ -24,20 +24,20 @@ Main functionalities
   - I action auto-reset (with preloading) on/off selection 
   - bias signal input
   
-**Setpoint (SP) signal processing**
+**Setpoint (SP processing) signal processing**
   - Tracking Value on/off selection (from external setpoint input when selected)
   - external setpoint input selection
   - rate limit on/off selection and 
-  - signal saturation 
+  - signal limit 
   
-**Process Value (PV) signal processing**
+**Process Value (PV processing) signal processing**
   - signal normalization 
   - signal noise filtration
   - SQRT normalization on/off selection 
 
-** Manual Value (MV) signal processing**
+** Manual Value (MV Processing) signal processing**
   - Tracking Value from control value output (bumpless Manual/Auto switching)
-  - signal saturation 
+  - signal limit 
   
 
 :exclamation: 
@@ -77,15 +77,15 @@ Project Summary
 :
 ├─ micropython
 │    ├─src
-│    │  ├── pid_devices.py         →
-│    │  ├── utils_pid_esp32.py     →
+│    │  ├── pid_devices.py         → 
+│    │  ├── utils_pid_esp32.py     → 
 │    │  └── ...
 │    ├─ examples
-│    │  ├── 0 
-│    │  ├── 1
-│    │  └── 2
+│    │  ├── ...
+│    │  ├── ...
+│    │  └── ...
 │    └──tests   
-│       ├── 0 
-:       ├── 1
+│       ├── ... 
+:       ├── ...
 
 ```
