@@ -7,8 +7,9 @@
      <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_block.png" width="75" height="50" >  </td>
      <td>    <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75"> 
       <td>   <em> relay </em> przykladowy opis funkcjonalności
-       
-       opis parametrów etc, lorem ipsum    </td>
+             opis parametrów etc, lorem ipsum   
+   
+   </td>
     
    </td>
   </tr>
