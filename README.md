@@ -1,7 +1,7 @@
 
 ESP32 MIKROPYTHON CONTROL LIB
 =============================
-<img src="https://github.com/2dof/esp_control/tree/main/drawnings)PID_diagram_neg.png " width="700" height="300" />
+<img src="https://github.com/2dof/esp_control/blob/main/drawnings/PID_diagram_neg.png" width="700" height="300" />
 
 
  
