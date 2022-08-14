@@ -11,7 +11,7 @@ Functional desciption
   </tr>
    <tr>
     <td> 
-         <img src="[https://github.com/2dof/esp_control/blob/main/drawnings/relay2h_graph.png"] width="100" height="100"></td>
+         <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay2h_graph.png" width="100" height="100"></td>
         
       
  <td> relay2h   </td>
