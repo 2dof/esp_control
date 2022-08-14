@@ -49,7 +49,7 @@ Project Summary
  
 **IMPLEMENTATION**
   - [x] Python implementation ( Fast prototyping and testing) - not public  
-  - [ ] Micropython implementation   :→: - IN PROGRESS
+  - [ ] Micropython implementation   :exclamation: → IN PROGRESS
   
 **Tools**
   - [ ] serial protocol communication ( data exchange and controller configuration) 
