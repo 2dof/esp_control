@@ -1,7 +1,8 @@
 
 ESP32 MIKROPYTHON CONTROL LIB
 =============================
-![image info](./drawnings/PID_diagram_neg.png "P-I-D Controller" =700x300)
+<img src="./drawnings/PID_diagram_neg.png "P-I-D Controller" width="700" height="300" />
+
 
  
 
