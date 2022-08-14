@@ -49,7 +49,7 @@ Project Summary
  
 **IMPLEMENTATION**
   - [x] Python implementation ( Fast prototyping and testing) - not public  
-  - [ ] Micropython implementation   :exclamation: - IN PROGRESS
+  - [ ] Micropython implementation   :→: - IN PROGRESS
   
 **Tools**
   - [ ] serial protocol communication ( data exchange and controller configuration) 
@@ -70,10 +70,11 @@ Project Summary
  
 
 ```
+:
 ├─ micropython
 │    ├─src
-│    │  ├── pid_devices.py        --→
-│    │  ├── utils_pid_esp32.py    --→
+│    │  ├── pid_devices.py         →
+│    │  ├── utils_pid_esp32.py     →
 │    │  └── ...
 │    ├─ examples
 │    │  ├── 0 
@@ -81,6 +82,6 @@ Project Summary
 │    │  └── 2
 │    └──tests   
 │       ├── 0 
-        ├── 1
+:       ├── 1
 
 ```
