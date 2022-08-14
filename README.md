@@ -65,7 +65,7 @@ Project Summary
  Functional desctiption 
  ====================== 
  
-[a relative link](functional_description.md)
+[Functional description](functional_description.md)
 
  
 
