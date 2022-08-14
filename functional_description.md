@@ -7,7 +7,7 @@ Functional desciption
     <td> 
          <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75"></td>
  <td> 
-        <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_block.png" width="50" height="50">   relay   </td>
+        <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_block.png" width="60" height="50">   relay   </td>
   </tr>
    <tr>
     <td> 
