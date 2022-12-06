@@ -3,32 +3,32 @@ ESP32 MIKROPYTHON CONTROL LIB
 =============================
 <img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_block_schema_neg.png" width="600" height="240" />
 
-
+:exclamation: 
+See Poject sumary below :exclamation: 
  
 
-Standard PID control library for esp32 Micropython implementation  
+Standard PID control library for esp32 Micropython, raspberryPi (python) and C implementation  
  
 
-Basic architecture of control lib will be based on PID-ISA Control shematic (abowe) with
-additional functionalities as for control value post-processing (not shown on schematic):
+Basic architecture of control lib will be based on PID-ISA Control shematic  with
+additional functionalities: 
 
-- relays: 2, 3 positional relays (with or without hysteresis)
--- pulse generator for binary manipulated value output
-
-Main functionalities
+Main functionalities of Controller
 **PID**
   - P, PI ,PD, PID selection
   - antiwind-up on/off selection
   - control output rate limit (with alarm flag)
   - control error dead band on/off selection
   - I action auto-reset (with preloading) on/off selection 
-  - bias signal input
+  - bias signal input 
   
 **Setpoint (SP processing) signal processing**
-  - Tracking Value on/off selection (from external setpoint input when selected)
-  - external setpoint input selection
-  - rate limit on/off selection and 
-  - signal limit 
+   
+  - external/internal setpoint input selection
+  - rate limit on/off selection and alarm indication
+  - signal limit function
+  - normalization function
+  - setpoing block generation
   
 **Process Value (PV processing) signal processing**
   - signal normalization 
@@ -45,24 +45,29 @@ At this stage all work has 'private' status, after ported project from Python ve
 and perform test, project will be moved to 'public'
  
 
-Project Summary
+**Project Summary**
+
+:exclamation:
+actually only this overview is public, code wil be published after validation
+
 ===============
 **DOCUMENTATION**
   - [x] Project architecture and algorithms description (doc) - not public 
-  - [ ] micropython usage documentation 
+  - [ ] micropython usage documentation  
  
-**IMPLEMENTATION**
-  - [x] Python implementation ( Fast prototyping and testing) - not public  
-  - [ ] Micropython implementation   :exclamation: → IN PROGRESS
+**IMPLEMENTATION** 
   
+  - [x] Python implementation ( coded based on classes), :exclamation: - not public 
+  - [x] Micropython implementation (code based on structures)  :exclamation: → IN PROGRESS (actually not public 
+  - [ ] C implementation (code based on structures)   :exclamation: → IN PROGRESS (actually not public)
+
 **Tools**
   - [ ] serial protocol communication ( data exchange and controller configuration) 
   - [ ] desktop APP for configuration , simulation and testing 
 
 **END NOTE:** with hope in the future i will add more functionalities like:
-  - Set-point curve generation functions
   - PID controller autotuning functions
-  - more advanced API: Cascade , fed-forward control implementation examples 
+  - more advanced API: Cascade, fed-forward control implementation examples 
  
 
   
@@ -71,38 +76,4 @@ Project Summary
  
 [Functional description](functional_description.md)
 
- 
 
-```
-:
-├─ micropython
-│    ├─src
-│    │  ├── pid_devices.py         → 
-│    │  ├── utils_pid_esp32.py     → 
-│    │  └── ...
-│    ├─ examples
-│    │  ├── ...
-│    │  ├── ...
-│    │  └── ...
-│    └──tests   
-│       ├── ... 
-:       ├── ...
-
-```
-
-```
- 
-PID_PARAM  - data structure  
-│ 
-├─PID1     →   defined by ISA_REGS  struct
-│        
-├─SP       →  defined by SP_REGS  struct 
-│  
-├─PV       →  defined by PV_REGS  struct
-├─
-├─CV       →  defined by CV_REGS  struct
-│   
-└─(alarms) →  defined by bit field 
-   
-
-```
