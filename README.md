@@ -4,7 +4,7 @@ ESP32 MIKROPYTHON CONTROL LIB
 <img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_block_schema_neg.png" width="600" height="240" />
 
 :exclamation: 
-See Poject sumary below :exclamation: 
+See Poject summary below :exclamation: 
  
 
 Standard PID control library for esp32 Micropython, raspberryPi (python) and C implementation  
@@ -41,7 +41,7 @@ Main functionalities of Controller
   
 
 :exclamation: 
-At this stage all work has 'private' status, after ported project from Python version 
+At this stage all code-work has 'private' status, after ported project from Python version 
 and perform test, project will be moved to 'public'
  
 
