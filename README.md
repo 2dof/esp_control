@@ -82,7 +82,11 @@ discrete implementation of Two-Degree-of-Freedom PID Controller (standard form) 
 
  
 $$ u=K_{p}[(br-y)+\frac{1}{T_{i}s}(r-y)+\frac{T_{d}s}{T_{m}s+1}(cr-y))]+u_{bias}$$ 
- 
+```math
+\small   r: \text{setpoint; }\\
+\small   y: \text{proces value; }\\
+\small   b,c: \text{weighting parametes}
+```
 
 
 ```python
