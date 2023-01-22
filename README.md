@@ -80,8 +80,13 @@ ALL PID alghoritms are implemented as uctypes.struct() for parameters storage an
 **PID-ISA** 
 
 '''python
-   pass
-
+isa_updateControl(pid,sp,pv,utr = 0.,ubias = 0.):
 '''
+
+
+'''python
   pid1_buf=bytearray(128)  # size of ISA_REGS is 128 bytes, 
   PID1 = uctypes.struct(uctypes.addressof(pid1_buf), ISA_REGS, uctypes.LITTLE_ENDIAN)
+
+'''
+
