@@ -73,7 +73,8 @@ actually only this overview is public, code wil be published after validation
   
  Functional desctiption 
  ====================== 
-   
 <!--  [Functional description](functional_description.md) -->
 
+**PID-ISA Controller** 
 
+<img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_block_schema_neg.png" width="600" height="240" />
