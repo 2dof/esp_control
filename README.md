@@ -78,15 +78,21 @@ actually only this overview is public, code wil be published after validation
 ALL PID alghoritms are implemented as uctypes.struct() for parameters storage and dedicated function for processing.
 
 **PID-ISA** 
+discrete implementation of Two-Degree-of-Freedom PID Controller (standard form) described by:
 
-'''python
+ 
+$$ u=K_{p}[(br-y)+\frac{1}{T_{i}s}(r-y)+\frac{T_{d}s}{T_{m}s+1}(cr-y))]+u_{bias}$$ 
+ 
+
+
+```python
 isa_updateControl(pid,sp,pv,utr = 0.,ubias = 0.):
-'''
+```
 
 
-'''python
+```python
   pid1_buf=bytearray(128)  # size of ISA_REGS is 128 bytes, 
   PID1 = uctypes.struct(uctypes.addressof(pid1_buf), ISA_REGS, uctypes.LITTLE_ENDIAN)
 
-'''
+```
 
