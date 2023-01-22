@@ -75,6 +75,13 @@ actually only this overview is public, code wil be published after validation
  ====================== 
 <!--  [Functional description](functional_description.md) -->
 
-**PID-ISA Controller** 
+ALL PID alghoritms are implemented as uctypes.struct() for parameters storage and dedicated function for processing.
 
-<img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_block_schema_neg.png" width="600" height="240" />
+**PID-ISA** 
+
+'''python
+   pass
+
+'''
+  pid1_buf=bytearray(128)  # size of ISA_REGS is 128 bytes, 
+  PID1 = uctypes.struct(uctypes.addressof(pid1_buf), ISA_REGS, uctypes.LITTLE_ENDIAN)
