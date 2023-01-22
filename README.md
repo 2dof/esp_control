@@ -73,7 +73,7 @@ actually only this overview is public, code wil be published after validation
   
  Functional desctiption 
  ====================== 
- 
-[Functional description](functional_description.md)
+   
+<!--  [Functional description](functional_description.md) -->
 
 
