@@ -19,7 +19,7 @@ Main functionalities of Controller
   - antiwind-up on/off selection
   - control output rate limit (with alarm flag)
   - control error dead band on/off selection
-  - I action auto-reset (with preloading) on/off selection 
+ <!--  - I action auto-reset (with preloading) on/off selection -->
   - bias signal input 
   
 **Setpoint (SP processing) signal processing**
@@ -75,24 +75,40 @@ actually only this overview is public, code wil be published after validation
  ====================== 
 <!--  [Functional description](functional_description.md) -->
 
-ALL PID alghoritms are implemented as uctypes.struct() for parameters storage and dedicated function for processing.
+ALL PID alghoritms are implemented as uctypes.struct() by  parameters storage and dedicated function for processing.
 
 **PID-ISA** 
 discrete implementation of Two-Degree-of-Freedom PID Controller (standard form) described by:
 
- 
 $$ u=K_{p}[(br-y)+\frac{1}{T_{i}s}(r-y)+\frac{T_{d}s}{T_{m}s+1}(cr-y))]+u_{bias}$$ 
 ```math
 \small   r: \text{setpoint; }\\
 \small   y: \text{proces value; }\\
 \small   b,c: \text{weighting parametes}
 ```
+with functionalities:
+  - P, PI ,PD, PID selection
+  - Mode selection (direct/indirect)
+  - antiwind-up on/off selection 
+  - control output rate limit 
+  - control error dead band on/off selection 
+  - I action auto-reset (with preloading) on/off selection 
+  - bias signal input 
 
-
+implemented in function:
 ```python
 isa_updateControl(pid,sp,pv,utr = 0.,ubias = 0.):
 ```
-
+where: 
+```math
+\small   pid- \text{p-i-d isa structure; }\\
+\small   sp- \text{setpoint; }\\
+\small  pv- \text{proces value; }\\
+\small  utr- \text{tracking signal input; }\\
+\small  ubias- \text{bias  signal input; } 
+```
+ 
+ PID sobiect is created Structure layout is defined by a “descriptor”
 
 ```python
   pid1_buf=bytearray(128)  # size of ISA_REGS is 128 bytes, 
