@@ -135,7 +135,9 @@ isa_init0() is a custom function for setting up parameters,but parameters are ac
 ``` 
 
 Configuration setting is selected by setting CFG register by setting bits (PID.CFG.Psel = True) or by direct byte value writing (pid.CFG_REG =0x07).
- 
+
+:exclamation: → ALLWAYS CALL isa_tune() function after changing parameters
+
 PID struct field description: 
 ```python
 PID.   
@@ -149,7 +151,7 @@ PID.
     Umax    -   max limit of control   
     Umin    -   low limit of control   
     dUlim   -   control rate limit  
-    Ts      -   sampling time     
+    Ts      -   sampling time         
     Deadb   -   error deadband value   
     Pk      -   calculated P-action value  
     Ik      -   calculated I-action value      
@@ -183,6 +185,8 @@ bit field names:
     Deadsel - bit:6  - Dead band selection
     Rlimsel - bit:7  - Rate limit selection    
 ```
+
+:exclamation: Form more info abaut settings see [link to cheat sheet]
 
     
  
