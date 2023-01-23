@@ -152,5 +152,18 @@ PID.
     CFG     -   configurration register ( bit filelds acces)   
     ```
     
+
+```python
+CFG.
+    Psel    - bit:0  - P-action selection 
+    Isel    - bit:1  - I-action selection
+    Dsel    - bit:2  - D-action selection
+    Awsel   - bit:3  - Antiwindup selection
+    Mansel  - bit:4  - Manual selection
+    Modesel - bit:5  - Mode selection(0-direct, 1-indirect)
+    Deadsel - bit:6  - Dead band selection
+    Rlimsel - bit:7  - Rate limit selection    
+``` 
+
     
  
