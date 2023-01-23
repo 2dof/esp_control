@@ -108,11 +108,12 @@ where:
 \small  ubias- \text{bias  signal input; } 
 ```
  
- PID sobiect is created Structure layout is defined by a “descriptor”
+ PID obiect is created uctypes.struct() based on layout defined in  dictionary *ISA_REGS*. 
+ *ISA_REGS* define all parametar and Configuration Register defined by ISA_FIELDS dict (bit fields):
 
 ```python
   pid1_buf=bytearray(128)  # size of ISA_REGS is 128 bytes, 
   PID1 = uctypes.struct(uctypes.addressof(pid1_buf), ISA_REGS, uctypes.LITTLE_ENDIAN)
-
 ```
+
 
