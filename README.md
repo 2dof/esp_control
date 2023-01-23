@@ -117,3 +117,40 @@ where:
 ```
 
 
+```python
+PID.   
+    Kp      -   proportional gain   
+    Ti      -   integrator time   
+    Td      -   derivative time 
+    Tm      -   derivative filter time    
+    Tt      -   antiwindup time     
+    b       -   setpoint weight on proportional term    
+    c       -   setpoint weight on derivative term     
+    Umax    -   max limit of control   
+    Umin    -   low limit of control   
+    dUlim   -   control rate limit  
+    Ts      -   sampling time     
+    Deadb   -   error deadband value   
+          
+    Pk      -   calculated P-action value  
+    Ik      -   calculated I-action value      
+    Dk      -   calculated D-action value        
+    Ki      -   calculated integrator gain        
+    Kd      -   calculated derivative gain  
+    ai      -   calculated parameter for I-action   
+    bi      -   calculated parameter for I-action  
+    ad      -   calculated parameter for D-action  
+    bd      -   calculated parameter for D-action   
+    ek      -   ek=(sp-pv)   control error    
+    ed      -   ek=(c*sp-pv) control error for D-action   
+    ep      -   ek=(b*sp-pv) control error for P-action    
+    du      -   control rate value     
+    u       -   control value     
+    ed1     -   store ed(k-1)   
+    u1      -   store u(k-1)     
+    CFG_REG -   Congfiguration register ( byte acces)
+    CFG     -   configurration register ( bit filelds acces)   
+    ```
+    
+    
+ 
