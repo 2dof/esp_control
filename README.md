@@ -17,7 +17,7 @@ See [Project summary](#project-summary)
 Basic architecture of control lib will be based on PID-ISA Control shematic  with
 additional functionalities: 
 
-Main functionalities of Controller
+Main functionalities:
 **P-I-D processing**
   - P, P-I ,P-D, P-I-D selection 
   - antiwind-up on/off selection 
@@ -49,6 +49,8 @@ Main functionalities of Controller
   - time lag 
   - linear normalization, sqrt normalization
  
+ 
+ 
 # Functional description
 
 ALL PID alghoritms are implemented as uctypes.struct() by  parameters storage and dedicated function for processing.
@@ -69,7 +71,7 @@ def isa_updateControl(pid,sp,pv,utr = 0.,ubias = 0.):    # pid- pid-isa structur
 ```
 which return control value (u) 
 
-# setting up P-I-D controller 
+*Setting up P-I-D controller**
 
  *pid* object is created as uctypes.struct() based on layout defined in  *ISA_REGS* dictionary. 
  *ISA_REGS* define all parametar and Configuration Register (defined by ISA_FIELDS dict (bit fields)):
@@ -83,8 +85,9 @@ which return control value (u)
   isa_init0(PID)       # custom method for setting pid parameters
   isa_tune(PID)        #  recalculate parameters
 ```
-All PID tunable parameters need to be initialized and Configuration selected by custom function isa_init0(PID) (or by direct acces) and recalculated by *isa_tune(PID)* function.
-isa_init0() is a custom function for setting up parameters,but parameters are accesible directly from PID struct:
+All PID tunable parameters need to be initialized and Configuration selected by custom function ```isa_init0(PID) ```(or by direct acces) and recalculated by * ```isa_tune(PID) ```* function.
+
+ ```isa_init0() ``` is a custom function for setting up parameters,but parameters are accesible directly from PID struct:
  ```python
   PID.Kp = 2 
   PID.Ti = 1
@@ -101,9 +104,9 @@ isa_init0() is a custom function for setting up parameters,but parameters are ac
   
 ``` 
 
-Configuration setting is selected by setting CFG register by setting bits (PID.CFG.Psel = True) or by direct byte value writing (pid.CFG_REG =0x07).
+Configuration setting is selected by setting CFG register by setting bits ( ```PID.CFG.Psel = True ```) or by direct byte value writing ( ```pid.CFG_REG =0x07 ```).
 
-:exclamation: → ALLWAYS CALL isa_tune() function after changing parameters
+:exclamation: → ALLWAYS CALL  ```isa_tune() ``` function after changing parameters
 
 PID struct field description: 
 ```python
@@ -157,7 +160,7 @@ bit field names:
 :exclamation: Form more info abaut settings see [link to cheat sheet]
 
 
-
+ 
 
 ## Project Summary 
 :exclamation:
@@ -184,4 +187,5 @@ actually only this overview is public, code wil be published after validation
 
 
 
+ 
  
