@@ -150,11 +150,11 @@ PID.
     u1      -   store u(k-1)     
     CFG_REG -   Congfiguration register ( byte acces)
     CFG     -   configurration register ( bit filelds acces)   
-    ```
+```
     
 
 ```python
-CFG.
+ CFG.
     Psel    - bit:0  - P-action selection 
     Isel    - bit:1  - I-action selection
     Dsel    - bit:2  - D-action selection
@@ -163,7 +163,7 @@ CFG.
     Modesel - bit:5  - Mode selection(0-direct, 1-indirect)
     Deadsel - bit:6  - Dead band selection
     Rlimsel - bit:7  - Rate limit selection    
-``` 
+```
 
     
  
