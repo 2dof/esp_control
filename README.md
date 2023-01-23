@@ -49,10 +49,9 @@ Main functionalities of Controller
   - time lag 
   - linear normalization, sqrt normalization
  
+# Functional description
 
 ALL PID alghoritms are implemented as uctypes.struct() by  parameters storage and dedicated function for processing.
-
-
 
 **PID-ISA** 
 discrete implementation of Two-Degree-of-Freedom PID Controller (standard form) described by:
@@ -63,55 +62,22 @@ $$ u=K_{p}[(br-y)+\frac{1}{T_{i}s}(r-y)+\frac{T_{d}s}{T_{m}s+1}(cr-y))]+u_{bias}
 \small   y: \text{proces value; }\\
 \small   b,c: \text{weighting parametes}
 ```
-with functionalities:
-  - P, PI ,PD, PID selection
-  - Mode selection (direct/indirect)
-  - antiwind-up on/off selection 
-  - control output rate limit 
-  - control error dead band on/off selection 
-  - I action auto-reset (with preloading) on/off selection 
-  - bias signal input 
-
-
-
-## Project Summary 
-
-:exclamation:
-actually only this overview is public, code wil be published after validation
-
  
-*DOCUMENTATION*
-  - [x] Project architecture and algorithms description (doc) - not public 
-  - [ ] micropython usage documentation  
- 
-**IMPLEMENTATION** 
-  
-  - [x] Python implementation ( coded based on classes), :exclamation: - not public 
-  - [x] Micropython implementation (code based on structures)  :exclamation: → IN PROGRESS (actually not public 
-  - [ ] C implementation (code based on structures)   :exclamation: → IN PROGRESS (actually not public)
-
-*Tools*
-  - [ ] serial protocol communication ( data exchange and controller configuration) 
-  - [ ] desktop APP for configuration , simulation and testing 
-
-**END NOTE:** with hope in the future i will add more functionalities like:
-  - PID controller autotuning functions
-  - more advanced API: Cascade, fed-forward control implementation examples 
-
-
-# Functional description
-
-**PID-ISA**
- 
+called by function: 
 ```python
-isa_updateControl(pid,sp,pv,utr = 0.,ubias = 0.):    # pid- pid-isa structure, sp -setpoint, pv -proces value, utr -tracking input, ubias -bias input;
+def isa_updateControl(pid,sp,pv,utr = 0.,ubias = 0.):    # pid- pid-isa structure, sp -setpoint, pv -proces value, utr -tracking input, ubias -bias input;
 ```
- 
- PID object is created as uctypes.struct() based on layout defined in  dictionary *ISA_REGS*. 
- *ISA_REGS* define all parametar and Configuration Register defined by ISA_FIELDS dict (bit fields):
+which return control value (u) 
+
+# setting up P-I-D controller 
+
+ *pid* object is created as uctypes.struct() based on layout defined in  *ISA_REGS* dictionary. 
+ *ISA_REGS* define all parametar and Configuration Register (defined by ISA_FIELDS dict (bit fields)):
 
 ```python
-  pid1_buf=bytearray(128)  # size of ISA_REGS is 128 bytes, 
+  form pid_devices import *
+  
+  pid1_buf=bytearray(128)     # memory allocation 
   PID = uctypes.struct(uctypes.addressof(pid1_buf), ISA_REGS, uctypes.LITTLE_ENDIAN)
  
   isa_init0(PID)       # custom method for setting pid parameters
@@ -132,6 +98,7 @@ isa_init0() is a custom function for setting up parameters,but parameters are ac
   # pid.CFG_REG =0x07     # == Psel,Isel,Dsel = True
   
   isa_tune(PID)        # recalculate parameters
+  
 ``` 
 
 Configuration setting is selected by setting CFG register by setting bits (PID.CFG.Psel = True) or by direct byte value writing (pid.CFG_REG =0x07).
@@ -186,7 +153,35 @@ bit field names:
     Rlimsel - bit:7  - Rate limit selection    
 ```
 
+
 :exclamation: Form more info abaut settings see [link to cheat sheet]
 
-    
+
+
+
+## Project Summary 
+:exclamation:
+actually only this overview is public, code wil be published after validation
+
+ 
+*DOCUMENTATION*
+  - [x] Project architecture and algorithms description (doc) - not public 
+  - [ ] micropython usage documentation  
+ 
+**IMPLEMENTATION** 
+  
+  - [x] Python implementation ( coded based on classes), :exclamation: - not public 
+  - [x] Micropython implementation (code based on structures)  :exclamation: → IN PROGRESS (actually not public 
+  - [ ] C implementation (code based on structures)   :exclamation: → IN PROGRESS (actually not public)
+
+*Tools*
+  - [ ] serial protocol communication ( data exchange and controller configuration) 
+  - [ ] desktop APP for configuration , simulation and testing 
+
+**END NOTE:** with hope in the future i will add more functionalities like:
+  - PID controller autotuning functions
+  - more advanced API: Cascade, fed-forward control implementation examples 
+
+
+
  
