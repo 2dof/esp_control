@@ -7,9 +7,14 @@ P-I-D control library for esp32 Micropython
 <img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_block_schema_neg.png" width="600" height="240" />
 
  
-See [Project summary](#project-summary)
+ 
 
-  
+# Contents
+
+0. [Overview](#overview)  
+1. [Control Processing functions](#control-processing-functions)
+2. [Project summary](#project-summary)
+
 ## Overview
  
 <!--  [Functional description](functional_description.md) -->
@@ -48,10 +53,10 @@ Main functionalities:
   - value limit, rate limit, 
   - time lag 
   - linear normalization, sqrt normalization
- 
- 
- 
-# Functional description
+  
+###### [Contents](*contents)
+
+# Control Processing functions
 
 ALL PID alghoritms are implemented as uctypes.struct() by  parameters storage and dedicated function for processing.
 
@@ -69,7 +74,7 @@ called by function:
 ```python
 def isa_updateControl(pid,sp,pv,utr = 0.,ubias = 0.):    # pid- pid-isa structure, sp -setpoint, pv -proces value, utr -tracking input, ubias -bias input;
 ```
-which return control value (u) 
+which return control value .
 
 *Setting up P-I-D controller**
 
@@ -79,13 +84,13 @@ which return control value (u)
 ```python
   form pid_devices import *
   
-  pid1_buf=bytearray(128)     # memory allocation 
-  PID = uctypes.struct(uctypes.addressof(pid1_buf), ISA_REGS, uctypes.LITTLE_ENDIAN)
+  pid_buf=bytearray(128)     # memory allocation 
+  PID = uctypes.struct(uctypes.addressof(pid_buf), ISA_REGS, uctypes.LITTLE_ENDIAN)   # 
  
   isa_init0(PID)       # custom method for setting pid parameters
   isa_tune(PID)        #  recalculate parameters
 ```
-All PID tunable parameters need to be initialized and Configuration selected by custom function ```isa_init0(PID) ```(or by direct acces) and recalculated by * ```isa_tune(PID) ```* function.
+All PID tunable parameters need to be initialized and Configuration setting selected by custom function ```isa_init0(PID) ```(or by direct acces) and recalculated by  ```isa_tune(PID) ``` function.
 
  ```isa_init0() ``` is a custom function for setting up parameters,but parameters are accesible directly from PID struct:
  ```python
@@ -163,6 +168,7 @@ bit field names:
  
 
 ## Project Summary 
+
 :exclamation:
 actually only this overview is public, code wil be published after validation
 
