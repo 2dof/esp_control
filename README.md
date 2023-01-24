@@ -6,31 +6,32 @@ P-I-D control library for esp32 Micropython
 
 <img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_block_schema_neg.png" width="600" height="240" />
 
- 
- 
 
-# Contents
+Here's a useful method. Should produce clickable references in any MarkDown editor.
 
-0. [Overview](#overview)  
-1. [Control Processing functions](#control-processing-functions)
-2. [Project summary](#project-summary)
+
+
+## Contents
+ 1. [Overview](#overview)  
+ 2. [Control Processing functions](#2-control-processing-functions)  
+  2.1 [PID ISA](#11-pid-isa)
+ 3. Setpoint (SP) processing 
+ 4. Process (PV) processing
+ 5. [Project summary](#5-project-summary )
+
 
 ## Overview
  
-<!--  [Functional description](functional_description.md) -->
-
-Basic architecture of control lib will be based on PID-ISA Control shematic  with
-additional functionalities: 
-
-Main functionalities:
+ library provide functionalities:
+ 
 **P-I-D processing**
   - P, P-I ,P-D, P-I-D selection 
   - antiwind-up on/off selection 
   - control output rate limit (with alarm flag)
   - control error dead band on/off selection 
- <!--  - I action auto-reset (with preloading) on/off selection -->
   - bias signal input 
-  
+   <!--  - I action auto-reset (with preloading) on/off selection -->
+   
 **Setpoint (SP processing) signal processing**
    
   - external/internal setpoint input selection
@@ -44,11 +45,7 @@ Main functionalities:
   - signal noise filtration
   - SQRT normalization on/off selection 
 
-**Manual Value (MV Processing) signal processing**
-  - Tracking Value from control value output (bumpless Manual/Auto switching)
-  - signal limit 
-  
-**signal processing functions**
+**Signal processing functions**
   - relay functions: simple relay, relay with hysteresis,  three-Step relay with Hysteresis
   - value limit, rate limit, 
   - time lag 
@@ -56,11 +53,12 @@ Main functionalities:
   
 ###### [Contents](./README.md#contents)
 
-# Control Processing functions
+# 2. Control Processing functions
 
 ALL PID alghoritms are implemented as uctypes.struct() by  parameters storage and dedicated function for processing.
 
-**PID-ISA** 
+## 1.1 PID-ISA 
+
 discrete implementation of Two-Degree-of-Freedom PID Controller (standard form) described by:
 
 $$ u=K_{p}[(br-y)+\frac{1}{T_{i}s}(r-y)+\frac{T_{d}s}{T_{m}s+1}(cr-y))]+u_{bias}$$ 
@@ -76,7 +74,7 @@ def isa_updateControl(pid,sp,pv,utr = 0.,ubias = 0.):    # pid- pid-isa structur
 ```
 which return control value .
 
-*Setting up P-I-D controller**
+**Setting up P-I-D controller**
 
  *pid* object is created as uctypes.struct() based on layout defined in  *ISA_REGS* dictionary. 
  *ISA_REGS* define all parametar and Configuration Register (defined by ISA_FIELDS dict (bit fields)):
@@ -165,9 +163,15 @@ bit field names:
 :exclamation: Form more info abaut settings see [link to cheat sheet]
 
 
- 
+# 3. Setpoint (SP) processing 
 
-## Project Summary 
+     ( in prepatation)
+ 
+# 4. Process (PV) processing
+
+     ( in prepatation)
+
+# 5. Project Summary 
 
 :exclamation:
 actually only this overview is public, code wil be published after validation
