@@ -54,7 +54,7 @@ Main functionalities:
   - time lag 
   - linear normalization, sqrt normalization
   
-###### [Contents](*contents)
+###### [Contents](./README.md#contents)
 
 # Control Processing functions
 
