@@ -4,7 +4,7 @@
 
 P-I-D control library for esp32 Micropython 
 
-<img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_block_schema_neg.png" width="600" height="240" />
+<img src="https://github.com/2dof/esp_control/blob/main/drawnings/PID_diagram_neg.png" width="700" height="300" />
 
 
 Here's a useful method. Should produce clickable references in any MarkDown editor.
