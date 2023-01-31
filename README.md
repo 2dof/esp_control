@@ -7,10 +7,6 @@ P-I-D control library for esp32 Micropython
 <img src="https://github.com/2dof/esp_control/blob/main/drawnings/PID_diagram_neg.png" width="700" height="300" />
 
 
-Here's a useful method. Should produce clickable references in any MarkDown editor.
-
-
-
 ## Contents
  1. [Overview](#overview)  
  2. [Control Processing functions](#2-control-processing-functions)  
@@ -35,21 +31,23 @@ Here's a useful method. Should produce clickable references in any MarkDown edit
 **Setpoint (SP processing) signal processing**
    
   - external/internal setpoint input selection
-  - rate limit on/off selection and alarm indication
+  - rate limit on/off selection  
   - signal limit function
   - normalization function
-  - setpoit signal generation  
+  - setpoit signal generation   
   
 **Process Value (PV processing) signal processing**
-  - signal normalization 
+  - signal linear normalization 
   - signal noise filtration
   - SQRT normalization on/off selection 
 
 **Signal processing functions**
   - relay functions: simple relay, relay with hysteresis,  three-Step relay with Hysteresis
   - value limit, rate limit, 
-  - time lag 
-  - linear normalization, sqrt normalization
+  - deadband function
+  - noise filter function
+  - linear normalization , sqrt normalization
+  - ( signal curve generation ) 
   
 ###### [Contents](./README.md#contents)
 
@@ -67,7 +65,6 @@ $$ u=K_{p}[(br-y)+\frac{1}{T_{i}s}(r-y)+\frac{T_{d}s}{T_{m}s+1}(cr-y))]+u_{bias}
 \small   y: \text{proces value; }\\
 \small   b,c: \text{weighting parametes}
 ```
- 
 called by function: 
 ```python
 def isa_updateControl(pid,sp,pv,utr = 0.,ubias = 0.):    # pid- pid-isa structure, sp -setpoint, pv -proces value, utr -tracking input, ubias -bias input;
@@ -162,7 +159,6 @@ bit field names:
 
 :exclamation: Form more info abaut settings see [link to cheat sheet]
 
-
 # 3. Setpoint (SP) processing 
 
      ( in prepatation)
@@ -174,9 +170,8 @@ bit field names:
 # 5. Project Summary 
 
 :exclamation:
-actually only this overview is public, code wil be published after validation
+actually only this overview is public, code will be published after validation
 
- 
 *DOCUMENTATION*
   - [x] Project architecture and algorithms description (doc) - not public 
   - [ ] micropython usage documentation  
@@ -184,14 +179,15 @@ actually only this overview is public, code wil be published after validation
 **IMPLEMENTATION** 
   
   - [x] Python implementation ( coded based on classes), :exclamation: - not public 
-  - [x] Micropython implementation (code based on structures)  :exclamation: → IN PROGRESS (actually not public 
+  - [x] Micropython implementation (code based on structures)  :exclamation: → IN PROGRESS (actually not public)
   - [ ] C implementation (code based on structures)   :exclamation: → IN PROGRESS (actually not public)
 
 *Tools*
   - [ ] serial protocol communication ( data exchange and controller configuration) 
-  - [ ] desktop APP for configuration , simulation and testing 
+  - [ ] desktop APP for configuration, simulation and testing 
 
 **END NOTE:** with hope in the future i will add more functionalities like:
+  - more P-I-D alghorithms implementations 
   - PID controller autotuning functions
   - more advanced API: Cascade, fed-forward control implementation examples 
 
