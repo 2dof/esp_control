@@ -161,8 +161,35 @@ bit field names:
 
 # 3. Setpoint (SP) processing 
 
-     ( in prepatation)
- 
+
+```
+SPR.
+    SpLL    
+    SpHL    
+    SpeaL    
+    SpeaH   
+    SpebL   
+    SpebH   
+    Rlim    
+    Ts      
+    sp      
+    sclin   
+    sp1     
+    dx      
+    CFG_REG 
+    CFG
+ ```   
+ ```   
+ CFG.
+    SPesel     
+    Rlimsel    
+    f2           
+    f3           
+    f4          
+    f5         
+    F6         
+    F7 
+ ```
 # 4. Process (PV) processing
 
      ( in prepatation)
