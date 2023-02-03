@@ -199,6 +199,25 @@ SPR.
 # 4. Process (PV) processing
 
      ( in prepatation)
+     
+  ```python 
+    PvLL     - Pv low limit   
+    PvHL     - Pv High imit        
+    PvaL     - Pv linear norm aL point (x)   
+    PvaH     - Pv linear norm aH point (x)
+    PvbL     - Pv linear norm bL point (y)
+    PvbH     - Pv linear norm bH point (y)
+    SqrtbL   - Pv sqrt   norm  bL point (y)
+    SqrtbH   - Pv sqrt   norm  bL point (y)
+    Ts       - Sampling time 
+    Tf       - noise filter  time constans  
+    pv       - process value
+    yf       - filter value out
+    sclin    -  calucated scaling factor for linear normalizacion 
+    scsqrt   -   calucated scaling factor for sqrtnormalizacion
+    CFG_REG  - Congfiguration register ( byte access)
+    CFG      - configurration register ( bit filelds access)
+  ```
 
 # 5. Project Summary 
 
