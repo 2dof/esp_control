@@ -16,8 +16,8 @@ actually only this overview is public, code will be published later. ANY QUESTIO
   2.1 [PID ISA](#11-pid-isa)
  3. [Setpoint (SP) processing](#3-setpoint-processing) 
  4. [Process (PV) processing](#4-process-processing)
- 6. [Manual value (MV) processing](#5-manual-value-processing )
- 7. [Project summary](#5-project-summary )
+ 6. [Manual value (MV) processing](#5-manual-value-processing)
+ 7. [Project summary](#5-project-summary)
 
 
 ## Overview
