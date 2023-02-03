@@ -92,6 +92,9 @@ which return control value .
 All PID tunable parameters need to be initialized and Configuration setting selected by custom function ```isa_init0(PID) ```(or by direct acces) and recalculated by  ```isa_tune(PID) ``` function.
 
  ```isa_init0() ``` is a custom function for setting up parameters,but parameters are accesible directly from PID struct:
+ 
+ When reset of pid is requred, then ```isa_reset(pid)``` function should be used.
+ 
  ```python
   PID.Kp = 2 
   PID.Ti = 1
@@ -173,7 +176,7 @@ Setpoint Value processing called by function:
  def sp_update(spr,spi,spe = 0.0)    # spr- setpoint structure , spi - internal setpoint,spi - extermal setpoint
 ```
 perform basic setpoint signal processig : linear normalization (for external setpoint), min/max and rate value limitation according
-to selected configuratio.
+to selected configuration.
 Internal setpoint is value set by user/signal generation, external setpoint is selected for example in cascade control configuration.
 
 **Setting SP processing**
@@ -190,8 +193,12 @@ sp_init0(SPR)
 SPR.SpeaL = -100.
 sp_tune(SPR)
 ```
-Al SPR tunable parameters need to be initialized and Configuration setting selected by custom function ```isa_init0(PID) ```(or by direct acces) and recalculated by  ```isa_tune(PID) ``` function.
+All SPR tunable parameters need to be initialized and Configuration setting selected by custom function ```sp_init0(PID) ```(or by direct acces) and recalculated by  ```sp_tune(PID) ``` function.
  ```sp_init0(SPR) ``` is a custom function (edidet by user) for setting up parameters, also parameters are accesible directly from structure.
+
+ When reset of SP structure is requred, then ```sp_reset(pid)``` function should be used.
+
+:exclamation: → ALLWAYS CALL  ```sp_tune() ``` function after changing tunable parameters
 
 SP structure fields description:
 ```python
@@ -212,7 +219,7 @@ SPR.
     CFG     - configurration register ( bit filelds access)  
  ```   
  bit field names:
- ```   
+ ```python   
  CFG.
     SPesel  - external setpoint selection   
     Rlimsel - SP rate limit selection    
@@ -229,6 +236,38 @@ SPR.
  
 # 4. Process processing
 
+Process Value processing called by function: 
+```python
+ def pv_update(pvr,pve,pvi = 0.0):    # pvr- pv structure , pve - external setpoint, pvi - internal setpoint value
+```
+perform basic process value signal processig : linear normalization , noise filter and sqrt normalization according 
+to selected configuration.
+external pv value is a physical sensor value measuring with ADC; internal process value is selected for example in cascade control configuration.
+     
+**Setting PV processing**
+
+ *PVR* object is created as uctypes.struct() (size of 74 bytes) based on layout defined in  *PV_REGS* dictionary. 
+ *PV_REGS* define all parametar and Configuration Register (defined by PV_FIELDS dict (bit fields)):
+ 
+ ```python
+pv_buf=bytearray(72)   
+PVR = uctypes.struct(uctypes.addressof(pv_buf), PV_REGS, uctypes.LITTLE_ENDIAN)
+pv_init0(PVR)
+
+# tuning by direct acces
+PVR.PvaL = -100  
+PVR.PvaH = 100.
+PVR.PvbL = 0.0  
+PVR.PvbH = 100.
+pv_tune(PVR)
+ ```
+
+All proces value tunable parameters need to be initialized, and Configuration setting selected by custom function ```pv_init0(PID) ```(or by direct acces) and recalculated by  ```pv_tune(PID) ``` function.
+ ```pv_init0(SPR) ``` is a custom function (edidet by user) for setting up parameters, also parameters are accesible directly from structure.
+
+ When reset of SP structure is requred, then ```pv_reset(pid)``` function should be used.
+ 
+:exclamation: → ALLWAYS CALL  ```pv_tune() ``` function after changing tunable parameters
      
   ```python 
     PvLL     - Pv low limit   
@@ -260,6 +299,8 @@ SPR.
     F6      -  ...
     F7      -   for user definition  
  ```
+ 
+ 
  
  ###### [Contents](./README.md#contents)
  
