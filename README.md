@@ -163,10 +163,18 @@ bit field names:
 
 :exclamation: Form more info abaut settings see [link to cheat sheet]
 
-###### [Contents](./README.md#contents)
+###### [Contents](./README.md#contents) 
 
 
 # 3. Setpoint processing 
+
+Setpoint Value processing called by function: 
+```python
+ def sp_update(spr,spi,spe = 0.0)    # spr- setpoint structure , spi - internal setpoint,spi - extermal setpoint
+```
+perform basic setpoint signal processig : linear normalization (for external setpoint), min/max and rate value limitation according
+to selected configuratio.
+Internal setpoint is value set by user/signal generation, external setpoint is selected for example in cascade control configuration.
  
 ```python
 SPR.
@@ -240,7 +248,9 @@ SPR.
 
 
      ( in prepatation)
-
+     
+     
+ ###### [Contents](./README.md#contents)
 
 # 6. Project Summary 
 
