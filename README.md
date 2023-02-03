@@ -4,6 +4,9 @@
 
 P-I-D control library for esp32 Micropython 
 
+:exclamation:
+actually only this overview is public, code will be published later. ANY QUESTIONS ? ->  Send a message 
+
 <img src="https://github.com/2dof/esp_control/blob/main/drawnings/PID_diagram_neg.png" width="700" height="300" />
 
 
@@ -179,17 +182,20 @@ SPR.
     CFG_REG - Congfiguration register ( byte access)
     CFG     - configurration register ( bit filelds access)  
  ```   
+ bit field names:
  ```   
  CFG.
-    SPesel     
-    Rlimsel    
-    f2           
-    f3           
-    f4          
-    f5         
-    F6         
-    F7 
+    SPesel  - external setpoint selection   
+    Rlimsel - SP rate limit selection    
+    f2      - for user definition    
+    f3      -  ...   
+    f4      -  ... 
+    f5      -  ...
+    F6      -  ...
+    F7      -   for user definition  
  ```
+ 
+ 
 # 4. Process (PV) processing
 
      ( in prepatation)
@@ -197,7 +203,7 @@ SPR.
 # 5. Project Summary 
 
 :exclamation:
-actually only this overview is public, code will be published after validation
+actually only this overview is public, code will be published later. 
 
 *DOCUMENTATION*
   - [x] Project architecture and algorithms description (doc) - not public 
