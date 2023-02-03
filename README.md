@@ -162,22 +162,22 @@ bit field names:
 # 3. Setpoint (SP) processing 
 
 
-```
+```python
 SPR.
-    SpLL    
-    SpHL    
-    SpeaL    
-    SpeaH   
-    SpebL   
-    SpebH   
-    Rlim    
-    Ts      
-    sp      
-    sclin   
-    sp1     
-    dx      
-    CFG_REG 
-    CFG
+    SpLL    - SP low limit
+    SpHL    - SP High limit
+    SpeaL   - external SP norm aL point (x) 
+    SpeaH   - external SP norm aH point (x) 
+    SpebL   - external SP norm bL point (y) 
+    SpebH   - external SP norm bH point (y) 
+    Rlim    - rate limit value in unit/sec 
+    Ts      - sampling time
+    sp      - sp value
+    sclin   - calucated scaling factor for linear normalizacion
+    sp1     - previous sp value: sp(k-1) 
+    dx      - calculated dx/dt value 
+    CFG_REG - Congfiguration register ( byte access)
+    CFG     - configurration register ( bit filelds access)  
  ```   
  ```   
  CFG.
