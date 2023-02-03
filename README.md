@@ -175,7 +175,25 @@ Setpoint Value processing called by function:
 perform basic setpoint signal processig : linear normalization (for external setpoint), min/max and rate value limitation according
 to selected configuratio.
 Internal setpoint is value set by user/signal generation, external setpoint is selected for example in cascade control configuration.
+
+**Setting SP processing**
+
+ *SPR* object is created as uctypes.struct() (size of 64 bytes) based on layout defined in  *SP_REGS* dictionary. 
+ *SP_REGS# define all parametar and Configuration Register (defined by SP_FIELDS dict (bit fields)).
  
+```python 
+sp_buf=bytearray(64)   #  memory allocation
+SPR = uctypes.struct(uctypes.addressof(sp_buf), SP_REGS, uctypes.LITTLE_ENDIAN)
+sp_init0(SPR)
+
+# tuning by direct acces
+SPR.SpeaL = -100.
+sp_tune(SPR)
+```
+Al SPR tunable parameters need to be initialized and Configuration setting selected by custom function ```isa_init0(PID) ```(or by direct acces) and recalculated by  ```isa_tune(PID) ``` function.
+ ```sp_init0(SPR) ``` is a custom function (edidet by user) for setting up parameters, also parameters are accesible directly from structure.
+
+SP structure fields description:
 ```python
 SPR.
     SpLL    - SP low limit
@@ -205,6 +223,7 @@ SPR.
     F6      -  ...
     F7      -   for user definition  
  ```
+ 
  
  ###### [Contents](./README.md#contents)
  
