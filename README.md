@@ -162,6 +162,8 @@ bit field names:
 
 :exclamation: Form more info abaut settings see [link to cheat sheet]
 
+###### [Contents](./README.md#contents)
+
 # 3. Setpoint (SP) processing 
 
 
@@ -195,6 +197,7 @@ SPR.
     F7      -   for user definition  
  ```
  
+ ###### [Contents](./README.md#contents)
  
 # 4. Process (PV) processing
 
@@ -218,7 +221,21 @@ SPR.
     CFG_REG  - Congfiguration register ( byte access)
     CFG      - configurration register ( bit filelds access)
   ```
-
+ bit field names:
+ ```python   
+ CFG.
+    Pvisel  - internal PV selection   
+    Sqrtsel - SQRT normalization selection   
+    Fltsel  - noise filter selection     
+    f3      -  ...   
+    f4      -  ... 
+    f5      -  ...
+    F6      -  ...
+    F7      -   for user definition  
+ ```
+ 
+ ###### [Contents](./README.md#contents)
+ 
 # 5. Project Summary 
 
 :exclamation:
