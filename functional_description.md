@@ -19,19 +19,18 @@
       
  <table style="padding:10px">
   <tr>
-     <td>    </td>
-     <td>     </td>
-      <td>    </td>
+     <td> -------- </td>
+     <td> ----------- </td>
+      <td> def.     - </td>
      <td>  Python  </td>  <td>  micropython  </td>
   <tr>
-     <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_block.png" width="75" height="50" >  </td>
-     <td>    <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75"> </td>
-      <td>   <em>   </em> description: y(x)= h for x>=w, -h otherwise
-       
-  
+     <td > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_block.png" width="75" height="50" >  </td>
+     <td  > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75"> </td>
+      <td >  <em>   </em> description: y(x)= h for x>=w, -h otherwise
+     
    </td>
-       <td>   <em>   </em> 
-    
+   <td> 
+   
  ```python
  y = relay2(0,1,0.5) # will return: -1
  y = relay2(0.6,1,0.5) # will return: 1      
@@ -48,8 +47,8 @@
    </td>
   </tr>
    <tr>
-     <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay2h_block.png" width="75" height="50"></td>
-     <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay2h_graph.png" width="75" height="75">    </td>
+     <td > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay2h_block.png" width="75" height="50">       </td>
+     <td > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay2h_graph.png" width="75" height="75">       </td>
      <td>   <em>   </em> description   </td>
   </tr>
    <tr>
