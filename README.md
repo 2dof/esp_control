@@ -221,10 +221,10 @@ SPR.
  bit field names:
  ```python   
  CFG.
-    SPesel  - external setpoint selection   
-    Rlimsel - SP rate limit selection    
-    f2      - for user definition    
-    f3      -  ...   
+    SPesel  - external setpoint selection (SPesel =True)  
+    Rlimsel - SP rate limit selection (Rlimsel =True)   
+    SPgen   - Setpoint Curve generation (SPgen = True)     
+    f3      - for user definition   
     f4      -  ... 
     f5      -  ...
     F6      -  ...
@@ -307,7 +307,7 @@ All proces value tunable parameters need to be initialized, and Configuration se
 # 5. Manual value processing 
 
 
-     ( in prepatation)
+     ( in preparation)
      
      
  ###### [Contents](./README.md#contents)
