@@ -1,36 +1,36 @@
 ## Functional desciption ## 
  <table style="padding:4px"> <tr>
      <td>    <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75">  </td>
-   <td>    
- 
+   <td>   
+    
   ```python
  y = relay2(0,1,0.5) # will return: -1
  y = relay2(0.6,1,0.5) # will return: 1      
 ```
+    
  </td>
       </tr>
  </table>
  
-      
-
-
-    
-      
- <table style="padding:4px">
+     
+ 
+ <table style="padding:4px,font-size:12px">
   <tr>
      <td> ---------- </td>
-     <td> description </td>
+     <td style="width:50%"> Description </td>
      <td style="width:50%">  example </td>
   <tr>
      <td  > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75"> </td>
-      <td >  <em> simple relay </em><br>  description: y(x)= h for x>=w, -h otherwise
+      <td >  <em> simple relay </em><br>   description: y(x)= h for x>=w, -h otherwise  
    </td>
       <td>
+       
  ```python
  #  y = relay2(x,h,w)    
  y = relay2(0,  1,  0.5) # will return: -1
  y = relay2(0.6, 1, 0.5) # will return: 1  
 ```
+       
    </td>
   </tr>
    
