@@ -7,7 +7,6 @@
  y = relay2(0,1,0.5) # will return: -1
  y = relay2(0.6,1,0.5) # will return: 1      
 ```
-    
  </td>
       </tr>
  </table>
@@ -17,35 +16,25 @@
 
     
       
- <table style="padding:10px">
+ <table style="padding:4px">
   <tr>
-     <td> -------- </td>
-     <td> ----------- </td>
-      <td> def.     - </td>
-     <td>  Python  </td>  <td>  micropython  </td>
+     <td> ---------- </td>
+     <td> description </td>
+     <td style="width:50%">  example </td>
   <tr>
      <td  > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75"> </td>
-      <td >  <em>   </em> description: y(x)= h for x>=w, -h otherwise
-     
+      <td >  <em> simple relay </em><br>  description: y(x)= h for x>=w, -h otherwise
    </td>
-   <td> 
-   
- ```python
- y = relay2(0,1,0.5) # will return: -1
- y = relay2(0.6,1,0.5) # will return: 1      
-```
-      
-   </td> 
       <td>
- 
  ```python
- y = relay2(0,1,0.5) # will return: -1
- y = relay2(0.6,1,0.5) # will return: 1  
+ #  y = relay2(x,h,w)    
+ y = relay2(0,  1,  0.5) # will return: -1
+ y = relay2(0.6, 1, 0.5) # will return: 1  
 ```
-      
    </td>
   </tr>
-   <tr>
+   
+ <tr>
      <td > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay2h_graph.png" width="75" height="75">       </td>
      <td>   <em>   </em> description   </td>
   </tr>
