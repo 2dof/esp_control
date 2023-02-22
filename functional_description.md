@@ -36,7 +36,7 @@
    
  <tr>
      <td > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay2h_graph.png" width="75" height="75">       </td>
-     <td>   <em>   </em> description   </td>
+     <td>   <em> Relay with hysteresis </em> description   </td>
       <td>
        
  ```python
@@ -44,11 +44,10 @@
   
 ```
    </td>
-  
-  </tr>
+  </tr> 
    <tr>
      <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay3_graph.png" width="75" height="75">   </td>
-    <td>   <em>   </em> description   </td>
+    <td>   <em> 3 step relay </em> description   </td>
     <td>
        
  ```python
@@ -59,39 +58,61 @@
   </tr>
     <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay3h_graph.png" width="75" height="75">  </td>
-     <td>   <em>    </em> description  </td>
+     <td>   <em>  3 step relay with hysteresis  </em> description  </td>
    <td>
        
  ```python
  #  class relay3h(wL=0.5,wH=1)   
   
 ```
-   </td>
-     
+   </td>    
   </tr>
      <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/limit_graph.png" width="75" height="75">   </td>
-     <td>   <em>  </em> limit description  </td>  
+     <td>   <em> limit (saturation) function </em> limit description  </td>  
       
-      
- 
- 
+   <td>
+       
+ ```python
+ #  y = limit(x,HL,HH) 
+  
+```
+   </td>
   </tr>
      <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/deadband_graph.png" width="75" height="75">  </td>
-     <td>   <em>  </em> deadband  description   </td>
+     <td>   <em> deadband function </em> deadband  description   </td>
+   <td>
+       
+ ```python
+ #  y = deadband(x,w)
+  
+```
+   </td>
   </tr>
-  </tr>
-     <tr>
+   <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/norm_graph.png" width="75" height="75">  </td>
-     <td>   <em>  </em> norm  description   </td>
-  </tr 
+     <td>   <em> linear normalization </em> norm  description   </td>
  
-   </tr>
-     <tr>
+   <td>
+       
+ ```python
+ #  class lin_norm(aL=0,aH=1,bL=0,bH=100)
+  
+```
+   </td>
+  </tr>
+   <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/norm_sqrt_graph.png" width="75" height="75"> </td>
-     <td>   <em>   </em> norm  description   </td>
-  </tr 
+     <td>   <em> SQRT normalization   </em> norm  description   </td>
+     <td>
+       
+ ```python
+ #  class sqrt_norm(bL=0,bH=100)
+  
+```
+   </td>
+ </tr> 
       
       
   
