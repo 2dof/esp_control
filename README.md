@@ -55,11 +55,35 @@ actually only this overview is public, code will be published later. ANY QUESTIO
   
 ###### [Contents](./README.md#contents)
 
+*py Files:
+ ```
+├── [src]
+│   ├── pid_isa.py          
+│   ├── simple_pid.py    
+│   ├── sp_processing.py
+│   ├── pv_processing.py
+│   ├── mv_processing.py
+│   ├── curve_generator.py
+│   ├── utils_pid_esp32.py
+│   │  
+│   ├── process_models.py
+│   └── ....
+│ 
+├── [examples]
+│   ├── anti_windup.py        
+│   ├── sp_processing.py
+├── [unit_tests]
+└── ...
+ 
+ 
+ ``` 
+
+
 # 2. Control Processing functions
 
 ALL PID alghoritms are implemented as uctypes.struct() by  parameters storage and dedicated function for processing.
 
-## 1.1 PID-ISA 
+## 2.1 PID-ISA 
 
 discrete implementation of Two-Degree-of-Freedom PID Controller (standard form) described by:
 
