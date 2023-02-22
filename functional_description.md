@@ -17,7 +17,7 @@
  <table style="padding:4px,font-size:12px">
   <tr>
      <td> ---------- </td>
-     <td style="width:50%"> Description </td>
+     <td style="width:50%"> ----- Description ------  </td>
      <td style="width:50%">  example </td>
   <tr>
      <td  > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75"> </td>
@@ -73,8 +73,20 @@
    <td>
        
  ```python
- #  class relay3h(wL=0.5,wH=1)   
+ #  class relay3h(wL=0.5,wH=1)     and init state out: -1.0 
+    
+  x   = [-2.,-1.1,-1,-0.6,-0.5,0,0.5,0.9,1,2,1,0.6,0.5,0.4,0,-0.5,-1,-1.1,-2]   
+  yref = [-1,-1,-1,-1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0,-1,-1]   
+  yout = []  
   
+  relay_3h =relay3h()  # (wL=0.5,wH=1)
+  
+  for i in range(0,len(x3h)):
+     y = relay_3h.relay(x[i])
+     yout.append(y)  
+  
+  print(yref)
+  print(yout)  
 ```
    </td>    
   </tr>
