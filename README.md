@@ -85,6 +85,8 @@ ALL PID alghoritms are implemented as uctypes.struct() by  parameters storage an
 
 ## 2.1 PID-ISA 
 
+<img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_isa_schema_neg.png" width="500" height="300" />
+
 discrete implementation of Two-Degree-of-Freedom PID Controller (standard form) described by:
 
 $$ u=K_{p}[(br-y)+\frac{1}{T_{i}s}(r-y)+\frac{T_{d}s}{T_{m}s+1}(cr-y))]+u_{bias}$$ 
@@ -98,6 +100,9 @@ called by function:
 def isa_updateControl(pid,sp,pv,utr = 0.,ubias = 0.):    # pid- pid-isa structure, sp -setpoint, pv -proces value, utr -tracking input, ubias -bias input;
 ```
 which return control value .
+
+
+
 
 **Setting up P-I-D controller**
 
