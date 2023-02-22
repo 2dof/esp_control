@@ -5,7 +5,7 @@
 P-I-D control library for esp32 Micropython 
 
 :exclamation:
-actually only this overview is public, code will be published later. ANY QUESTIONS ? ->  Send a message 
+actually only this doc is public, code will be published later. ANY QUESTIONS ? ->  Send a message 
 
 <img src="https://github.com/2dof/esp_control/blob/main/drawnings/PID_diagram_neg.png" width="700" height="300" />
 
@@ -13,11 +13,13 @@ actually only this overview is public, code will be published later. ANY QUESTIO
 ## Contents
  1. [Overview](#overview)  
  2. [Control Processing functions](#2-control-processing-functions)  
-  2.1 [PID ISA](#11-pid-isa)
+  2.1 [PID ISA](#21-pid-isa)
  3. [Setpoint (SP) processing](#3-setpoint-processing) 
  4. [Process (PV) processing](#4-process-value-processing)
- 6. [Manual value (MV) processing](#5-manual-value-processing)
- 7. [Project summary](#6-project-summary)
+ 5. [Manual value (MV) processing](#5-manual-value-processing)
+ 6. [Control value (CV) processing](#6-control-value-processing )
+ 7. [Setpoint Curve generation](#7-setpoint-curve-generation ) 
+ 8. [Project summary](#8-project-summary)
 
 
 ## Overview
@@ -58,12 +60,12 @@ actually only this overview is public, code will be published later. ANY QUESTIO
 *py Files:
  ```
 ├── [src]
-│   ├── pid_isa.py          
-│   ├── simple_pid.py    
-│   ├── sp_processing.py
-│   ├── pv_processing.py
-│   ├── mv_processing.py
-│   ├── curve_generator.py
+│   ├── pid_isa.py                 see  p. 2.1 PID-ISA  
+│   ├── simple_pid.py              
+│   ├── sp_processing.py           see  p.3  Setpoint Processing 
+│   ├── pv_processing.py           see  p.4  Process Value Processing
+│   ├── mv_processing.py           see: p.5. Manual value processing 
+│   ├── curve_generator.py         
 │   ├── utils_pid_esp32.py
 │   │  
 │   ├── process_models.py
@@ -340,8 +342,26 @@ All proces value tunable parameters need to be initialized, and Configuration se
      
      
  ###### [Contents](./README.md#contents)
+ 
+ # 6. Control value processing 
 
-# 6. Project Summary 
+
+     ( in preparation)
+     
+     
+ ###### [Contents](./README.md#contents)
+ 
+ # 7. Setpoint Curve Generation 
+
+
+     ( in preparation)
+     
+     
+ ###### [Contents](./README.md#contents)
+
+
+
+# 8. Project Summary 
 
 
 :exclamation:
@@ -363,7 +383,7 @@ actually only this overview is public, code will be published later.
 
 **END NOTE:** with hope in the future i will add more functionalities like:
   - more P-I-D alghorithms implementations 
-  - PID controller autotuning functions
+  - PID controller autotuning functions 
   - more advanced API: Cascade, fed-forward control implementation examples 
 
 
