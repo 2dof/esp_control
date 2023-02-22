@@ -41,7 +41,15 @@
        
  ```python
  #  class relay2h(wL=-1.0,wH=1.0)   
-  
+ relay_2h=relay2h()       # -> init:(wL=-1,wH=1)    and state out: -1.0  
+ 
+ y1 =  relay_2h.relay(0.0)   #   y1 = -1
+ y2 =  relay_2h.relay(1.0)   #   y2 =  1.  
+ y3 =  relay_2h.relay(2.0)   #   y2 =  1.   
+ y4 =  relay_2h.relay(0.0)   #   y3 =  1.       
+ y5 =  relay_2h.relay(-1.0)  #   y3 = -1.        
+ y6 =  relay_2h.relay(-2.0)  #   y3 = -1.
+ y7 =  relay_2h.relay(0.0)   #   y3 = -1.
 ```
    </td>
   </tr> 
