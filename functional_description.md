@@ -1,4 +1,5 @@
 ## Functional desciption ## 
+
  <table style="padding:4px"> <tr>
      <td>    <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75">  </td>
    <td>   
@@ -13,15 +14,15 @@
  </table>
  
      
- 
- <table style="padding:4px,font-size:12px">
+ <font size="2" face="Courier New" >
+ <table style="padding:4px">
   <tr>
      <td> ---------- </td>
      <td style="width:50%"> ----- Description ------  </td>
      <td style="width:50%">  example </td>
   <tr>
      <td  > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75"> </td>
-      <td >  <em> simple relay </em><br>   description: y(x)= h for x>=w, -h otherwise  
+   <td >  <em> simple relay </em><br>  <sub> description: y(x)= h for x>=w, -h otherwise  </sub>
    </td>
       <td>
        
@@ -36,8 +37,8 @@
    
  <tr>
      <td > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay2h_graph.png" width="75" height="75">       </td>
-     <td>   <em> Relay with hysteresis </em> description   </td>
-      <td>
+     <td>   <em> Relay with hysteresis </em> <br>  <sub> description  </sub>  </td>
+      <td> 
        
  ```python
  #  class relay2h(wL=-1.0,wH=1.0)   
@@ -55,7 +56,7 @@
   </tr> 
    <tr>
      <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay3_graph.png" width="75" height="75">   </td>
-    <td>   <em> 3 step relay </em> description   </td>
+    <td>   <em> 3 step relay </em> <br>  <sub> description  </sub>  </td>
     <td>
        
  ```python
@@ -69,7 +70,7 @@
   </tr>
     <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay3h_graph.png" width="75" height="75">  </td>
-     <td>   <em>  3 step relay with hysteresis  </em> description  </td>
+     <td>   <em>  3 step relay with hysteresis  </em> <br>  <sub> description  </sub> </td>
    <td>
        
  ```python
@@ -92,7 +93,7 @@
   </tr>
      <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/limit_graph.png" width="75" height="75">   </td>
-     <td>   <em> limit (saturation) function </em> limit description  </td>  
+     <td>   <em> limit (saturation) function </em> <br>  <sub> description  </sub>  </td>  
       
    <td>
        
@@ -106,7 +107,7 @@
   </tr>
      <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/deadband_graph.png" width="75" height="75">  </td>
-     <td>   <em> deadband function </em> deadband  description   </td>
+     <td>   <em> deadband function </em> <br>  <sub> description  </sub>   </td>
    <td>
        
  ```python
@@ -120,30 +121,45 @@
   </tr>
       <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/rateLimit_block.png" width="75" height="75">  </td>
-     <td>   <em> rate limit </em>   description   </td>
+     <td>   <em> rate limit </em> <br>  <sub> description  </sub>    </td>
    <td>
        
  ```python
- #  class ratelimit(dH=1,Ts=1) 
+ #  class ratelimit(dH=1,Ts=1) , init: 1 [unit/sec]  , Ts = 1
+ #  y =ratelimit.limit(x) 
     
+ rate=ratelimit(); 
+    
+ y1 = rate.limit(4)  #    y1 = 1
+ y2 = rate.limit(4)  #    y2 = 2
+ y3 = rate.limit(4)  #    y3 = 3
+ print(rate.dx)      #    dx = 1 -> actual rate    
+ y4 = rate.limit(4)  #    y4 = 4  
+ y4 = rate.limit(4)  #    y4 = 4  
+ print(rate.dx)      #    dx = 0 -> actual rate 
+       
 ```
    </td>
   </tr>
    <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/norm_graph.png" width="75" height="75">  </td>
-     <td>   <em> linear normalization </em> norm  description   </td>
+     <td>   <em> linear normalization </em> <br>  <sub> description  </sub>  </td>
  
    <td>
        
  ```python
- #  class lin_norm(aL=0,aH=1,bL=0,bH=100)
-  
+ #  class lin_norm(aL=0,aH=1,bL=0,bH=100) -> input form <0..1> to <0..100>
+
+ norm = lin_norm()
+ y1 = norm.normalize(0.5)  # y1 = 50   
+ y2 = norm.normalize(1.0)  # y2 = 100
+ y3 = norm.normalize(1.5)  # y2 = 150
 ```
    </td>
   </tr>
    <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/norm_sqrt_graph.png" width="75" height="75"> </td>
-     <td>   <em> SQRT normalization   </em> norm  description   </td>
+     <td>   <em> SQRT normalization   </em> <br>  <sub> description  </sub>    </td>
      <td>
        
  ```python
