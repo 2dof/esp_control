@@ -60,7 +60,10 @@
        
  ```python
  #   y = relay3(x,h,w)  
-  
+     y1 = relay3(0.,1,0.5)    # y1 = 0.
+     y2 = relay3(0.5,1,0.5)   # y2 = 1.
+     y3 = relay3(-0.5,1,0.5)  # y3 = -1.
+     
 ```
    </td>
   </tr>
@@ -100,6 +103,17 @@
     y2 = deadband(0.5,0.5)  #  y2 = 0.
     y3 = deadband(1.,0.5)   #  y3 = 0.5
     y4 = deadband(-1.,0.5)  #  y4 = -0.5  
+```
+   </td>
+  </tr>
+      <tr>
+      <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/rateLimit_block.png" width="75" height="75">  </td>
+     <td>   <em> rate limit </em>   description   </td>
+   <td>
+       
+ ```python
+ #  class ratelimit(dH=1,Ts=1) 
+    
 ```
    </td>
   </tr>
