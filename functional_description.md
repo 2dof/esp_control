@@ -75,7 +75,9 @@
        
  ```python
  #  y = limit(x,HL,HH) 
-  
+    y1 = limit(0.5.,-1,1)  # y1 = 0.5
+    y2 = limit(2.,-1,1)    # y2 = 1.
+    y3 = limit(-2.,-1,1)   # y3 = -1
 ```
    </td>
   </tr>
@@ -86,7 +88,10 @@
        
  ```python
  #  y = deadband(x,w)
-  
+    y1 = deadband(0,0.5)    #  y1 = 0.
+    y2 = deadband(0.5,0.5)  #  y2 = 0.
+    y3 = deadband(1.,0.5)   #  y3 = 0.5
+    y4 = deadband(-1.,0.5)  #  y4 = -0.5  
 ```
    </td>
   </tr>
