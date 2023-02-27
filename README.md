@@ -66,7 +66,7 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
 │   ├── pv_processing.py           see  p.4  Process Value Processing
 │   ├── mv_processing.py           see: p.5. Manual value processing 
 │   ├── curve_generator.py         
-│   ├── utils_pid_esp32.py
+│   ├── utils_pid_esp32.py         see: [functional description]functional_description.md)
 │   │  
 │   ├── process_models.py
 │   └── ....
