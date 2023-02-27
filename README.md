@@ -78,7 +78,6 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
 ├── [unit_tests]
 └── ...
  
- 
  ``` 
 
 
@@ -102,9 +101,7 @@ called by function:
 ```python
 def isa_updateControl(pid,sp,pv,utr = 0.,ubias = 0.):    # pid- pid-isa structure, sp -setpoint, pv -proces value, utr -tracking input, ubias -bias input;
 ```
-which return control value .
-
-
+which return control value.
 
 
 **Setting up P-I-D controller**
@@ -196,8 +193,6 @@ bit field names:
 ```
 
 
-:exclamation: Form more info abaut settings see [link to cheat sheet]
-
 ###### [Contents](./README.md#contents) 
 
 
@@ -272,9 +267,9 @@ Process Value processing called by function:
 ```python
  def pv_update(pvr,pve,pvi = 0.0):    # pvr- pv structure , pve - external setpoint, pvi - internal setpoint value
 ```
-perform basic process value signal processig : linear normalization , noise filter and sqrt normalization according 
-to selected configuration.
-external pv value is a physical sensor value measuring with ADC; internal process value is selected for example in cascade control configuration.
+perform basic process value signal processig: linear normalization, noise filter and sqrt normalization depending on the selected option.
+ 
+two imput signals: external pv value (pve) is a physical sensor value measuring with ADC; internal process value (pvi) is selected for example in cascade control configuration.
      
 **Setting PV processing**
 
@@ -302,6 +297,7 @@ All proces value tunable parameters need to be initialized, and Configuration se
 :exclamation: → ALLWAYS CALL  ```pv_tune() ``` function after changing tunable parameters
      
   ```python 
+  PVR.
     PvLL     - Pv low limit   
     PvHL     - Pv High imit        
     PvaL     - Pv linear norm aL point (x)   
@@ -365,7 +361,8 @@ All proces value tunable parameters need to be initialized, and Configuration se
 
      ( in preparation)
      
-    see: [functional_description](functional_description.md)
+  
+   [functional_description](functional_description.md)
      
      
  ###### [Contents](./README.md#contents)
