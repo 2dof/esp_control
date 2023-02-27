@@ -1,1 +1,33 @@
+MicroPython esp32 p-i-d library 
 
+# Copyright (c) 2022-2023 L.Szydlowski
+# Released under the MIT License (MIT) - see LICENSE file
+
+
+1. file structure: 
+
+ __version__   = "1.0.0"
+ 
+ *py Files:
+ ```python
+ ---------------------------  
+├── [src]     
+│   ├── pid_isa.py                   
+│   ├── simple_pid.py              
+│   ├── sp_processing.py           
+│   ├── pv_processing.py            
+│   ├── mv_processing.py            
+│   ├── curve_generator.py         
+│   ├── utils_pid_esp32.py
+│   │  
+│   ├── process_models.py
+│   └── ....
+│ 
+├── [examples]
+│   ├── anti_windup.py        
+│   ├── sp_processing.py
+├── [unit_tests]
+└── ...
+ 
+ 
+ ``` 
