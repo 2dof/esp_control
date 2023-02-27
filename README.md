@@ -19,7 +19,7 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
  5. [Manual value (MV) processing](#5-manual-value-processing)
  6. [Control value (CV) processing](#6-control-value-processing )
  7. [Setpoint Curve generation](#7-setpoint-curve-generation ) 
- 8. [signal processing](functional_description.md)
+ 8. [signal processing](#8-signal-processing )
  9. [Project summary](#9-project-summary)
 
 
@@ -365,11 +365,13 @@ All proces value tunable parameters need to be initialized, and Configuration se
 
      ( in preparation)
      
+    see: [functional_description](functional_description.md)
+     
      
  ###### [Contents](./README.md#contents)
 
-# 9. Project Summary 
 
+# 9. Project Summary 
 
 :exclamation:
 actually only this overview is public, code will be published later. 
