@@ -1,18 +1,9 @@
 ## Functional desciption ## 
 
- <table style="padding:4px"> <tr>
-     <td>    <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay_graph.png" width="75" height="75">  </td>
-   <td>   
-    
-  ```python
- y = relay2(0,1,0.5) # will return: -1
- y = relay2(0.6,1,0.5) # will return: 1      
-```
-    
- </td>
-      </tr>
- </table>
  
+## Singal processing ## 
+
+Basic signal procerssign functions implemented in utils_pid_esp32.py 
      
  <font size="2" face="Courier New" >
  <table style="padding:4px">
