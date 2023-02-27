@@ -83,7 +83,7 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
 
 # 2. Control Processing functions
 
-ALL PID alghoritms are implemented as uctypes.struct() by  parameters storage and dedicated function for processing.
+ALL PID alghoritms are implemented as uctypes.struct() for parameters storage and dedicated functions for processing.
 
 ## 2.1 PID-ISA 
 
