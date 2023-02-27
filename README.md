@@ -19,7 +19,8 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
  5. [Manual value (MV) processing](#5-manual-value-processing)
  6. [Control value (CV) processing](#6-control-value-processing )
  7. [Setpoint Curve generation](#7-setpoint-curve-generation ) 
- 8. [Project summary](#8-project-summary)
+ 8. [signal processing](functional_description.md)
+ 9. [Project summary](#9-project-summary)
 
 
 ## Overview
@@ -66,7 +67,7 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
 │   ├── pv_processing.py           see  p.4  Process Value Processing
 │   ├── mv_processing.py           see: p.5. Manual value processing 
 │   ├── curve_generator.py         
-│   ├── utils_pid_esp32.py         see: [functional description]functional_description.md)
+│   ├── utils_pid_esp32.py         see: (functional_description.md)
 │   │  
 │   ├── process_models.py
 │   └── ....
@@ -359,9 +360,15 @@ All proces value tunable parameters need to be initialized, and Configuration se
      
  ###### [Contents](./README.md#contents)
 
+ # 8. Signal processing
 
 
-# 8. Project Summary 
+     ( in preparation)
+     
+     
+ ###### [Contents](./README.md#contents)
+
+# 9. Project Summary 
 
 
 :exclamation:
