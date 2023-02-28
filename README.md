@@ -349,10 +349,18 @@ All proces value tunable parameters need to be initialized, and Configuration se
  ###### [Contents](./README.md#contents)
  
  # 7. Setpoint Curve Generation 
+ 
+  <table style="padding:4px">
+  <tr>
+     <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen_neg.png" width="600" height="250" /> </td>
+     <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen2_neg.png" width="250" height="150" />  </td>
+   
+ </tr>
+ </table>
 
-<img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen_neg.png" width="500" height="300" />
 
-<img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen2_neg.png" width="500" height="300" />
+
+
 
      ( in preparation)
      
