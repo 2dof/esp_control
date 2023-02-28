@@ -110,7 +110,7 @@ which return control value.
  *ISA_REGS* define all parametar and Configuration Register (defined by ISA_FIELDS dict (bit fields)):
 
 ```python
-  form pid_devices import *
+  form pid_isa import *
   
   pid_buf=bytearray(128)     # memory allocation 
   PID = uctypes.struct(uctypes.addressof(pid_buf), ISA_REGS, uctypes.LITTLE_ENDIAN)   # 
@@ -120,10 +120,8 @@ which return control value.
 ```
 All PID tunable parameters need to be initialized and Configuration setting selected by custom function ```isa_init0(PID) ```(or by direct acces) and recalculated by  ```isa_tune(PID) ``` function.
 
- ```isa_init0() ``` is a custom function for setting up parameters,but parameters are accesible directly from PID struct:
- 
- When reset of pid is requred, then ```isa_reset(pid)``` function should be used.
- 
+ ```isa_init0() ``` is a custom function for setting up parameters,but parameters are accesible directly from PID struct
+
  ```python
   PID.Kp = 2 
   PID.Ti = 1
@@ -133,18 +131,25 @@ All PID tunable parameters need to be initialized and Configuration setting sele
   # P-i-D action selection
   PID.CFG.Psel = True
   PID.CFG.Isel = True
-  PID.CFG.Dsel = True     # or: 
-  # pid.CFG_REG =0x07     # == Psel,Isel,Dsel = True
+  PID.CFG.Dsel = True     # or set by direct bute value writing. 
+  # PID.CFG_REG =0x07     # == Psel,Isel,Dsel = True
   
   isa_tune(PID)        # recalculate parameters
-  
 ``` 
-
 Configuration setting is selected by setting CFG register by setting bits ( ```PID.CFG.Psel = True ```) or by direct byte value writing ( ```pid.CFG_REG =0x07 ```).
 
 :exclamation: → ALLWAYS CALL  ```isa_tune() ``` function after changing parameters
 
-PID struct field description: 
+When setting, is finished then just call ```python isa_updateControl(pid,sp,pv,utr,ubias)  ```   in timer callback or in the loop every Ts interval.
+
+Sometimes a reset of PID controller is nedded, then call ```isa_reset(PID)``` to reset the values of Pk, Ik, Dk , u, u1, ed1  ( = 0.0 ).  
+   
+
+
+**PID struct field description** 
+
+P-I-D structure defined is by ISA_REGS dictionary (see in file pid_isa.py) , all parameters are defined as FLOAT32 type values.   
+
 ```python
 PID.   
     Kp      -   proportional gain   
@@ -158,7 +163,7 @@ PID.
     Umin    -   low limit of control   
     dUlim   -   control rate limit  
     Ts      -   sampling time         
-    Deadb   -   error deadband value   
+    Deadb   -   error deadband value    
     Pk      -   calculated P-action value  
     Ik      -   calculated I-action value      
     Dk      -   calculated D-action value        
@@ -171,10 +176,10 @@ PID.
     ek      -   ek=(sp-pv)   control error    
     ed      -   ek=(c*sp-pv) control error for D-action   
     ep      -   ek=(b*sp-pv) control error for P-action    
-    du      -   control rate value     
-    u       -   control value     
-    ed1     -   store ed(k-1)   
-    u1      -   store u(k-1)     
+    du      -   control rate value  du/dt     (calculated)   
+    u       -   control value  (calculated)   
+    ed1     -   store ed(k-1)   (calculated)
+    u1      -   store u(k-1)    (caluclated) 
     CFG_REG -   Congfiguration register ( byte access)
     CFG     -   configurration register ( bit filelds access)   
 ```
