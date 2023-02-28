@@ -350,9 +350,27 @@ All proces value tunable parameters need to be initialized, and Configuration se
  
  # 7. Setpoint Curve Generation 
 
+<img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen_neg.png" width="500" height="300" />
+
+<img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen2_neg.png" width="500" height="300" />
 
      ( in preparation)
      
+ 
+ *py Files:
+ ```python
+curve_generator.py 
+    │──class Ramp_generator(object)     - Ramp generator __init__(Ramp,unit='m') -> Ramp: list of points,  unit: 'm'-> minutes, 's'->seconfs              
+    │         ├── .start(val0)          - command start generating values every call of .get_value(dt),   dt: time interval    
+    │         ├── .stop()               - stop generating, even if .get_value(dt) is called, only last value is returned before .stop()
+    │         ├── .resume()             - resume generating after stop
+    │         ├── .get_value(dt)        - generate next value in dt interval.  
+    │         ├── .elapsed_time()       - return  time from start of generation in (hh,mm,ss)  format
+    │         └── .remaining_time()     - return  remaining tome to end of generation in (hh,mm,ss)  format
+    │ 
+    └── def sec_to_hhmmss(sec)          - calculate (hh,mm,ss) time format  from given seconds (sec)
+ 
+ ``` 
      
  ###### [Contents](./README.md#contents)
 
