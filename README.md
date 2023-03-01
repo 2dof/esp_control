@@ -375,11 +375,51 @@ All proces value tunable parameters need to be initialized, and Configuration se
  pN = [tN,ValN]  
  
 
- 
- Then supplying our curve profile to ```class Ramp_generator() ``` and defining time unit ( Time slices (intervals) can be only in seconds ('s') or minites ['m'] )
+ Then, supplying our curve profile to ```class Ramp_generator() ``` and defining time unit ( Time slices (intervals) can be only in seconds ('s') or minites ['m'] )
+ we create curve generator based on line interpolation between every 2 points.
  
  Example: 
-      
+ We want to generate setpoint curve profile: start from actual Setpoint value SP_val and generate values every dt = Ts = 1 sec
+ - first define starting point p0=[0,0.0], we assume we dont know what actual SP_val is so we assume value 0.0 (curve profile can be loaded from memory or a file.)
+ - in 4 min go to 20 (p1=[4,20]),  
+ - hold value 20 for 4 min (p2=[4,20.]), next
+ - raise value to 50 in 2 min (p3=[2,50.]), next
+ - hold value 50 for 4 min (p4=[4,50.]), next
+ - drop value to 25 in 4 min ([4,25.]), next 
+ -  hold value 25 for 4 min (p2=[4,25.]) 
+ 
+ As in the example below we define our Ramp profile, and create  Setpoint generator ```SP_generator```.
+ When we are ready, we start generator  ```SP_generator.start(SP_val) ``` from actual Setpoint value. It cause to write SP_val to starting point 
+ (p0 = [0, SP_val]), and set  ```Fgen = True  ```. from this moment we allow to generate values by  calling  ```FSP_generator.get_value(Ts) ``` which return
+ next values every dt =Ts perion (see figure B2.)
+ 
+  ```python 
+  from curve_generator import *
+  
+         #  p0    p1     p2     p3     p4     p5     p6
+ Ramp =  [[0,0],[4,20],[4,20],[2,50],[4,50],[4,25],[4,25]] 
+ 
+ Ts = 1.0   #  sampling time 
+
+ SP_generator =Ramp_generator(Ramp, unit='m')   # create generator 
+ 
+ SP_val  = 10.0                                 # at the moment of start generation SP_val =10.0
+ 
+ SP_generator.start(SP_val)                     # we start (allow) to generate values
+ 
+ for i in range(0,1400):                        # simulate a "control loop"
+        
+    y =  SP_generator.get_value(Ts)         
+    print(y)
+       
+    if  SP_generator.Fgen == False:             # just brake the loop when done 
+       break
+   
+    # utime.sleep(Ts)
+
+  ```  
+ 
+ 
  
  
  ```python
