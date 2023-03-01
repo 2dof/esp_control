@@ -207,18 +207,38 @@ bit field names:
 
 ## 2.2 PID with anti-windup 
 
+PID controllers with 'build in' Anti-windup.
+
   <table style="padding:4px">
   <tr>
      <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_aw_neg.png" width="400" height="225" /> 
-     <br><p align="center"> figure A3.</p></td>
+     <br><p align="center">  figure A.3 </center><br> 
+   
+   ```python
+  def pid_aw_updateControl(pid,sp,pv,ubias = 0.)
+  ```
+ </p></td>
      <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_awm_neg.png" width="400" height="225" />  
-      <br><p align="center"> figure A4. </center></p></td>
-  </tr> </table>
+      <br><p align="center"> figure A.4 </center><br> 
+      
+  ```python
+  def pid_awm_updateControl(pid,sp,pv,ubias = 0.,mv = 0.)
+  ```
+ </p></td>
+  </tr> </table> 
   
-  
-  
-  
-    (To Do ) 
+Discrete implementations of PID Controller described by general equation:
+
+$$ u = K_{p}[e_{k}+\frac{1}{T_{i}s}e_{k}+\frac{T_{d}s}{T_{m}s+1}e_{k})]+u_{bias}$$ 
+
+$$ e_{k} = r - y $$ 
+
+```math
+\small   r: \text{setpoint SP; }\\
+\small   y: \text{proces value PV; }\\
+\small   u_{bias}: \text{ bias input}
+```
+with Anti-windup scheme with back-calculation. 
 
 
 # 3. Setpoint processing 
@@ -244,7 +264,7 @@ sp_init0(SPR)
 # tuning by direct acces
 SPR.SpeaL = -100.
 sp_tune(SPR)
-```
+``` 
 All SPR tunable parameters need to be initialized and Configuration setting selected by custom function ```sp_init0(PID) ```(or by direct acces) and recalculated by  ```sp_tune(PID) ``` function.
  ```sp_init0(SPR) ``` is a custom function (edidet by user) for setting up parameters, also parameters are accesible directly from structure.
 
