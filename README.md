@@ -207,6 +207,17 @@ bit field names:
 
 ## 2.2 PID with anti-windup 
 
+  <table style="padding:4px">
+  <tr>
+     <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_aw_neg.png" width="400" height="225" /> 
+     <br><p align="center"> figure A3.</p></td>
+     <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_awm_neg.png" width="400" height="225" />  
+      <br><p align="center"> figure A4. </center></p></td>
+  </tr> </table>
+  
+  
+  
+  
     (To Do ) 
 
 
