@@ -7,7 +7,8 @@ P-I-D control library for esp32 Micropython
 :exclamation:
 actually only this doc is public, code will be published later. ANY QUESTIONS ? ->  Send a message 
 
-<img src="https://github.com/2dof/esp_control/blob/main/drawnings/PID_diagram_neg.png" width="700" height="300" />
+<p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/PID_diagram_neg.png" width="700" height="300" />
+<br> figure A0.</p>
 
 
 ## Contents
@@ -87,7 +88,8 @@ ALL PID alghoritms are implemented as uctypes.struct() for parameters storage an
 
 ## 2.1 PID-ISA 
 
-<img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_isa_schema_neg.png" width="500" height="300" />
+<p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/pid_isa_schema_neg.png" width="500" height="300" />
+<br> figure A1.</p>
 
 discrete implementation of Two-Degree-of-Freedom PID Controller (standard form) described by:
 
@@ -357,8 +359,11 @@ All proces value tunable parameters need to be initialized, and Configuration se
  
   <table style="padding:4px">
   <tr>
-     <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen_neg.png" width="600" height="250" /> </td>
-     <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen2_neg.png" width="250" height="150" />  </td>
+     <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen_neg.png" width="600" height="250" /> .
+     <br><p align="center"> figure B1.</p>
+     </td>
+     <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen2_neg.png" width="250" height="150" />  
+      <br><p align="center"> figure B2 </center></p></td>
    
  </tr>
  </table>
