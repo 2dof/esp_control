@@ -389,11 +389,10 @@ All proces value tunable parameters need to be initialized, and Configuration se
  -  hold value 25 for 4 min (p2=[4,25.]) 
  
  As in the example below we define our Ramp profile, and create Setpoint generator ```SP_generator```.
- When we are ready, we start generator  ```SP_generator.start(SP_val) ``` from actual Setpoint value. It cause to write SP_val to starting point 
- (p0 = [0, SP_val]), and set  ```Fgen = True  ```. from this moment we allow to generate values by  calling  ```FSP_generator.get_value(Ts) ``` which return
+ When we are ready, we start generator  ```SP_generator.start(SP_val) ``` from actual Setpoint value. It causes to write SP_val to the starting point 
+ (p0 = [0, SP_val]), and set ```Fgen = True  ```. from this moment, we allow to generate values by calling ```SP_generator.get_value(Ts) ``` which return
  next values every dt =Ts period (see figure B2.)
- When generation is finished (i.e last point of curve was generatet, then flag  ```Fgen = False  ``` is reseted. and .get_value(Ts) will return last generated
- value. 
+ When generation is finished (i.e last point of curve was generated, then flag  is reseted. ```SP_generator.Fgen = False  ``` and ```.get_value(Ts)``` will return   last generated value in next call. 
  
   ```python 
   from curve_generator import *
