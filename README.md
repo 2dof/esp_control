@@ -360,22 +360,28 @@ All proces value tunable parameters need to be initialized, and Configuration se
   <table style="padding:4px">
   <tr>
      <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen_neg.png" width="600" height="250" /> .
-     <br><p align="center"> figure B1.</p>
-     </td>
+     <br><p align="center"> figure B1.</p></td>
      <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/curve_gen2_neg.png" width="250" height="150" />  
       <br><p align="center"> figure B2 </center></p></td>
-   
- </tr>
- </table>
+  </tr> </table>
 
-
-
-
-
-     ( in preparation)
-     
+ Generation of curve is based on defining list of points coortinates consisting of time slices and out values (on end of time slice) (figure B1.)
  
- *py Files:
+ sp_ramp =[p0, p1, p2, ....pN]  , whrere 
+ p0 = [t0,val0]      - t0 = 0  - always 0 as start point, start from val0  
+ p1 = [t1,Val1]      - in slice of time t1, change value from val0 to val1 
+ p2 = [t2,Val2]      - in slice of time t2, change value from val2 to val2  
+ ...
+ pN = [tN,ValN]  
+ 
+
+ 
+ Then supplying our curve profile to ```class Ramp_generator() ``` and defining time unit ( Time slices (intervals) can be only in seconds ('s') or minites ['m'] )
+ 
+ Example: 
+      
+ 
+ 
  ```python
 curve_generator.py 
     │──class Ramp_generator(object)     - Ramp generator __init__(Ramp,unit='m') -> Ramp: list of points,  unit: 'm'-> minutes, 's'->seconfs              
