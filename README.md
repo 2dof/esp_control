@@ -365,7 +365,7 @@ All proces value tunable parameters need to be initialized, and Configuration se
       <br><p align="center"> figure B2 </center></p></td>
   </tr> </table>
 
- Generation of curve is based on defining list of points coortinates consisting of time slices and out values (on end of time slice) (figure B1.)
+ Generation of curve is based on defining list of points coordinates consisting of time slices and out values (on end of time slice) (figure B1.)
  
  sp_ramp =[p0, p1, p2, ....pN]  , whrere 
  p0 = [t0,val0]      - t0 = 0  - always 0 as start point, start from val0  
@@ -388,10 +388,12 @@ All proces value tunable parameters need to be initialized, and Configuration se
  - drop value to 25 in 4 min ([4,25.]), next 
  -  hold value 25 for 4 min (p2=[4,25.]) 
  
- As in the example below we define our Ramp profile, and create  Setpoint generator ```SP_generator```.
+ As in the example below we define our Ramp profile, and create Setpoint generator ```SP_generator```.
  When we are ready, we start generator  ```SP_generator.start(SP_val) ``` from actual Setpoint value. It cause to write SP_val to starting point 
  (p0 = [0, SP_val]), and set  ```Fgen = True  ```. from this moment we allow to generate values by  calling  ```FSP_generator.get_value(Ts) ``` which return
- next values every dt =Ts perion (see figure B2.)
+ next values every dt =Ts period (see figure B2.)
+ When generation is finished (i.e last point of curve was generatet, then flag  ```Fgen = False  ``` is reseted. and .get_value(Ts) will return last generated
+ value. 
  
   ```python 
   from curve_generator import *
@@ -413,29 +415,37 @@ All proces value tunable parameters need to be initialized, and Configuration se
     print(y)
        
     if  SP_generator.Fgen == False:             # just brake the loop when done 
-       break
-   
+       break  
     # utime.sleep(Ts)
 
   ```  
  
- 
- 
+  ```python class Ramp_generator()  ``` allow to stop (halt), resume generation, add point(on the end of profile), or load new ramp. 
+  Aslo in any time can get elapsed or remaining time during generation (see description below).
  
  ```python
 curve_generator.py 
     │──class Ramp_generator(object)     - Ramp generator __init__(Ramp,unit='m') -> Ramp: list of points,  unit: 'm'-> minutes, 's'->seconfs              
-    │         ├── .start(val0)          - command start generating values every call of .get_value(dt),   dt: time interval    
+    │         ├── .start(val0)          - command start generating values (from begining) every call of .get_value(dt), dt: time interval    
     │         ├── .stop()               - stop generating, even if .get_value(dt) is called, only last value is returned before .stop()
     │         ├── .resume()             - resume generating after stop
     │         ├── .get_value(dt)        - generate next value in dt interval.  
+    │         ├── .add_point([tn,valn]) - add new point to the end of ramp.  
+    │         ├── .load_ramp(Ramp,unit) - load new ramp to generator (only when generator not active (Fgen=False) .  
     │         ├── .elapsed_time()       - return  time from start of generation in (hh,mm,ss)  format
     │         └── .remaining_time()     - return  remaining tome to end of generation in (hh,mm,ss)  format
     │ 
     └── def sec_to_hhmmss(sec)          - calculate (hh,mm,ss) time format  from given seconds (sec)
  
  ``` 
-     
+ 
+ Go to [LINK TO_EXAMPLE]  to learn hot to use in practial example.   
+ 
+ 
+ 
+ 
+      
+   
  ###### [Contents](./README.md#contents)
 
  # 8. Signal processing
