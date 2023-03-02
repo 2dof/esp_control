@@ -374,9 +374,8 @@ All proces value tunable parameters need to be initialized, and Configuration se
     F7      -   for user definition  
  ```
  
- 
- 
  ###### [Contents](./README.md#contents)
+ 
  
 # 5. Manual value processing 
 
@@ -430,14 +429,12 @@ From the code above we will get (waveforms ploted in thonny):
 
 Because we change ```MVR.MvLL = 0.0 ``` then manual value will be cut  off at bottom, aslo by changing value of Tf we affect the delay/lag of MV value. 
 
-** changing Tt or Tm **
+**Changing Tt or Tm**
    
-   Tracking dynamic - increasing value of Tt (in relation to sampling time (Ts))  cause more lag effect (see figure C1.), for fast responce keep Tf <= 0.1 Ts, 
-  
-   Incremental change of input dmv:  both Tm and Tr acts as scaling factor ( ~ Tt/Tm)  for input dmv affecting output value.  
+  Tracking dynamic - increasing value of Tt (in relation to sampling time (Ts))introduce more lag effect (see figure C1.), for fast responce keep Tf<=0.1 Ts, 
+  Incremental change of input dmv - both Tm and Tr acts as scaling factor ( ~ Tt/Tm)  for input dmv affecting output value.  
    
-          
- 
+         
 MV structure parameters:
  ```python
  MVR.
@@ -451,7 +448,6 @@ MV structure parameters:
     at     -  calculated, tracking block parameter 
     bt     -  calculated, tracking block parameter 
     ct     -  calculated, tracking block parameter 
-    }
  ```
  
 MV processing functions: 
@@ -463,7 +459,6 @@ mv_processing.py
     ├── def mv_reset(mvr)               - reset internal state , manual value mv = 0 
     └── def mv_init0(mvr)               - edited by user, initialize  'mvr' structure.  
  ``` 
-     
      
  ###### [Contents](./README.md#contents)
  
