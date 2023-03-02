@@ -340,7 +340,7 @@ All proces value tunable parameters need to be initialized, and Configuration se
 
  When reset of SP structure is requred, then ```pv_reset(pid)``` function should be used.
  
-:exclamation: → ALLWAYS CALL  ```pv_tune() ``` function after changing tunable parameters
+:exclamation: → ALLWAYS CALL  ```pv_tune() ``` function after changing tunable parameters.
      
   ```python 
   PVR.
@@ -396,18 +396,16 @@ min/max value.
  ```python
  from mv_processing import *
  
+ # setting up
  mv_buf=bytearray(41)   
  MVR = uctypes.struct(uctypes.addressof(mv_buf), MV_REGS, uctypes.LITTLE_ENDIAN)
 
- mv_init0(MVR)
+ mv_init0(MVR)              # init 
+
+ MVR.MvLL = 0.0             # lets set new saturation parameter MvLL  
+ mv_tune(MVR)               # Alway tube parameter after changing 
  
- # lets set saturation parameter MvLL
- MVR.MvLL = 0.0
- 
- mv_tune(MVR)        # Alway tube parameter after changing 
- 
- # do some testing 
- for i in range(0,40):
+ for i in range(0,40):      # do some testing  
         
     ytr = 2*sin(6.28*0.05*i)
  
@@ -418,11 +416,7 @@ min/max value.
        #dx = 1. 
        MVR.Tt   =0.5  
        mv_tune(MVR)
- ```
- 
- <p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/mv_tracking_signal_neg.png" width="500" height="300" />
-<br> figure C1.</p>
- 
+ ``` 
  
 All manual value tunable parameters need to be initialized, custom function ```MV_init0(MVR) ```(or by direct acces) and recalculated by  ```MV_tune(MVR) ``` function.
  ```MV_init0(SPR) ``` is a custom function (edidet by user) for setting up parameters, also parameters are accesible directly from structure.
@@ -430,16 +424,21 @@ All manual value tunable parameters need to be initialized, custom function ```M
  
 :exclamation: → ALLWAYS CALL  ```MV_tune() ``` function after changing tunable parameters.
 
+From the code above we will get (waveforms ploted in thonny): 
+ <p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/mv_tracking_signal_neg.png" width="500" height="150" />
+<br> figure C1.</p>
+
+Because we change ```MVR.MvLL = 0.0 ``` then manual value will be cut  off at bottom, aslo by changing value of Tf we affect the delay/lag of MV value. 
+
 ** changing Tt or Tm **
    
-   Rracking dynamic - increasing value of Tt (in relation to sampling time (Ts))  cause more lag effect (see figure C1., for fast responce keep Tf <= 0.1 Ts, 
+   Tracking dynamic - increasing value of Tt (in relation to sampling time (Ts))  cause more lag effect (see figure C1.), for fast responce keep Tf <= 0.1 Ts, 
   
    Incremental change of input dmv:  both Tm and Tr acts as scaling factor ( ~ Tt/Tm)  for input dmv affecting output value.  
    
           
-  
-
-
+ 
+MV structure parameters:
  ```python
  MVR.
     MvLL   - Manual value Low Limit   ( set as 0.95-1.0 of control Umax)    
@@ -455,7 +454,7 @@ All manual value tunable parameters need to be initialized, custom function ```M
     }
  ```
  
- 
+MV processing functions: 
  ```python
 mv_processing.py 
     ├── MV_REGS = {...}                 - dictionary description of mv structure      
