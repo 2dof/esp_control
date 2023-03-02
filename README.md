@@ -406,22 +406,47 @@ min/max value.
  
  mv_tune(MVR)        # Alway tube parameter after changing 
  
- # do some test 
+ # do some testing 
+ for i in range(0,40):
+        
+    ytr = 2*sin(6.28*0.05*i)
  
+    y = mv_update(MVR,dx,ytr)
+    print("ytr:",ytr,"mv:",y)
+    
+    if i == 22: # check how increasing Tt affect mv output to track   
+       #dx = 1. 
+       MVR.Tt   =0.5  
+       mv_tune(MVR)
  ```
+ 
+ <p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/mv_tracking_signal_neg.png" width="500" height="300" />
+<br> figure C1.</p>
+ 
+ 
+All manual value tunable parameters need to be initialized, custom function ```MV_init0(MVR) ```(or by direct acces) and recalculated by  ```MV_tune(MVR) ``` function.
+ ```MV_init0(SPR) ``` is a custom function (edidet by user) for setting up parameters, also parameters are accesible directly from structure.
+ When reset of MV structure is requred, then use ```mv_reset(MVR)``` .
+ 
+:exclamation: → ALLWAYS CALL  ```MV_tune() ``` function after changing tunable parameters.
 
-
-
-
+** changing Tt or Tm **
+   
+   Rracking dynamic - increasing value of Tt (in relation to sampling time (Ts))  cause more lag effect (see figure C1., for fast responce keep Tf <= 0.1 Ts, 
+  
+   Incremental change of input dmv:  both Tm and Tr acts as scaling factor ( ~ Tt/Tm)  for input dmv affecting output value.  
+   
+          
+  
 
 
  ```python
  MVR.
     MvLL   - Manual value Low Limit   ( set as 0.95-1.0 of control Umax)    
     MvHL   - Manual value High limit  ( set as 0. to 0.05 of control Umin)    
-    Tt     - time constant for tracking input       
-    Tm     - time constant for increment change of manual input        
-    Ts     -        
+    Tt     - time constant for tracking input ( set to <=0.1 of Ts to fast responce)     
+    Tm     - time constant for increment change of manual input      
+    Ts     - sampling time        
     mvi    - Manual value before saturation checkong 
     mvo    - Manual value oputput 
     at     -  calculated, tracking block parameter 
