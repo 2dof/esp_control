@@ -380,7 +380,15 @@ All proces value tunable parameters need to be initialized, and Configuration se
 # 5. Manual value processing 
 
 
-     ( in preparation)
+
+ ```python
+mv_processing.py 
+    ├── MV_REGS = {...}                 - dictionary description of mv structure      
+    ├── def mv_update(mvr,dmv,tr =0.0)  - return manual value according to change in 'dmv' or 'tr' inputs, update internal states  
+    ├── def mv_tune(mvr)                - recalulate internal parameters of mvr when tunable parameters are change. 
+    ├── def mv_reset(mvr)               - reset internal state , manual value mv = 0 
+    └── def mv_init0(mvr)               - edited by user, initialize  'mvr' structure.  
+ ``` 
      
      
  ###### [Contents](./README.md#contents)
@@ -462,8 +470,8 @@ All proces value tunable parameters need to be initialized, and Configuration se
  
  ```python
 curve_generator.py 
-    │──class Ramp_generator(object)     - Ramp generator __init__(Ramp,unit='m') -> Ramp: list of points,  unit: 'm'-> minutes, 's'->seconfs              
-    │         ├── .start(val0)          - command start generating values (from begining) every call of .get_value(dt), dt: time interval    
+    │──class Ramp_generator(object)     - Ramp generator __init__(Ramp,unit='m') -> Ramp: list of points,  unit: 'm'-> minutes, 's'->seconds              
+    │         ├── .start(val0)          - command start allowing to generate values every call of .get_value(dt), dt: time interval    
     │         ├── .stop()               - stop generating, even if .get_value(dt) is called, only last value is returned before .stop()
     │         ├── .resume()             - resume generating after stop
     │         ├── .get_value(dt)        - generate next value in dt interval.  
