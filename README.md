@@ -71,7 +71,8 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
 │   ├── mv_processing.py           see: p.5. Manual value processing 
 │   ├── curve_generator.py         
 │   ├── utils_pid_esp32.py         see: (functional_description.md)
-│   │  
+│     
+├── [process_model]
 │   ├── process_models.py
 │   └── ....
 │ 
@@ -393,18 +394,43 @@ min/max value.
  *MV_REGS* define all parametar.
  
  ```python
+ from mv_processing import *
+ 
  mv_buf=bytearray(41)   
  MVR = uctypes.struct(uctypes.addressof(mv_buf), MV_REGS, uctypes.LITTLE_ENDIAN)
 
  mv_init0(MVR)
- mv_tune(MVR)
+ 
+ # lets set saturation parameter MvLL
+ MVR.MvLL = 0.0
+ 
+ mv_tune(MVR)        # Alway tube parameter after changing 
+ 
+ # do some test 
+ 
+ ```
 
- 
- 
+
+
+
+
+
+ ```python
+ MVR.
+    MvLL   - Manual value Low Limit   ( set as 0.95-1.0 of control Umax)    
+    MvHL   - Manual value High limit  ( set as 0. to 0.05 of control Umin)    
+    Tt     - time constant for tracking input       
+    Tm     - time constant for increment change of manual input        
+    Ts     -        
+    mvi    - Manual value before saturation checkong 
+    mvo    - Manual value oputput 
+    at     -  calculated, tracking block parameter 
+    bt     -  calculated, tracking block parameter 
+    ct     -  calculated, tracking block parameter 
+    }
  ```
  
  
-
  ```python
 mv_processing.py 
     ├── MV_REGS = {...}                 - dictionary description of mv structure      
@@ -539,11 +565,11 @@ actually only this overview is public, code will be published later.
 
 *DOCUMENTATION*
   - [x] Project architecture and algorithms description (doc) - not public 
-  - [ ] micropython usage documentation  
+  - [#] micropython usage documentation  
  
 **IMPLEMENTATION** 
   
-  - [x] Python implementation ( coded based on classes), :exclamation: - not public 
+  - [x] Python implementation ( code based on classes), :exclamation: - not public 
   - [x] Micropython implementation (code based on structures)  :exclamation: → IN PROGRESS (actually not public)
   - [ ] C implementation (code based on structures)   :exclamation: → IN PROGRESS (actually not public)
 
