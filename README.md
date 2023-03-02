@@ -251,7 +251,7 @@ perform basic setpoint signal processig : linear normalization (for external set
 to selected configuration.
 Internal setpoint is value set by user/signal generation, external setpoint is selected for example in cascade control configuration.
 
-**Setting SP processing**
+**Setting-up SP processing**
 
  *SPR* object is created as uctypes.struct() (size of 64 bytes) based on layout defined in  *SP_REGS* dictionary. 
  *SP_REGS# define all parametar and Configuration Register (defined by SP_FIELDS dict (bit fields)).
@@ -379,7 +379,31 @@ All proces value tunable parameters need to be initialized, and Configuration se
  
 # 5. Manual value processing 
 
+Manual Value (MV) processing called by function: 
+```python
+ def mv_update(mvr,dmv,tr =0.0)    # mvr- mv structure , dmv - change in manual value input  ,tr - tracking input
+```
+which perform basic manual value signal processig: incremental change from input dmv of manual value with tracking input (from control signal), limit
+min/max value. 
+#racking (of control value) ensure to bumples change during Auto/Manual control in control process  
 
+**Setting-up MV processing**
+
+ *MVR* object is created as uctypes.struct() (size of 41 bytes) based on layout defined in  *MV_REGS* dictionary. 
+ *MV_REGS* define all parametar.
+ 
+ ```python
+ mv_buf=bytearray(41)   
+ MVR = uctypes.struct(uctypes.addressof(mv_buf), MV_REGS, uctypes.LITTLE_ENDIAN)
+
+ mv_init0(MVR)
+ mv_tune(MVR)
+
+ 
+ 
+ ```
+ 
+ 
 
  ```python
 mv_processing.py 
