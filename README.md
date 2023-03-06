@@ -596,7 +596,8 @@ curve_generator.py
 Condition for time measurment:
 - for pid, sp, pv, mv, etc. processing all selectable configuration were selected (i.e pid-isa: Psel, Isel, Dsel, Awsel, Modesel, Deadsel, Rlimsel =True ) 
 - results are rounded-up with 0.05 ms accuracy.
-
+ 
+ ``` 
 MicroPython v1.19.1 on 2022-06-18. 
     |   --------------------------   freq: 160M Hz
     │── isa_updateControl()           - 0.7 ms  
