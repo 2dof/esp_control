@@ -115,3 +115,7 @@ for i in range(Ns):
     print("sp:",sp,"pv:",pv,"uk:",uk,'mv:',mv)
      
 ```
+
+"isa_awsel1_neg.png" "isa_awsel0_neg.png" 
+
+
