@@ -65,7 +65,7 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
  ```python
 ├── [src]
 │   ├── pid_isa.py                 see  p. 2.1 PID-ISA  
-│   ├── simple_pid.py              
+│   ├── pid_aw.py                  see  p. 2.2 PID with anti-windup  
 │   ├── sp_processing.py           see  p.3  Setpoint Processing 
 │   ├── pv_processing.py           see  p.4  Process Value Processing
 │   ├── mv_processing.py           see: p.5. Manual value processing 
@@ -239,7 +239,26 @@ $$ e_{k} = r - y $$
 \small   y: \text{proces value PV; }\\
 \small   u_{bias}: \text{ bias input}
 ```
-with Anti-windup scheme with back-calculation. 
+with build-in Anti-windup (with back-calculation) scheme.
+
+**Difference from P-I-D ISA**
+- build in antiwindup. 
+- backward difference approximation was used for I and D action ( PID-ISA: I-action: backward, D-action: Trapez approximation).
+- no dead-band, no rate limit, no du/dt calculation, no SP and D-action weighting. 
+- structure parameters are not compatible ( can't be used interchangeably). 
+
+
+
+
+PID processing functions: 
+ ```python
+pid_aw.py 
+    ├── PID_REGS = {...}                                        - dictionary description of pid structure      
+    ├── def pid_aw_updateControl(pid,sp,pv ,ubias=0.)           - p-i-d controller with Anti-windup (back-calculation)
+    ├── def pid_awm_updateControl(pid,sp,pv ,ubias=0, mv=0.)    - p-i-d controller with Anti-windup (back-calculation) and Auto/Man bumpless switching 
+    ├── def pid_tune(pid)                                       - tune pid parameters   
+    └── def pid_init0(pid)                                      - init pid parameters (function can be edited by user) 
+ ``` 
 
 
 # 3. Setpoint processing 
@@ -573,6 +592,25 @@ curve_generator.py
  ###### [Contents](./README.md#contents)
 
 # 9. Benchmark 
+
+Condition for time measurment:
+- for pid, sp, pv, mv, etc. processing all selectable configuration were selected (i.e pid-isa: Psel, Isel, Dsel, Awsel, Modesel, Deadsel, Rlimsel =True ) 
+- results are rounded-up with 0.1 ms accuracy.
+
+MicroPython v1.19.1 on 2022-06-18. 
+    |   --------------------------   freq: 160M Hz
+    │── isa_updateControl()           -  
+    ├── pid_aw_updateControl()        - 0.5 ms 
+    ├── pid_awm_updateControl()       - 0.5 ms        
+    ├── sp_update()                   - 0.3 ms 
+    ├── pv_update()                   -
+    ├── mv_update()                   -
+    ├── Ramp_generator.get_value()    -    
+    └──     
+ ``` 
+
+An @timed_function() was used to time measure (see [Identifying the slowest section of code](https://docs.micropython.org/en/latest/reference/speed_python.html))
+
 
 
  ###### [Contents](./README.md#contents)
