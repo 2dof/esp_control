@@ -1,9 +1,12 @@
 
 **Example 1: PID-ISA with anti-windup** 
 
-In this example we show how to implement a anti-windup scheme for pid-isa controller. 
-additionaly we will use manual value (MV) processing  with Man/Auto switch to show how 
-MV processing will be tracking a control value (CV).
+In this example we show how to implement a anti-windup scheme for pid-isa controller (see block diagram below), 
+additionaly, we will use manual value (MV) processing  with Man/Auto switch to show how 
+MV processing will be tracking a control value (CV). 
+
+<img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/pid_isa_awm_1_neg.png" width="300" height="230" />
+
 
 Simulation will be done "in the loop" with First Order Process with Delay Time (FOPDT) as controlled process.
 
