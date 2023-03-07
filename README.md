@@ -621,6 +621,10 @@ An @timed_function() was used to time measure (see [Identifying the slowest sect
  
 # 10. Examples
 
+ [Go to Examples ](./Examples/Examples.md)
+
+ 
+
  ###### [Contents](./README.md#contents)
 
 # 11. Process models
