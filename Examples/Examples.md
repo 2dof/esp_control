@@ -7,8 +7,10 @@ MV processing will be tracking a control value (CV).
 
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/pid_isa_awm_1_neg.png" width="300" height="230" />
 
-
 Simulation will be done "in the loop" with First Order Process with Delay Time (FOPDT) as controlled process.
+
+Whole code: example_isa_awm_1.py
+
 
 ```python
 from pid_isa import *
