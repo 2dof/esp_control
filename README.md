@@ -33,13 +33,19 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
  
  library provide functionalities:
  
-**P-I-D processing**
-  - P, P-I ,P-D, P-I-D selection 
-  - antiwind-up on/off selection 
-  - control output rate limit (with alarm flag)
-  - control error dead band on/off selection 
-  - bias signal input 
-   <!--  - I action auto-reset (with preloading) on/off selection -->
+**P-I-D alghorithms:**
+  PID-ISA:
+   - P, P-I ,P-D, P-I-D selection 
+   - control signal limit and antiwind-up on/off selector
+   - control output rate limit selector  
+   - control error dead band on/off selector
+   - Setpoing Weighting for P-action and D-Action
+   - Direct /Indirect control selector
+    <!--  - I action auto-reset (with preloading) on/off selection -->
+   
+  PID with build-in antiwindup:
+   - P, P-I ,P-D, P-I-D selection
+   - buil-in Man/Auto selector
    
 **Setpoint (SP processing) signal processing**
    
@@ -60,7 +66,10 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
   - deadband function
   - noise filter function
   - linear normalization , sqrt normalization
-  - ( signal curve generation ) 
+ 
+  **Curve generation**
+  - Signal Curve generation base on time-stamps points.
+ 
   
 ###### [Contents](./README.md#contents)
 
@@ -76,17 +85,16 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
 │   ├── utils_pid_esp32.py         see: (functional_description.md)
 │     
 ├── [process_model]
-│   ├── process_models.py
+│   ├── simple_models_esp.py
 │   └── ....
 │ 
-├── [examples]
-│   ├── anti_windup.py        
-│   ├── sp_processing.py
+├── [Examples]
+│   ├── example_isa_awm_1.py           
+│    
 ├── [unit_tests]
 └── ...
  
  ``` 
-
 
 # 2. Control Processing functions
 
@@ -487,8 +495,10 @@ mv_processing.py
  
  # 6. Control value processing 
 
-
-     ( in preparation)
+Basic control signal processing are based on methods provides by [Signal processing](#8-signal-processing).
+Depending on desired solution it is possible to implement for example:
+- 2 or 3 Step Controller ( with or wothout Position Feedback Signal
+ 
      
      
  ###### [Contents](./README.md#contents)
