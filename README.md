@@ -4,9 +4,6 @@
 
 P-I-D control library for esp32 Micropython 
 
-:exclamation:
-actually only this doc is public, code will be published later. ANY QUESTIONS ? ->  Send a message 
-
 <p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/PID_diagram_neg.png" width="700" height="300" />
 <br> figure A0.</p>
 
@@ -626,7 +623,6 @@ MicroPython v1.19.1 on 2022-06-18.
 An @timed_function() was used to time measure (see [Identifying the slowest section of code](https://docs.micropython.org/en/latest/reference/speed_python.html))
 
 
-
  ###### [Contents](./README.md#contents)
  
 # 10. Examples
@@ -650,21 +646,20 @@ actually only this overview is public, code will be published later.
 
 *DOCUMENTATION*
   - [x] Project architecture and algorithms description (doc) - not public 
-  - [#] micropython usage documentation  
+  - [x] micropython usage documentation 
  
 **IMPLEMENTATION** 
-  
-  - [x] Python implementation ( code based on classes), :exclamation: - not public 
-  - [x] Micropython implementation (code based on structures)  :exclamation: → IN PROGRESS (actually not public)
+  - [x] Micropython implementation (code based on structures)
+  - [x] Python implementation (code based on classes), :exclamation: - not public 
   - [ ] C implementation (code based on structures)   :exclamation: → IN PROGRESS (actually not public)
 
 *Tools*
-  - [ ] serial protocol communication ( data exchange and controller configuration) 
-  - [ ] desktop APP for configuration, simulation and testing 
+  - [x] serial protocol communication ( data exchange and controller configuration)-  in progres 
+  - [ ] desktop APP for configuration, simulation and testing - - not public/ in progress  
 
 **END NOTE:** with hope in the future i will add more functionalities like:
-  - more P-I-D alghorithms implementations 
-  - PID controller autotuning functions 
+  - more P-I-D alghorithms implementations
+  - PID controller autotuning functions  
   - more advanced API: Cascade, fed-forward control implementation examples 
 
 
