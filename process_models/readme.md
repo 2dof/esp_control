@@ -1,8 +1,8 @@
 
 
-First Order Proces with Delay time ```FOPDT_model() ``` described by transfer function: 
+First Order Proces with Delay time ```FOPDT_model() ``` described by diff. equation: 
 
-$$ G_{p}=\frac{K_{p}}{\tau s+1}\exp(-t_{d}s)$$ 
+$$ \tau\dot{y}(t) = - y(t) + K_{p}u(t-t_{d})$$ 
 ```math
 \small   Kp: \text{ process gain }\\
 \small   \tau : \text{proces time constans; }\\
