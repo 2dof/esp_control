@@ -30,7 +30,7 @@ P-I-D control library for esp32 Micropython
  
  library provide functionalities:
  
-**P-I-D alghorithms:**
+**P-I-D algorithms:**
   PID-ISA:
    - P, P-I ,P-D, P-I-D selection 
    - control signal limit and antiwind-up on/off selector
@@ -40,9 +40,9 @@ P-I-D control library for esp32 Micropython
    - Direct /Indirect control selector
     <!--  - I action auto-reset (with preloading) on/off selection -->
    
-  PID with build-in antiwindup:
+  PID with build-in anti-windup:
    - P, P-I ,P-D, P-I-D selection
-   - buil-in Man/Auto selector
+   - build-in Man/Auto selector
    
 **Setpoint (SP processing) signal processing**
    
@@ -50,7 +50,7 @@ P-I-D control library for esp32 Micropython
   - rate limit on/off selection  
   - signal limit function
   - normalization function
-  - setpoit signal generation   
+  - setpoint signal generation   
   
 **Process Value (PV processing) signal processing**
   - signal linear normalization 
@@ -62,7 +62,7 @@ P-I-D control library for esp32 Micropython
   - value limit, rate limit, 
   - deadband function
   - noise filter function
-  - linear normalization , sqrt normalization
+  - linear normalization, sqrt normalization
  
   **Curve generation**
   - Signal Curve generation base on time-stamps points.
@@ -95,7 +95,7 @@ P-I-D control library for esp32 Micropython
 
 # 2. Control Processing functions
 
-ALL PID alghoritms are implemented as uctypes.struct() for parameters storage and dedicated functions for processing.
+ALL PID algorithms are implemented as uctypes.struct() for parameters storage and dedicated functions for processing.
 
 ## 2.1 PID-ISA 
 
@@ -133,7 +133,7 @@ which return control value.
 ```
 All PID tunable parameters need to be initialized and Configuration setting selected by custom function ```isa_init0(PID) ```(or by direct acces) and recalculated by  ```isa_tune(PID) ``` function.
 
- ```isa_init0() ``` is a custom function for setting up parameters,but parameters are accesible directly from PID struct
+ ```isa_init0() ``` is a custom function for setting up parameters,but parameters are accessible directly from PID struct.
 
  ```python
   PID.Kp = 2 
@@ -151,18 +151,18 @@ All PID tunable parameters need to be initialized and Configuration setting sele
 ``` 
 Configuration setting is selected by setting CFG register by setting bits ( ```PID.CFG.Psel = True ```) or by direct byte value writing ( ```pid.CFG_REG =0x07 ```).
 
-:exclamation: → ALLWAYS CALL  ```isa_tune() ``` function after changing parameters
+:exclamation: → ALLWAYS CALL  ```isa_tune() ``` function after changing parameters.
 
-When setting, is finished then just call ```python isa_updateControl(pid,sp,pv,utr,ubias)  ```   in timer callback or in the loop every Ts interval.
+When setting is finished then just call ```python isa_updateControl(pid,sp,pv,utr,ubias)  ```   in timer callback or in the loop every Ts interval.
 
-Sometimes a reset of PID controller is nedded, then call ```isa_reset(PID)``` to reset the values of Pk, Ik, Dk , u, u1, ed1  ( = 0.0 ).  
+Sometimes a reset of PID controller is needed, then call ```isa_reset(PID)``` to reset the values of Pk, Ik, Dk , u, u1, ed1  ( = 0.0 ).  
    
 :exclamation:
 Go to [Examples](https://github.com/2dof/esp_control/blob/main/Examples/Examples.md) to learn more.  
 
 **PID struct field description** 
 
-P-I-D structure defined is by ISA_REGS dictionary (see in file pid_isa.py) , all parameters are defined as FLOAT32 type values.   
+P-I-D structure defined is by ISA_REGS dictionary (see in file pid_isa.py), all parameters are defined as FLOAT32 type values.   
 
 ```python
 PID.   
@@ -251,12 +251,10 @@ $$ e_{k} = r - y $$
 with build-in Anti-windup (with back-calculation) scheme.
 
 **Difference from P-I-D ISA**
-- build in antiwindup. 
+- build in anti-windup. 
 - backward difference approximation was used for I and D action ( PID-ISA: I-action: backward, D-action: Trapez approximation).
 - no dead-band, no rate limit, no du/dt calculation, no SP and D-action weighting. 
 - structure parameters are not compatible ( can't be used interchangeably). 
-
-
 
 
 PID processing functions: 
@@ -276,7 +274,7 @@ Setpoint Value processing called by function:
 ```python
  def sp_update(spr,spi,spe = 0.0)    # spr- setpoint structure , spi - internal setpoint,spi - extermal setpoint
 ```
-perform basic setpoint signal processig : linear normalization (for external setpoint), min/max and rate value limitation according
+perform basic setpoint signal processing: linear normalization (for external setpoint), min/max and rate value limitation according
 to selected configuration.
 Internal setpoint is value set by user/signal generation, external setpoint is selected for example in cascade control configuration.
 
@@ -295,11 +293,11 @@ SPR.SpeaL = -100.
 sp_tune(SPR)
 ``` 
 All SPR tunable parameters need to be initialized and Configuration setting selected by custom function ```sp_init0(PID) ```(or by direct acces) and recalculated by  ```sp_tune(PID) ``` function.
- ```sp_init0(SPR) ``` is a custom function (edidet by user) for setting up parameters, also parameters are accesible directly from structure.
+ ```sp_init0(SPR) ``` is a custom function (edited by user) for setting up parameters, also parameters are accessible directly from structure.
 
- When reset of SP structure is requred, then ```sp_reset(pid)``` function should be used.
+ When reset of SP structure is required, then ```sp_reset(pid)``` function should be used.
 
-:exclamation: → ALLWAYS CALL  ```sp_tune() ``` function after changing tunable parameters
+:exclamation: → ALWAYS CALL  ```sp_tune() ``` function after changing tunable parameters
 
 SP structure fields description:
 ```python
@@ -341,7 +339,7 @@ Process Value processing called by function:
 ```python
  def pv_update(pvr,pve,pvi = 0.0):    # pvr- pv structure , pve - external setpoint, pvi - internal setpoint value
 ```
-perform basic process value signal processig: linear normalization, noise filter and sqrt normalization depending on the selected option.
+perform basic process value signal processing: linear normalization, noise filter and sqrt normalization depending on the selected option.
  
 two imput signals: external pv value (pve) is a physical sensor value measuring with ADC; internal process value (pvi) is selected for example in cascade control configuration.
      
@@ -363,12 +361,12 @@ PVR.PvbH = 100.
 pv_tune(PVR)
  ```
 
-All proces value tunable parameters need to be initialized, and Configuration setting selected by custom function ```pv_init0(PID) ```(or by direct acces) and recalculated by  ```pv_tune(PID) ``` function.
- ```pv_init0(SPR) ``` is a custom function (edidet by user) for setting up parameters, also parameters are accesible directly from structure.
+All process value tunable parameters need to be initialized, and Configuration setting selected by custom function ```pv_init0(PID) ```(or by direct access) and recalculated by  ```pv_tune(PID) ``` function.
+ ```pv_init0(SPR) ``` is a custom function (edited by user) for setting up parameters, also parameters are accessible directly from structure.
 
- When reset of SP structure is requred, then ```pv_reset(pid)``` function should be used.
+ When reset of SP structure is required, then ```pv_reset(pid)``` function should be used.
  
-:exclamation: → ALLWAYS CALL  ```pv_tune() ``` function after changing tunable parameters.
+:exclamation: → ALWAYS CALL  ```pv_tune() ``` function after changing tunable parameters.
      
   ```python 
   PVR.
@@ -445,21 +443,21 @@ min/max value.
        mv_tune(MVR)
  ``` 
  
-All manual value tunable parameters need to be initialized, custom function ```MV_init0(MVR) ```(or by direct acces) and recalculated by  ```MV_tune(MVR) ``` function.
- ```MV_init0(SPR) ``` is a custom function (edidet by user) for setting up parameters, also parameters are accesible directly from structure.
- When reset of MV structure is requred, then use ```mv_reset(MVR)``` .
+All manual value tunable parameters need to be initialized, custom function ```MV_init0(MVR) ```(or by direct access) and recalculated by  ```MV_tune(MVR) ``` function.
+ ```MV_init0(SPR) ``` is a custom function (edited by user) for setting-up parameters, also parameters are accessible directly from structure.
+ When reset of MV structure is required, then use ```mv_reset(MVR)``` .
  
-:exclamation: → ALLWAYS CALL  ```MV_tune() ``` function after changing tunable parameters.
+:exclamation: → ALWAYS CALL  ```MV_tune() ``` function after changing tunable parameters.
 
 From the code above we will get (waveforms ploted in thonny): 
  <p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/mv_tracking_signal_neg.png" width="500" height="150" />
 <br> figure C1.</p>
 
-Because we change ```MVR.MvLL = 0.0 ``` then manual value will be cut  off at bottom, aslo by changing value of Tf we affect the delay/lag of MV value. 
+Because we change ```MVR.MvLL = 0.0 ``` then manual value will be cut-off at bottom, also by changing value of Tf we affect the delay/lag of MV value. 
 
 **Changing Tt or Tm**
    
-  Tracking dynamic - increasing value of Tt (in relation to sampling time (Ts))introduce more lag effect (see figure C1.), for fast responce keep Tf<=0.1 Ts, 
+  Tracking dynamic - increasing value of Tt (in relation to sampling time (Ts))introduce more lag effect (see figure C1.), for fast response keep Tf<=0.1 Ts, 
   Incremental change of input dmv - both Tm and Tr acts as scaling factor ( ~ Tt/Tm)  for input dmv affecting output value.  
    
          
@@ -493,8 +491,8 @@ mv_processing.py
  # 6. Control value processing 
 
 Basic control signal processing are based on methods provides by [Signal processing](#8-signal-processing).
-Depending on desired solution it is possible to implement for example:
-- 2 or 3 Step Controller ( with or wothout Position Feedback Signal
+Depending on desired solution it is possible to implement, for example:
+- 2 or 3 Step Controller ( with or without Position Feedback Signal)
  
      
      
@@ -510,7 +508,7 @@ Depending on desired solution it is possible to implement for example:
       <br><p align="center"> figure B2 </center></p></td>
   </tr> </table>
 
- Generation of curve is based on defining list of points coordinates consisting of time slices and out values (on end of time slice) (figure B1.)
+ Generation of curve is based on defining a list of points coordinates consisting of time slices and out values (on end of time slice) (figure B1.)
  
  sp_ramp =[p0, p1, p2, ....pN]  , whrere 
  p0 = [t0,val0]      - t0 = 0  - always 0 as start point, start from val0  
@@ -520,12 +518,12 @@ Depending on desired solution it is possible to implement for example:
  pN = [tN,ValN]  
  
 
- Then, supplying our curve profile to ```class Ramp_generator() ``` and defining time unit ( Time slices (intervals) can be only in seconds ('s') or minites ['m'] )
+ Then, supplying our curve profile to ```class Ramp_generator() ``` and defining time unit (Time slices (intervals) can be only in seconds ('s') or minutes ['m'] )
  we create curve generator based on line interpolation between every 2 points.
  
  Example: 
  We want to generate setpoint curve profile: start from actual Setpoint value SP_val and generate values every dt = Ts = 1 sec
- - first define starting point p0=[0,0.0], we assume we dont know what actual SP_val is so we assume value 0.0 (curve profile can be loaded from memory or a file.)
+ - first define starting point p0=[0,0.0], we assume we dont know what actual SP_val is, so we assume value 0.0 (curve profile can be loaded from memory or a file.)
  - in 4 min go to 20 (p1=[4,20]),  
  - hold value 20 for 4 min (p2=[4,20.]), next
  - raise value to 50 in 2 min (p3=[2,50.]), next
@@ -535,9 +533,9 @@ Depending on desired solution it is possible to implement for example:
  
  As in the example below we define our Ramp profile, and create Setpoint generator ```SP_generator```.
  When we are ready, we start generator  ```SP_generator.start(SP_val) ``` from actual Setpoint value. It causes to write SP_val to the starting point 
- (p0 = [0, SP_val]), and set ```Fgen = True  ```. from this moment, we allow to generate values by calling ```SP_generator.get_value(Ts) ``` which return
+ (p0 = [0, SP_val]), and set ```Fgen = True  ```. From this moment, we allow to generate values by calling ```SP_generator.get_value(Ts) ``` which return
  next values every dt =Ts period (see figure B2.)
- When generation is finished (i.e last point of curve was generated, then flag  is reseted. ```SP_generator.Fgen = False  ``` and ```.get_value(Ts)``` will return   last generated value in next call. 
+ When generation is finished (i.e last point of curve was generated, then flag  is reset ( ```SP_generator.Fgen = False ``` ) and ```.get_value(Ts)``` will return   last generated value in next call. 
  
   ```python 
   from curve_generator import *
@@ -564,8 +562,8 @@ Depending on desired solution it is possible to implement for example:
 
   ```  
  
-  ```python class Ramp_generator()  ``` allow to stop (halt), resume generation, add point(on the end of profile), or load new ramp. 
-  Aslo in any time can get elapsed or remaining time during generation (see description below).
+  ```python class Ramp_generator()  ``` allow to stop (halt); resume generation; add point(on the end of profile) or load new ramp. 
+  Also in any time we can get elapsed or remaining time during generation (see description below).
  
  ```python
 curve_generator.py 
@@ -603,7 +601,7 @@ curve_generator.py
 
 # 9. Benchmark 
 
-Condition for time measurment:
+Condition for time measurement::
 - for pid, sp, pv, mv, etc. processing all selectable configuration were selected (i.e pid-isa: Psel, Isel, Dsel, Awsel, Modesel, Deadsel, Rlimsel =True ) 
 - results are rounded-up with 0.05 ms accuracy.
  
@@ -641,9 +639,6 @@ An @timed_function() was used to time measure (see [Identifying the slowest sect
 
 # 12. Project Summary 
 
-:exclamation:
-actually only this overview is public, code will be published later. 
-
 *DOCUMENTATION*
   - [x] Project architecture and algorithms description (doc) - not public 
   - [x] micropython usage documentation 
@@ -654,11 +649,11 @@ actually only this overview is public, code will be published later.
   - [ ] C implementation (code based on structures)   :exclamation: → IN PROGRESS (actually not public)
 
 *Tools*
-  - [x] serial protocol communication ( data exchange and controller configuration)-  in progres 
+  - [x] serial protocol communication ( data exchange and controller configuration)-  in progress 
   - [ ] desktop APP for configuration, simulation and testing - - not public/ in progress  
 
-**END NOTE:** with hope in the future i will add more functionalities like:
-  - more P-I-D alghorithms implementations
+**END NOTE:** with hope in the future, i will add more functionalities like:
+  - more P-I-D algorithms implementations
   - PID controller autotuning functions  
   - more advanced API: Cascade, fed-forward control implementation examples 
 
