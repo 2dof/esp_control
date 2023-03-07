@@ -23,8 +23,11 @@ actually only this doc is public, code will be published later. ANY QUESTIONS ? 
  7. [Setpoint curve ceneration](#7-setpoint-curve-generation ) 
  8. [Signal processing](#8-signal-processing )
  9. [Benchmark](#9-benchmark )
- 10. [Project summary](#10-project-summary)
+ 10. [Examples](#10-examples )
+ 11. [process models](#12-process-models )
+ 12. [Project summary](#12-project-summary)
 
+ 
 
 ## Overview
  
@@ -583,12 +586,11 @@ curve_generator.py
  ###### [Contents](./README.md#contents)
 
  # 8. Signal processing
-
-
-     ( in preparation)
-     
   
-   [functional_description](functional_description.md)
+  Basic signal processing functions are described in [functional_description](functional_description.md)
+  
+  
+
      
  ###### [Contents](./README.md#contents)
 
@@ -617,7 +619,15 @@ An @timed_function() was used to time measure (see [Identifying the slowest sect
 
  ###### [Contents](./README.md#contents)
  
-# 10. Project Summary 
+# 10. Examples
+
+ ###### [Contents](./README.md#contents)
+
+# 11. Process models
+
+ ###### [Contents](./README.md#contents)
+
+# 12. Project Summary 
 
 :exclamation:
 actually only this overview is public, code will be published later. 
