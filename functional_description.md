@@ -30,12 +30,16 @@ Basic signal procerssign functions implemented in utils_pid_esp32.py
    
  <tr>
      <td > <img src="https://github.com/2dof/esp_control/blob/main/drawnings/relay2h_graph.png" width="75" height="75">       </td>
-     <td>   <em> Relay with hysteresis </em> <br>  <sub> description  </sub>  </td>
+     <td>   <em> Relay with hysteresis </em> <br>  
+      <sub> wL - low treshold of hysteresis <br>
+            wH - high (wH>=wL) of hysteresis
+          </sub> 
+        </td>
       <td> 
        
  ```python
  #  class relay2h(wL=-1.0,wH=1.0)   
- relay_2h=relay2h()       # -> init:(wL=-1,wH=1)    and state out: -1.0  
+ relay_2h=relay2h()       # -> init:(wL=-1,wH=1)  and state out: -1.0  
  
  y1 =  relay_2h.relay(0.0)   #   y1 = -1
  y2 =  relay_2h.relay(1.0)   #   y2 =  1.  
