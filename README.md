@@ -625,7 +625,7 @@ An @timed_function() was used to time measure (see [Identifying the slowest sect
  
 # 10. Examples
 
- [Go to Examples ](./Examples/Examples.md)
+ [Go to Examples ](./Examples/README.md)
 
  
 
