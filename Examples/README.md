@@ -3,8 +3,7 @@
 **Example 1: PID-ISA with anti-windup** 
 
 In this example we show how to implement a anti-windup scheme for pid-isa controller (see block diagram below), 
-additionaly, we will use manual value (MV) processing  with Man/Auto switch to show how 
-MV processing will be tracking a control value (CV). 
+ we will use manual value (MV) processing  with Man/Auto switch to show how MV processing will be tracking a control value (CV). 
 
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/pid_isa_awm_1_neg.png" width="300" height="230" />
 
@@ -12,7 +11,7 @@ Simulation will be done "in the loop" with First Order Process with Delay Time (
 
 Whole code: example_isa_awm_1.py
 
-First, import pid control, manual value processing functions and proces model from ```simple_models_esp.py```, We set simulation time and 
+First, import pid control, manual value processing functions and process model from ```simple_models_esp.py```, We set simulation time and 
 define sampling time as Ts =0.1.
 
 ```python
@@ -28,8 +27,8 @@ Ts =  0.1
 Ns=int(Tstop/Ts)
 ```
 
-We create FOPDT proces model with delay 1 sec, proces time constant taup=3.0 sec, and gain 2, next 
-we initialize a P-I-D controler and (PID structure) and Manual Value MVR structure, We set 
+We create FOPDT process model with delay 1 sec, proces time constant taup=3.0 sec, and process gain Kp=2, next 
+we initialize a P-I-D controller and (PID structure) and Manual Value MVR structure, We set 
 MvHL ,MvLL slightly smaller than control Umin/Umax.
 
 ``` Python
@@ -52,11 +51,11 @@ MVR.MvLL = 0.95* PID.Umin
 mv_tune(MVR)
 ```
 
-Next we perform a PID tunung, as example rwo method are presented: a standard step responce (Ziegler-Nichols method) and  
-Tuning based on IMC (internal Model Control) , note that IMC is for 2-dof controller (i.e D action is calcupated not for
-error = sp - pv but for -y value), and we use standard error = sp - pv for D calculation. 
-After callind ```isa_tune(PID)``` we set selectors for anti-windup (Awsel) and PI/PID select control - We will change selectors
-for testing or setup.
+Next we perform a PID tuning, as example two method are presented: a standard step responce (Ziegler-Nichols method) and  
+tuning based on IMC (internal Model Control) , note that IMC is for 2-dof controller (i.e D-action is calculated not for
+error = sp - pv but for -y value - we use standard error = sp - pv for D-calculation). 
+After calling ```isa_tune(PID)``` we set selectors for anti-windup (Awsel) and PI/PID select control - We will change selectors
+for testing our setup.  
 
 ``` Python
 #4 - pid tuning 
@@ -92,14 +91,14 @@ Because we simulate control in the loop we:
 - initialize other parameters.
 
 a) - read value yk from process model and simulate a measurement ```pv = yk + vn```,(vn- noise), for first test we do not add noise.
-b) - set sp value ande change during simulation
+b) - set sp value and change during simulation
 c) - update manual value processing ( we will just use to show tracking functionality)
 d) - update control value, because pid-isa (isa_updateControl()) has not implemented Man/Auto switch (but PID structure has selector) we 
       add selector Man/Auto
-e) in Manula mode (Mansel =True) we just we overwrite output value form ```isa_updateControl()```  with manual value mv (We will not use 
+e) in Manual mode (Mansel =True) we just overwrite output control value form ```isa_updateControl()```  with manual value mv (We will not use 
    switch Man/Auto in this example)
-f) - we call ```limit()``` function to limit control signal, and we weed-up output uk control singnal to tracking input utr in ```isa_updateControl()``` function.
-    when PID.CFG.Awsel = True the anti-windup (with backcalculation) will be active.
+f) - we call ```limit()``` function to limit control signal, and we feed-up output uk control signal to tracking input utr in ```isa_updateControl()``` function,
+    when PID.CFG.Awsel = True the anti-windup (with back calculation) will be active.
 g) last step is just to print signals.
 
 ```python
@@ -142,8 +141,8 @@ for i in range(Ns):
     print("sp:",sp,"pv:",pv,"uk:",uk,'mv:',mv)
      
 ```
-At as result we print results, below we presented them as plots for easier analysis. Figure 1. present proces control without
-anti-windup, the second with antntiwindup.
+Below printed data are presented on plots for easier analysis. Figure 1. present process control without
+anti-windup, the second with antntiwindup active. 
 On the bottom chart we can see how manual value (mv) track a control signal to ensure bumpless swiching from Auto to Manual control mode.  
 
   <table style="padding:4px">
@@ -157,6 +156,11 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
   
  </p></td>
   </tr> </table> 
+  
+ In real time implementation all signal processing ( from reading process, value to control calcupation) shoud be implemented as 
+ timer interrupt callback function, all parameters update and tuning shoud be done after end of control process update. 
+  
+In next example a OOP implementation will be presented (To Do:) ). 
 
 
 
