@@ -160,7 +160,6 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
  In real time implementation all signal processing ( from reading process, value to control calcupation) shoud be implemented as 
  timer interrupt callback function, all parameters update and tuning shoud be done after end of control process update. 
   
-In next example a OOP implementation will be presented (To Do:) ). 
 
 
 
