@@ -140,7 +140,8 @@ Basic signal procerssign functions implemented in utils_pid_esp32.py
   </tr>
    <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/norm_graph.png" width="75" height="75">  </td>
-     <td>   <em> linear normalization </em> <br>  <sub> description  </sub>  </td>
+     <td>   <em> linear normalization </em> <br>  <sub> y=  (x-aL)*(bH-bL)/(aH-aL) + bL
+                </sub>  </td>
  
    <td>
        
