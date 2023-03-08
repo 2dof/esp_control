@@ -156,7 +156,7 @@ Basic signal procerssign functions implemented in utils_pid_esp32.py
   </tr>
    <tr>
       <td> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/norm_sqrt_graph.png" width="75" height="75"> </td>
-     <td>   <em> SQRT normalization   </em> <br>  <sub> description  </sub>    </td>
+     <td>   <em> SQRT normalization   </em> <br>  <sub> y = sqrt(x)((bH-bL)/10+bL) </sub>    </td>
      <td>
        
  ```python
