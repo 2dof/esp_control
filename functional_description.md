@@ -161,7 +161,11 @@ Basic signal procerssign functions implemented in utils_pid_esp32.py
        
  ```python
  #  class sqrt_norm(bL=0,bH=100)
-  
+      
+ norm2 = sqrt_norm()
+ y1 =norm2.normalize(0)      # 0 
+ y2 =norm2.normalize(100.0)  # 100  
+ y3 = norm2.normalize(16)     # 40
 ```
    </td>
  </tr> 
