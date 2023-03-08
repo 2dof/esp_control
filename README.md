@@ -164,6 +164,7 @@ Go to [Examples](https://github.com/2dof/esp_control/blob/main/Examples/Examples
 
 P-I-D structure defined is by ISA_REGS dictionary (see in file pid_isa.py), all parameters are defined as FLOAT32 type values.   
 
+Structrue description:
 ```python
 PID.   
     Kp      -   proportional gain   
@@ -232,7 +233,9 @@ PID controllers with 'build in' Anti-windup.
       <br><p align="center"> figure A.4 </center><br> 
       
   ```python
-  def pid_awm_updateControl(pid,sp,pv,ubias = 0.,mv = 0.)
+  def pid_awm_updateControl(pid,sp,pv,ubias = 0.,mv = 0.) 
+  
+  # pid: 'PID_REGS' structure,sp: setpoint, pv: process value, mv: manual value
   ```
  </p></td>
   </tr> </table> 
@@ -249,12 +252,93 @@ $$ e_{k} = r - y $$
 \small   u_{bias}: \text{ bias input}
 ```
 with build-in Anti-windup (with back-calculation) scheme.
+functions: ```pid_aw_updateControl()```  and  ```pid_awm_updateControl()``` implement that same algorithm, but second one incorporate switching between Auto/Manual mode into control value calculation (i.e : I-action will track change in mv value in Manual control)
 
 **Difference from P-I-D ISA**
 - build in anti-windup. 
 - backward difference approximation was used for I and D action ( PID-ISA: I-action: backward, D-action: Trapez approximation).
 - no dead-band, no rate limit, no du/dt calculation, no SP and D-action weighting. 
-- structure parameters are not compatible ( can't be used interchangeably). 
+- structure of parameters is different (can't be used interchangeably). 
+
+ 
+**Setting up P-I-D controller**
+
+ *pid* object is created as uctypes.struct() based on layout defined in  *PID_REGS* dictionary. 
+ *PID_REGS* define all parametar and Configuration Register (defined by PID_FIELDS dict (bit fields)):
+
+
+```python
+  form pid_aw import *
+  
+  # create and init pid structure
+  pid_buf=bytearray(101)  # size of PID_REGS is 101 bytes, 
+  PID1 = uctypes.struct(uctypes.addressof(pid_buf), PID_REGS, uctypes.LITTLE_ENDIAN)
+  pid_init0(PID1)
+  
+  # change some parameters
+  PID1.Kp = 2
+  PID1.Tt = PID1.Ts    # 0.1
+  pid_tune(PID1)
+    
+  # and test some settings
+  PID1.CFG.Modesel = False  # True
+     
+  # get step responce 
+  sp = 10.       # setpoint
+  pv = 0.       # proces value 
+  mw = 0        # manual value 
+  
+  for i in range(0,25):
+      u = pid_aw_updateControl(PID1,sp,pv,ubias = 0.)
+      #u = pid_awm_updateControl(PID1,sp,pv,ubias=0.,mv ) 
+    
+      print("u:",u,"uk:",PID1.uk)
+```
+
+
+Structrue description:
+```python
+PID.   
+    Kp      -   proportional gain   
+    Ti      -   integrator time   
+    Td      -   derivative time 
+    Tm      -   derivative filter time    
+    Tt      -   antiwindup time     
+    Umax    -   max limit of control   
+    Umin    -   low limit of control   
+    dUlim   -   control rate limit  
+    Ts      -   sampling time          
+    Pk      -   calculated P-action value  
+    Ik      -   calculated I-action value      
+    Dk      -   calculated D-action value        
+    Ki      -   calculated integrator gain        
+    Kd      -   calculated derivative gain  
+    ai      -   calculated parameter for I-action   
+    bi      -   calculated parameter for I-action  
+    ad      -   calculated parameter for D-action  
+    bd      -   calculated parameter for D-action   
+    ek      -   ek=(sp-pv)   control error        
+    u       -   control value  (calculated) output  
+    uk      -   control value uk = P+I+D (calculated)
+    ek1      -  store ek(k-1)    (caluclated) 
+    u1      -   store u(k-1)    (caluclated)     
+    CFG_REG -   Congfiguration register ( byte access)
+    CFG     -   configurration register ( bit filelds access)   
+```
+  
+bit field names:
+```python
+ CFG.
+    Psel    - bit:0  - P-action selection 
+    Isel    - bit:1  - I-action selection
+    Dsel    - bit:2  - D-action selection
+    Mansel  - bit:3  - Manual selection
+    Modesel - bit:4  - Mode selection(0-direct, 1-indirect)
+    Rlimsel - bit:5  - Rate limit selection
+    F6      - bit:6  - fro user use
+    F7      - bit:7  - for user use   
+```
+
 
 
 PID processing functions: 
