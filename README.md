@@ -80,7 +80,14 @@ P-I-D control library for esp32 Micropython
 │   ├── mv_processing.py           see: p.5. Manual value processing 
 │   ├── curve_generator.py         
 │   ├── utils_pid_esp32.py         see: (functional_description.md)
-│     
+│   |
+|   └── [thermocouples]
+|          ├──model_K.py 
+|          ├──its90_K.py          # caluclation Temperature (Celsius) based on ITS-90 from IEC 60584-1/2013    
+|          ├──its90_K_lookup.py   # lookup table on  array 
+|          ├──its90_K_lookupB.py  # lookup table on  bytes 
+|          ├──lookup_search.py 
+|
 ├── [process_model]
 │   ├── simple_models_esp.py
 │   └── ....
