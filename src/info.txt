@@ -17,8 +17,15 @@ MicroPython esp32 p-i-d library
 │   ├── pv_processing.py            
 │   ├── mv_processing.py            
 │   ├── curve_generator.py         
-│   ├── utils_pid_esp32.py         
-│     
+│   ├── utils_pid_esp32.py  
+|   |
+|   └── [thermocouples]
+|          ├──model_K.py 
+|          ├──its90_K.py          # caluclation Temperature (Celsius) based on ITS-90 from IEC 60584-1/2013    
+|          ├──its90_K_lookup.py   # lookup table on  array 
+|          ├──its90_K_lookupB.py  # lookup table on  bytes 
+|          ├──lookup_search.py 
+|
 ├── [process_model]
 │   ├── simple_models_esp.py
 │   └── ....
