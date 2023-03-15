@@ -8,7 +8,8 @@ source of polynomials: IEC 60584-1/2013 or https://www.omega.co.uk/temperature/z
 
 Source of tables: [https://srdata.nist.gov/its90/main/0](https://srdata.nist.gov/its90/main/)
 
-**Thermocouple type K**
+
+## Thermocouple type K 
 
 **Note**
 Polynomials on nist site are for [mV] values but there are not valid since implementation based on them do not give results
@@ -80,7 +81,7 @@ Thermocouple Type K
 ```          
  
           
-**Benchmark**
+## Benchmark 
 
 ```
 ESP32: MicroPython v1.19.1  
