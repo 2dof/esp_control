@@ -69,6 +69,7 @@ T,idx = its90_K_blookup(E,idx-1,idx+1)
 
 
 ```
+
 Thermocouple Type K
           ├──model_K.py          # thermocoule type K model based on ITS-90 polynomials
           ├──its90_K.py          # caluclation Temperature (Celsius) based on ITS-90 Polynomials from IEC 60584-1/2013    
@@ -77,18 +78,19 @@ Thermocouple Type K
           ├──lookup_search.py    #  
           
 ```          
+ 
           
-          
-***Benchmark***
+**Benchmark**
 
-ESP32: MicroPython v1.19.1 on 2022-06-18.  
+```
+ESP32: MicroPython v1.19.1  
 freq : 160M Hz                                     tables
      |                         the worst           size  
      ├──model_K()                 x                  x
      ├──its90_K()             0.704 ms              672 bytes  - stored as 3 arrays of float32   
      ├──its90_K_lookup()      0.705 ms             1072 bytes  - stored as array of uint16 (165 values)
      ├──its90_K_blookup()     0.824 ms              276 bytes  - stored as bytes ( 138 values)
- 
+ ```
        
  details: [benchmark.txt](https://github.com/2dof/esp_control/blob/main/src/thermocouples/benchmark.txt)       
              
