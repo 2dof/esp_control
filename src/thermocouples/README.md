@@ -29,7 +29,7 @@ Thermocouple Type K
           
 ***Benchmark***
 
- [benchmark.txt ](https://github.com/2dof/esp_control/edit/main/src/thermocouples/benchmark.txt) 
+ [benchmark.txt](https://github.com/2dof/esp_control/blob/main/src/thermocouples/benchmark.txt) 
 
              
              
