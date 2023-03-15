@@ -1,6 +1,7 @@
 
 
-Thermocouple library implements a ITS-90 thermocoule Temperature reference functions based on ITS-90 Polynomials from IEC 60584-1/2013.
+Thermocouple library implements a ITS-90 thermocoule Temperature reference functions based on ITS-90 Polynomials from IEC 60584-1/2013 and
+NIST Thermoelectric Voltage Lookup Tables.
 
 
 source of polynomials: IEC 60584-1/2013 or https://www.omega.co.uk/temperature/z/pdf/z198-201.pdf)
@@ -14,9 +15,13 @@ Polynomials on nist site are for [mV] values but there are not valid since imple
 like in tables. All polynomials in function implmentation are from IEC 60584, and they return results (in uV) consistent with NIST Tables.
 Lookup tables are implemented NIST Tables. 
 
+Implemented Lookup Tables are based on full decimal values from NIST. 
+Go to [Benchmark](benchmark) to select best function for Your needs (seed and memory size).
+
+
 Examples:
 
-function: ``` def its90model_K(temp) ```` return EMV value [μV] for input temp [C] 
+function: ```its90model_K(temp) ```` return EMV value [μV] for input temp [C] 
 ```
 from model_K import its90model_K 
 
@@ -26,35 +31,34 @@ E = its90model_K(T)        # E is EMF, expressed in microvolts (μV);
 
 ```
  
-function: ```def its90_K(E) ```  
-```
+function: ``` its90_K(E) ``` calculate Temperature in [C] for input E expressed in microvolts (μV), implementation based on Polynomials
+```python
 from its90_K import its90_K
 
-E = 10153          # [mV] ->  250 [C]
+E = 10153          # [uV] ->  250 [C]
 
 T= its90_K(E)
 ```
 
+function:```its90_K_lookup(E,low=0, high=163) ``` calculate Temperature in [C] for input E expressed in microvolts (μV), implementation based on approximation form  lookup table in range of E for temp: -270 to 1370  .
 
-
-function:``` def its90_K_lookup(E,low=0, high=163) ```
-```
+```python
 from its90_K_lookup import its90_K_lookup
 
-E = 10153            # [mV] ->  250 [C]
+E = 10153            # [uV] ->  250 [C]
 
 T,idx = its90_K_lookup(E[i])
 T,idx = its90_K_lookup(E[i],idx-1,idx+1)
 
 ```
 
+function ``` its90_K_blookup(E,low=0, high=137) ``` calculate Temperature in [C] for input E expressed in microvolts (μV), implementation based bytes lookup table
+in range of E for temp: 0 to 1370.
 
-
-function ``` def its90_K_blookup(E,low=0, high=137) ```
-```
+```python 
 from its90_K_blookup import its90_K_blookup
 
-E = 10153    # [mV] ->  250 [C]
+E = 10153    # [uV] ->  250 [C]
 
 T,idx = its90_K_blookup(E)
 T,idx = its90_K_blookup(E,idx-1,idx+1) 
