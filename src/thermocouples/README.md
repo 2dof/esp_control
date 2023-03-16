@@ -1,7 +1,7 @@
 
 
-Thermocouple library implements a ITS-90 thermocoule Temperature reference functions based on ITS-90 Polynomials from IEC 60584-1/2013 and
-NIST Thermoelectric Voltage Lookup Tables.
+Thermocouple library implements a ITS-90 thermocouple Temperature reference functions based on ITS-90 Polynomials from IEC 60584-1/2013 and
+NIST Thermoelectric Voltage Lookup Tables
 
 
 source of polynomials: IEC 60584-1/2013 or https://www.omega.co.uk/temperature/z/pdf/z198-201.pdf)
@@ -12,7 +12,7 @@ Source of tables: [https://srdata.nist.gov/its90/main/0](https://srdata.nist.gov
 ## Thermocouple type K 
 
 **Note**
-Polynomials on nist site are for [mV] values but there are not valid since implementation based on them do not give results
+Polynomials on NIST site are for [mV] values but there are not valid since implementation based on them do not give results
 like in tables. All polynomials in function implmentation are from IEC 60584, and they return results (in uV) consistent with NIST Tables.
 Lookup tables are implemented NIST Tables. 
 
@@ -20,9 +20,7 @@ Implemented Lookup Tables are based on full decimal values from NIST.
 Go to [Benchmark](benchmark) to select best function for Your needs (seed and memory size).
 
 
-Examples:
-
-function: ```its90model_K(temp) ```` return EMV value [μV] for input temp [C] 
+Function: ```its90model_K(temp)``` return EMV value [μV] for input temp [C] 
 ```
 from model_K import its90model_K 
 
@@ -32,7 +30,7 @@ E = its90model_K(T)        # E is EMF, expressed in microvolts (μV);
 
 ```
  
-function: ``` its90_K(E) ``` calculate Temperature in [C] for input E expressed in microvolts (μV), implementation based on Polynomials
+Function: ``` its90_K(E) ``` calculate Temperature in [C] for input E expressed in microvolts (μV), implementation based on Polynomials
 ```python
 from its90_K import its90_K
 
@@ -111,4 +109,18 @@ freq : 160M Hz                                     tables
  ```   
  With such an approach we able to speed casculations up x1.5/2, but it is nessesary to implement 
  condition for recalculation on full range when value will be out of actual bonduaries.
+ 
+ ## AD849x series amplifiers
+ 
+ On [AN-1087: Thermocouple Linearization..](https://www.analog.com/en/app-notes/an-1087.html) notes author descibed
+ how to use NIST Lookup Table to perform Linearity Correction for AD849x or when they are used outside
+ of their the measurement range (Table 1. AD849x ±2°C Accuracy Temperature Ranges). 
+ 
+ **Note**
+ Remember that AD849x correction functiona use measutment in mV and You need to convert to uV for using with provided
+ function. 
+ 
+ 
+ 
+ 
  
