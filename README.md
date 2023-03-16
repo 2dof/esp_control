@@ -685,7 +685,7 @@ curve_generator.py
   
   Basic signal processing functions are described in [functional_description](functional_description.md)
   
-  
+  Thermocouples signal processing are descibed in [src/thermocouples](https://github.com/2dof/esp_control/tree/main/src/thermocouples)
 
      
  ###### [Contents](./README.md#contents)
