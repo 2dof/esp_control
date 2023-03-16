@@ -12,12 +12,12 @@ Source of tables: [https://srdata.nist.gov/its90/main/0](https://srdata.nist.gov
 ## Thermocouple type K 
 
 **Note**
-Polynomials on NIST site are for [mV] values but there are not valid since implementation based on them do not give results
-like in tables. All polynomials in function implmentation are from IEC 60584, and they return results (in uV) consistent with NIST Tables.
-Lookup tables are implemented NIST Tables. 
+Polynomials on the NIST site are for [mV] values, but they are not valid since implementation based on them do not give results
+like in tables. All polynomials in function implementation are from IEC 60584, and they return results (in uV) consistent with NIST Tables.
+Lookup tables are implemented based on  NIST Tables. 
 
-Implemented Lookup Tables are based on full decimal values from NIST. 
-Go to [Benchmark](benchmark) to select best function for Your needs (seed and memory size).
+implemented Tables are based on full decimal values from NIST. 
+Go to [Benchmark](benchmark) to select best function for your needs (seed and memory size).
 
 
 Function: ```its90model_K(temp)``` return EMV value [μV] for input temp [C] 
@@ -93,8 +93,8 @@ freq : 160M Hz                                     tables
        
  details: [benchmark.txt](https://github.com/2dof/esp_control/blob/main/src/thermocouples/benchmark.txt)       
              
- Calculations speed based on lookups can be improve if we limit the scope of table search if we will use 
- returned index from previous calculation and use to limit search bonduary:
+ Calculations speed based on lookups can be improved if we limit the scope of table search using
+ returned index from previous calculation and use to limit search bonduary.
  
  ```python 
  lo = 0 
@@ -110,17 +110,44 @@ freq : 160M Hz                                     tables
  With such an approach we able to speed casculations up x1.5/2, but it is nessesary to implement 
  condition for recalculation on full range when value will be out of actual bonduaries.
  
- ## AD849x series amplifiers
+ ## AD849x series amplifiers 
  
- On [AN-1087: Thermocouple Linearization..](https://www.analog.com/en/app-notes/an-1087.html) notes author descibed
- how to use NIST Lookup Table to perform Linearity Correction for AD849x or when they are used outside
- of their the measurement range (Table 1. AD849x ±2°C Accuracy Temperature Ranges). 
+ On [AN-1087: Thermocouple Linearization..](https://www.analog.com/en/app-notes/an-1087.html) notes, the author describedhow to use the NIST Lookup Table to perform Linearity Correction for AD849x or when they are used outside of their measurement range (Table 1. AD849x ±2°C Accuracy Temperature Ranges). 
  
  **Note**
  Remember that AD849x correction functiona use measutment in mV and You need to convert to uV for using with provided
  function. 
  
+ ```python
+    Vout = 1.0* 1000    # [mV]   
+    #Trj  = 25          #[mV] Reference junction Temp.
+    Vref = 0.0          #[mV] 
+    Gain = 122.4
+    #Cjc  = 4.95        #(mV/°C)
+    Voffset = 1.25      # [mV]
+     
+    
+    #[2]AD849x NIST Thermocouple Nonlinearity Compensation
+    Euv = (Vout - Vref -Voffset)/Gain *1000    #*1000  mV  
+    
+    Tmj = its90_K_blookup(Euv)                #  using Lookup table
+    Tmj2 = its90_K(Euv)                       #  using polynomials func. 
+ 
+ ```
  
  
+  ## AD7793 and ADT7320 
  
+In [measuring-temp-using-thermocouples](https://www.analog.com/en/analog-dialogue/articles/measuring-temp-using-thermocouples.html), authorsdescribed measurement method (section: Measurement Solution 2: Optimized for Accuracy and Flexibility) based on AD7793 as the main ADC instrumentation amplifierfor thermocouple junction voltage measurement; an ADT7320 for reference junction temperature compensation; and a mirocontroller as the main calculation unit.
+
+By implementing thermocouple functions or lookup tables in the microcontroller, we can build a universal measurement unit for all types of thermocouples.
+
+
+
+
+
+
+
+
+
  
