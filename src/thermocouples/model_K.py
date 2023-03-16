@@ -2,10 +2,6 @@
 #The MIT License (MIT), Copyright (c) 2022-2023 L.Szydlowski
 # __version__   = "1.0.0"
  
-
-
- 
-
 import array
 from math import exp
 from micropython import const
@@ -32,11 +28,8 @@ _CK0=array.array('f',[0.0000,
              -5.7410327428e-10,
              -3.1088872894e-12,
              -1.0451609365e-14,
-              1.9889266878e-17,
+             -1.9889266878e-17,
              -1.6322697486e-20])
- 
-_a0 = const(1.185976e2) 
-_a1 = const(0.0001183432)
 
 
 def its90model_K(temp):
@@ -48,14 +41,24 @@ def its90model_K(temp):
         for i in range(1,10):
             E+=T*_CK1[i]
             T*=temp
-            
-        x=_a1*(temp-126.9686)**2
-        x=_a0*exp(x)
+          
+        x=-0.0001183432*(temp-126.9686)**2
+        x=118.5976*exp(x)
         E+=x
     else:
         E = _CK0[0]
-        for i in range(10):
+        for i in range(1,11):
             E+=T*_CK0[i]
             T*=temp
             
     return E    # [uv]
+
+# if __name__ == '__main__':
+# 
+#     Eref=[-6458,-6404,-3852,-1889,0,  397 ,1000,10153,20644,22990,24905,27658,32041,32289,37725,48838,54886] # [uV]
+#     T  = [-270.,-250, -110.,-50.0,0.0,10.0,25.0,250.0,500.0,555.0,600.0,665.0,770.0,776.0,910.0,1200.,1372.] # [C]
+#     
+#     for i in range(len(Eref)):
+#         Ei = its90model_K(T[i])
+#         print(i,Eref[i],Ei,' err:',Eref[i]-Ei)
+ 

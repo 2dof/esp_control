@@ -5,10 +5,10 @@
 import array
 from benchmark import timed_function
 
-# import gc
+import gc
 # 
-# gc.collect()
-# start = gc.mem_free()
+gc.collect()
+start = gc.mem_free()
 # all polybomials 104 bytes but as arrays 672)
 _CKi0 =array.array('f',[0.0000000,
         2.5173462e-2,
@@ -39,7 +39,7 @@ _CKi2=array.array('f',[-1.318058e2,
         8.802193e-21,
        -3.110810e-26])
 
-#print(start - gc.mem_free())
+print(start - gc.mem_free())
 
  
 
@@ -76,28 +76,14 @@ def its90_K(E):
     
     return T
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    #E = 54886  #->1373 C
-    E = 48838   # ->1200 C
-    E = 37725   # 910
-    #E = 32289   # 776
-    #E = 32041   # 770
-    #E = 27658   # 665
-    #E = 24905   # 600
-    #E = 22990   # 555
-    #E = 20644   # 500 C
-    E = 10153    # 250 
-    E = 1000    # 25 C 
-    E = 397     # 10 
-    E = -3852   # - 110   
-    E = -6458   # -270 
     
-    E=[-6458,-3852 ,397 ,1000,10153,20644,22990,24905,27658,32041,32289,37725,48838,54886] # [uV]
-    Tref = [-270,- 110,10, 25,250,500,555, 600, 665, 770,776, 910,1200,1373] # [C]
-    
-    for i in range(len(E)):
-        T= its90_K(E[i])
-        print(Tref[i])
-        
-        
+#     E=[-6458,-3852 ,397 ,1000,10153,20644,22990,24905,27658,32041,32289,37725,48838,54886] # [uV]
+#     Tref = [-270,- 110,10, 25,250,500,555, 600, 665, 770,776, 910,1200,1372] # [C]
+#     
+#     for i in range(len(E)):
+#         T= its90_K(E[i])
+#         print(Tref[i])
+#         
+#         
