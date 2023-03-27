@@ -36,6 +36,7 @@ def discrete_FOP(y_1,Ts,u,Kp,taup):
     yk=  taup/(taup+Ts)*y_1 + Kp*Ts/(taup+Ts) * u
     return yk
 
+#First Order Process with delay time
 class FOPDT_model(object):
     def __init__(self,Kp=2.0,taup=5.0,delay=3.0, y0=0.0,Ts=0.1):
         
@@ -58,13 +59,39 @@ class FOPDT_model(object):
         return yk 
  
 
+# ---------------------------------------
+class dc_model():
+    def __init__(self,Ts =0.01,Td=0,R=2.0,L =0.5 ,Kt=0.1,Kb= 0.1,bm=0.2,J=0.02):
+              
+        self.R = R        
+        self.L = L        
+        self.Kt =Kt       
+        self.Kb = Kb      
+        self.bm = bm      
+        self.J = J        
+        self._x0 = 0.     # phi [rad]  - angular position
+        self._x1 = 0.     # dot(phi) [rad/s] - angular speed
+        self._x2 = 0.     # i: current [A]
+        
+    
+    def update(self, V,Td=0,Ts=0.01):
+        
+        # backard discretization dx/dt = (x(k)-x(k-1))/Ts
+        self._x0 = self._x0 + Ts* self._x1 
+        self._x1 = self._x1 + Ts/self.J*(self.Kt*self._x2 - self.bm*self._x1 - Td)
+        self._x2 = self._x2 + Ts/self.L*(V - self.R*self._x2 - self.Kb*self._x1)
+        
+        return self._x1   # return speed 
+
+
+
 if __name__ == '__main__':
     
-    model = FOPDT_model()
-    print('FOPDT_model step responce')
+    model = dc_model() #  FOPDT_model()
+    print('model step responce')
     for i in range(0,100):
         yk = model.update(1.0)
-        print(yk)
+        print(i, yk)
         
-
+   
     
