@@ -671,11 +671,7 @@ curve_generator.py
     └── def sec_to_hhmmss(sec)          - calculate (hh,mm,ss) time format  from given seconds (sec)
  
  ``` 
- 
- Go to [LINK TO_EXAMPLE]  to learn hot to use in practial example.   
- 
- 
- 
+     
  
       
    
@@ -692,7 +688,7 @@ curve_generator.py
 
 # 9. Benchmark 
 
-Condition for time measurement::
+Condition for time measurement:
 - for pid, sp, pv, mv, etc. processing all selectable configuration were selected (i.e pid-isa: Psel, Isel, Dsel, Awsel, Modesel, Deadsel, Rlimsel =True ) 
 - results are rounded-up with 0.05 ms accuracy.
  
@@ -710,6 +706,7 @@ MicroPython v1.19.1 on 2022-06-18.
  ``` 
 
 An @timed_function() was used to time measure (see [Identifying the slowest section of code](https://docs.micropython.org/en/latest/reference/speed_python.html))
+
 
 
  ###### [Contents](./README.md#contents)
