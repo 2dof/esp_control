@@ -29,6 +29,16 @@ $$ J\ddot{\phi} = K_{t}i -b_{b}\dot{\phi} - T_{d} $$
 \small   T_{d}: \text{load torque [Nm]}\\
 ```
 
+example:
+```python 
+    model = dc_motor()        
+    print('model step responce')
+    for i in range(0,100):
+        yk = model.update(1.0)       # .update(self, V,Td=0,Ts=0.01)
+        print(i, yk)
+
+```
+
 
  ```python
 simple_models_esp.py 
