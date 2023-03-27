@@ -60,7 +60,7 @@ class FOPDT_model(object):
  
 
 # ---------------------------------------
-class dc_model():
+class dc_motor():
     def __init__(self,Ts =0.01,Td=0,R=2.0,L =0.5 ,Kt=0.1,Kb= 0.1,bm=0.2,J=0.02):
               
         self.R = R        
@@ -69,8 +69,8 @@ class dc_model():
         self.Kb = Kb      
         self.bm = bm      
         self.J = J        
-        self._x0 = 0.     # phi [rad]  - angular position
-        self._x1 = 0.     # dot(phi) [rad/s] - angular speed
+        self._x0 = 0.     # phi [rad]  
+        self._x1 = 0.     # dot(phi) [rad/s]
         self._x2 = 0.     # i: current [A]
         
     
@@ -81,13 +81,13 @@ class dc_model():
         self._x1 = self._x1 + Ts/self.J*(self.Kt*self._x2 - self.bm*self._x1 - Td)
         self._x2 = self._x2 + Ts/self.L*(V - self.R*self._x2 - self.Kb*self._x1)
         
-        return self._x1   # return speed 
+        return self._x1   
 
 
 
 if __name__ == '__main__':
     
-    model = dc_model() #  FOPDT_model()
+    model = dc_motor() #  FOPDT_model()
     print('model step responce')
     for i in range(0,100):
         yk = model.update(1.0)
