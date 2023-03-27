@@ -29,7 +29,7 @@ $$ J\ddot{\phi} = K_{t}i -b_{b}\dot{\phi} - T_{d} $$
 \small   T_{d}: \text{load torque [Nm]}\\
 ```
 
-DC motor ```math \phi\ , dot(\phi\), i ``` are storend in _x0, _x1, _x2. Calling  ```.update(V, Td, Ts) will return angular speed (_x2). by defauld Td = 0.0 Nm, Ts =0.01 sec     
+DC motor $$\phi\ , dot(\phi\), i $$ are storend in _x0, _x1, _x2. Calling  ```.update(V, Td, Ts) will return angular speed (_x2). by defauld Td = 0.0 Nm, Ts =0.01 sec     
 
 
 example:
