@@ -1,5 +1,5 @@
 
-*First Order Proces with Delay Time*
+## First Order Proces with Delay Time
 
 First Order Proces with Delay time ```FOPDT_model() ``` described by diff. equation: 
 
