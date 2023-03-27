@@ -29,10 +29,18 @@ $$ J\ddot{\phi} = K_{t}i -b_{b}\dot{\phi} - T_{d} $$
 \small   T_{d}: \text{load torque [Nm]}\\
 ```
 
+DC motor ```math \phi\ , dot(\phi\), i ``` are storend in _x0, _x1, _x2. Calling  ```.update(V, Td, Ts) will return angular speed (_x2). by defauld Td = 0.0 Nm, Ts =0.01 sec     
+
+
 example:
 ```python 
+
     model = dc_motor()        
-    print('model step responce')
+                            # model._x0  -> angular rotor position[rad]    
+                            # model._x1  -> angular speed  [ rad/s]
+                            # model._c2  -> current [A]
+                            
+print('model step responce')
     for i in range(0,100):
         yk = model.update(1.0)       # .update(self, V,Td=0,Ts=0.01)
         print(i, yk)
