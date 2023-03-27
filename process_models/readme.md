@@ -7,11 +7,11 @@ $$ \tau\dot{y}(t) = - y(t) + K_{p}u(t-t_{d})$$
 ```math
 \small   Kp: \text{ process gain }\\
 \small   \tau : \text{proces time constans; }\\
-\small   t_{d}: \text{time delay}
+\small   t_{d}: \text{time delay}\\
 ```
 
 ## Simple DC motor 
-Discrete DC motor model: ```DC_motor_model() ``` described by diff. equation:
+Discrete DC motor model: ```dc_motor() ``` described by diff. equation:
 
 $$ L\dot{i} = V  -Ri+ K_{b}\dot{\phi}$$ 
 
