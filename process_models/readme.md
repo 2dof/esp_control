@@ -1,4 +1,18 @@
 
+
+## Simple process models 
+
+Files
+ ```python
+simple_models_esp.py 
+    ├── def.discrete_FOP()    - First Order Process discrete model                                          
+    ├── class FOPDT_model()   - First Order Process with Delay Time discrete model       
+    ├── class ring_buffer()   - ring buffer ( for creatinf delay line)  
+    ├── class dc_model()      - disctere dc motor model                                       
+    └──                                     
+ ``` 
+
+
 ## First Order Proces with Delay Time
 
 First Order Proces with Delay time ```FOPDT_model() ``` described by diff. equation: 
@@ -29,7 +43,8 @@ $$ J\ddot{\phi} = K_{t}i -b_{b}\dot{\phi} - T_{d} $$
 \small   T_{d}: \text{load torque [Nm]}\\
 ```
 
-DC motor $$\phi\ , dot(\phi\), i $$ are storend in _x0, _x1, _x2. Calling  ```.update(V, Td, Ts) will return angular speed (_x2). by defauld Td = 0.0 Nm, Ts =0.01 sec     
+DC motor $$\phi\ , dot(\phi\), i $$ are storend in _x0, _x1, _x2. Calling  ```.update(V, Td, Ts) will return angular speed (_x2). by defauld Td = 0.0 Nm, Ts =0.01 sec. Rotor angle position is calculated in rane 0 -  2 PI radians. 
+
 
 
 example:
@@ -48,11 +63,3 @@ print('model step responce')
 ```
 
 
- ```python
-simple_models_esp.py 
-    ├── def.discrete_FOP()    - First Order Process discrete model                                          
-    ├── class FOPDT_model()   - First Order Process with Delay Time discrete model       
-    ├── class ring_buffer()   - ring buffer ( for creatinf delay line)  
-    ├── class dc_model()      - disctere dc motor model                                       
-    └──                                     
- ``` 
