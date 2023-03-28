@@ -47,8 +47,9 @@ DC motor $$\phi\ , dot(\phi\), i $$ are storend in _x0, _x1, _x2. Calling  ```.u
 
 :exclamation:
 - static friction model not implemented.
-- note that by substituting catalog values of pmdc motor parameters, model compute higher speed value than real one (but time constants should be similar).
-- to add Friction Torque (Tf) ( given from motor catalog) to the model:  ```Td += Tf*sign(sinmodel._x1)```, since micropython have not sign() math function implemented then use  if else condiition.     
+- note that by substituting catalog values of pmdc motor parameters, model will compute higher speed value than real one (but time constants should be similar).
+- to add Friction Torque (Tf) ( given from motor catalog) to the model:  ```Td += Tf*sign(sinmodel._x1)```, since micropython have not sign() math function implemented then use  if else condiition. 
+- sampling time (Ts) for dc motor model should be at lest 5 times smaller than min(Te,tm), Te: electrical time constant, Tm: mechanical time constant.     
 
 example:
 ```python 
