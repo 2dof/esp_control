@@ -61,7 +61,7 @@ class FOPDT_model(object):
 
 # ---------------------------------------
 class dc_motor():
-    def __init__(self,Ts =0.01,Td=0,R=2.0,L =0.5 ,Kt=0.1,Kb= 0.1,bm=0.2,J=0.02):
+    def __init__(self,Ts =0.01,R=2.0,L =0.5 ,Kt=0.1,Kb= 0.1,bm=0.2,J=0.02):
               
         self.R = R        
         self.L = L        
