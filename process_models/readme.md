@@ -46,7 +46,8 @@ $$ J\ddot{\phi} = K_{t}i -b_{b}\dot{\phi} - T_{d} $$
 DC motor $$\phi\ , dot(\phi\), i $$ are storend in _x0, _x1, _x2. Calling  ```.update(V, Td, Ts) will return angular speed (_x2). by defauld Td = 0.0 Nm, Ts =0.01 sec. Rotor angle position is calculated in rane 0 -  2 PI radians. 
 
 :exclamation:
-static friction model not implemented  
+- static friction model not implemented.
+- note that by substituting catalog values of pmdc motor parameters, model compute higher speed value than real one (but time constants should be similar).
 
 
 example:
