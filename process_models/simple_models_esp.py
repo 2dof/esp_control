@@ -76,11 +76,11 @@ class dc_motor():
     
     def update(self, V,Td=0,Ts=0.01):
         
-        # backard discretization dx/dt = (x(k)-x(k-1))/Ts
         self._x0 = self._x0 + Ts* self._x1 
         self._x1 = self._x1 + Ts/self.J*(self.Kt*self._x2 - self.bm*self._x1 - Td)
         self._x2 = self._x2 + Ts/self.L*(V - self.R*self._x2 - self.Kb*self._x1)
         
+        self._x0 -= (self._x0//6.2832) * 6.2832
         return self._x1   
 
 
