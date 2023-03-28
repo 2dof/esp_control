@@ -25,7 +25,7 @@ $$ \tau\dot{y}(t) = - y(t) + K_{p}u(t-t_{d})$$
 ```
 
 ## Simple DC motor 
-Discrete DC motor model: ```dc_motor() ``` described by diff. equation:
+Discrete DC motor (permament magnet) model: ```dc_motor() ``` described by diff. equation:
 
 $$ L\dot{i} = V  -Ri+ K_{b}\dot{\phi}$$ 
 
