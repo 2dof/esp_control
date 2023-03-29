@@ -36,9 +36,7 @@ Function: ```its90model_K(temp)``` return EMV value [μV] for input temp [C]
 from model_K import its90model_K 
 
 T = 250      #[C]  
-
 E = its90model_K(T)        # E is EMF, expressed in microvolts (μV);
-
 ```
  
 Function: ``` its90_K(E) ``` calculate Temperature in [C] for input E expressed in microvolts (μV), implementation based on Polynomials
@@ -91,9 +89,8 @@ Thermocouple Type K
 
 # 2. Thermocouple type J
 
- ### Thermocouple model
+Function: ```its90model_J(temp)``` return EMV value [μV] for input temp [C] 
 
-Example:
  ```python 
 from model_J import its90model_J
 
@@ -105,6 +102,15 @@ for i in range(len(E)):
     print(i,E[i],Ei,' err:',E[i]-Ei)
 
  ```
+Function: ``` its90_J(E) ``` calculate Temperature in [C] for input E expressed in microvolts (μV), implementation based on Polynomials
+```python
+from its90_J import its90_J
+
+E = 15773         # [uV] ->  290 [C]
+
+T= its90_J(E)
+```
+
 
 
 
