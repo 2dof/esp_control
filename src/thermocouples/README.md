@@ -76,10 +76,7 @@ T,idx = its90_K_blookup(E,idx-1,idx+1)
 
 
 
-
-
 ```
-
 Thermocouple Type K
           ├──model_K.py          # thermocoule type K model based on ITS-90 polynomials
           ├──its90_K.py          # caluclation Temperature (Celsius) based on ITS-90 Polynomials from IEC 60584-1/2013    
@@ -94,7 +91,31 @@ Thermocouple Type K
 
 # 2. Thermocouple type J
 
+ ### Thermocouple model
 
+Example:
+ ```python 
+from model_J import its90model_J
+
+E   = [-2431,-501,0,507,1019,1537,2059,12445,13555,15773,16604,16881,22400,27673,29080,29307,29647,33102,42919,45494,51877,57953,69553] # [uV]
+T   = [-50,-10, 0, 10, 20, 30, 40,230,250,290,305,310,410,505, 530, 534,540 ,600,760,800,900, 1000, 1200]
+
+for i in range(len(E)):
+    Ei = its90model_J(T[i])
+    print(i,E[i],Ei,' err:',E[i]-Ei)
+
+ ```
+
+
+
+```
+Thermocouple Type J
+  ├──model_J.py          # thermocoule type J model based on ITS-90 polynomials
+  ├──its90_J.py          # caluclation Temperature [C] based on ITS-90 Polynomials from IEC 60584-1/2013. Caluclation temperature from -210 C to 1200 C    
+  ├──its90_J_lookup.py   # lookup table based on array.  Caluclation temperature from 0C to 760 C 
+  ├──its90_J_blookup.py  # lookup table on  bytes. Caluclation temperature from 0.0 C to 1370 C       
+
+``` 
 
 ###### [Contents](./README.md#contents)
  
