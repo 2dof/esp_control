@@ -9,7 +9,18 @@ source of polynomials: IEC 60584-1/2013 or https://www.omega.co.uk/temperature/z
 Source of tables: [https://srdata.nist.gov/its90/main/0](https://srdata.nist.gov/its90/main/)
 
 
-## Thermocouple type K 
+## Contents
+ 
+1. [Thermocouple type K](#1-thermocouple-type-k)
+2. [Thermocouple type J](#2-thermocouple-type-j)
+3. [Benchmark](#3-benchmark)
+4. [AD849x series amplifiers](#4-ad849x-series-amplifiers)
+ 
+ 
+
+
+
+# 1. Thermocouple type K 
 
 **Note**
 Polynomials on the NIST site are for [mV] values, but they are not valid since implementation based on them do not give results
@@ -77,18 +88,35 @@ Thermocouple Type K
           ├──lookup_search.py    #  
           
 ```          
+
+###### [Contents](./README.md#contents)
+
+
+# 2. Thermocouple type J
+
+
+
+###### [Contents](./README.md#contents)
+ 
  
           
-## Benchmark 
+# 3. Benchmark 
 
 ```
 ESP32: MicroPython v1.19.1  
 freq : 160M Hz                                     tables
      |                         the worst           size  
      ├──model_K()                 x                  x
-     ├──its90_K()             0.704 ms              672 bytes  - stored as 3 arrays of float32   
-     ├──its90_K_lookup()      0.705 ms             1072 bytes  - stored as array of uint16 (165 values)
-     ├──its90_K_blookup()     0.824 ms              276 bytes  - stored as bytes ( 138 values)
+     ├──its90_K()             0.704 ms              672 bytes  - stored as 3 array.array of float32   
+     ├──its90_K_lookup()      0.705 ms             1072 bytes  - stored as array.array of uint16 (165 values)
+     ├──its90_K_blookup()     0.824 ms              276 bytes  - stored as bytes ( 138 values) 
+     
+     ├──model_J()                 x                  x
+     ├──its90_J()             0.3 ms              944 bytes  - stored as 3 array.array of float32   
+     ├──its90_J_lookup()      0.35 ms             192 bytes  - stored as array.array of uint16 (19 values)
+     ├──its90_J_blookup()     0.6 ms              38  bytes  - stored as bytes ( 19 values)
+     
+     
  ```
        
  details: [benchmark.txt](https://github.com/2dof/esp_control/blob/main/src/thermocouples/benchmark.txt)       
@@ -110,7 +138,9 @@ freq : 160M Hz                                     tables
  With such an approach we able to speed casculations up x1.5/2, but it is nessesary to implement 
  condition for recalculation on full range when value will be out of actual bonduaries.
  
- ## AD849x series amplifiers 
+ ###### [Contents](./README.md#contents)
+ 
+ # 4. AD849x series amplifiers 
  
  On [AN-1087: Thermocouple Linearization..](https://www.analog.com/en/app-notes/an-1087.html) notes, the author describedhow to use the NIST Lookup Table to perform Linearity Correction for AD849x or when they are used outside of their measurement range (Table 1. AD849x ±2°C Accuracy Temperature Ranges). 
  
@@ -143,7 +173,7 @@ In [measuring-temp-using-thermocouples](https://www.analog.com/en/analog-dialogu
 By implementing thermocouple functions or lookup tables in the microcontroller, we can build a universal measurement unit for all types of thermocouples.
 
 
-
+###### [Contents](./README.md#contents)
 
 
 
