@@ -171,7 +171,7 @@ This tutorial will cover:
 
 Tutorial will not cover how to implement fully application (fully functional controller) but some sugestions will be added) 
 
-In thos example a  ```  pid_aw_updateControl() ``` form pid_aw.py will be use as main p-i-d alghorithm and for simulation purpose a FOPDT_model ( from simple_models_esp.py
+In this example a  ```  pid_aw_updateControl() ``` form pid_aw.py will be use as main p-i-d alghorithm and for simulation purpose a FOPDT_model ( from simple_models_esp.py
 
 **introduction**
 
@@ -184,12 +184,16 @@ A basic sequence in digital (discrete) p-i-d implementation is ("PID Controllers
 (6) Go to 1 
 
 From above, we can notice that step (5) is done after setting physical output (the control value (Cv) should be calculated and updated as fast as possible), which means that the controller's parameters and variables can't be modified during Cv caluations (to avoid unexpected behavior). Because p-i-d parameters: Kp, Ti, Td, Tm, Td, Umax, Umin, dUlim and Ts (see  [2.2 PID with anti-windup](https://github.com/2dof/esp_control/#22-pid-with-anti-windup) for full structure description) can be change in any time by the user, so we need a copy of parameters.
+
 In step (2) some additional signal processing (at least unit conversion) are needed, also Setpoint (Sp) can be set by potentiometer so noise filtering may may be necessary. In hardware soltion, at least Sp, Pv, error , Cv  should be presented on display and for Sp value setting (user->Sp setting (with potentiometer)-display->user) frequency display update can differ from p-i-d samplint time (especially when we control a slow process a Cv can be calculated even every few seconds)- in that case a user menu system (for keyboard and display) should take care of Sp noise filtration).
 In step (4) ussualy we set a PWM output as analog output, but it can be also PWM + DO (Digital Output) ( for DC motor control with direction), or just DO (On-off control).
 
 Part 1: P-I-D Class 
 
+
+
 ```python 
+from pid_aw import *  
 
 class pid_awm_controller(object):
     def __init__(self,Kp,Ti,Td,Tm,Tt,Umax=100,Umin =0 ,dUlim=100,Ts = 1.0):
@@ -210,17 +214,17 @@ class pid_awm_controller(object):
         
         #[3] recalculate variables
         self.tune()     # do not forget perform recalculation self.pid structure
-               
-        self.Fparam=False  # no parameter to update
-        # ----------
-        # select P-I config
+         
+        #[4] create flag to check if any parameter has beed changed 
+        self.Fparam=False   
+        
+        
+        #[5] select P-I config
         self.pid.CFG.Psel = True
         self.pid.CFG.Isel = True
         self.pid.CFG.Dsel = False
-        
-
-        
-   # @timed_function    
+       
+       
     def updatecontrol(self,sp,pv,ubias=0.,mv=0.):
         
         uk = pid_awm_updateControl(self.pid,sp,pv,ubias,mv)
