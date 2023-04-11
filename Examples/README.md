@@ -177,15 +177,16 @@ In thos example a  ```  pid_aw_updateControl() ``` form pid_aw.py will be use as
 
 A basic sequence in digital (discrete) p-i-d implementation is ("PID Controllers - Theory Design and Tuning" by Karl J. Aström and Tore Hägglund, sec. 3.6 digital implementation):
 (1) Wait for clock interrupt
-(2) Read analog input  (Process value, Setpoint)    
+(2) Read analog input  (Process value, (Setpoint)) 
 (3) Compute control signal
-(4) Set analog output 
-(5) Update controller variables
+(4) Set analog output ( before do some preprocessing) 
+(5) Update controller variables 
 (6) Go to 1 
 
-From above, we can notice that step (5) is done after setting physical output (the control value (Cv) should be calculated and updated as fast as possible), which means that the controller's parameters and variables can't be modified during Cv caluations (to avoid unexpected behavior). Because p-i-d parameters: Kp, Ti, Td, Tm, Td, Umax, Umin, dUlim and Ts (see  [2.2 PID with anti-windup](https://github.com/2dof/esp_control/#22-pid-with-anti-windup)       
+From above, we can notice that step (5) is done after setting physical output (the control value (Cv) should be calculated and updated as fast as possible), which means that the controller's parameters and variables can't be modified during Cv caluations (to avoid unexpected behavior). Because p-i-d parameters: Kp, Ti, Td, Tm, Td, Umax, Umin, dUlim and Ts (see  [2.2 PID with anti-windup](https://github.com/2dof/esp_control/#22-pid-with-anti-windup) for full structure description) can be change in any time by the user, so we need a copy of parameters.
+In step (2) some additional signal processing (at least unit conversion) are needed, also Setpoint (Sp) can be set by potentiometer so noise filtering may may be necessary. In hardware soltion, at least Sp, Pv, error , Cv  should be presented on display and for Sp value setting (user->Sp setting (with potentiometer)-display->user) frequency display update can differ from p-i-d samplint time (especially when we control a slow process a Cv can be calculated even every few seconds).
+In step (4) ussualy we set a PWM output as analog output, but it can be also PWM + DO (Digital Output) ( for DC motor control with direction), or just DO (On-off control).
 
-
-
+-
 
 
