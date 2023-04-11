@@ -163,11 +163,11 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
 
 
 
-**Example 2:Class controller example -  implementing OOP** 
+*Example 2: Class controller example -  implementing OOP tutorial* 
 
 This tutorial will cover:
-- implementing basic  p-i-d controller as class object  
-- using timer interrupt as hardware implementation of controller (esp32)
+- Part 1: implementing basic  p-i-d controller as class object  
+- Part2 : using timer interrupt as hardware implementation of controller (esp32) 
 
 Tutorial will not cover how to implement fully application (fully functional controller) but some sugestions will be added) 
 
@@ -183,7 +183,7 @@ A basic sequence in digital (discrete) p-i-d implementation is ("PID Controllers
 (5) Update controller variables
 (6) Go to 1 
 
-From above, we can notice that step (5) is done after setting physical output (the control value should be calculated and updated as fast as possible), which means that the controller's parameters and variables can't be modified during CV caluations (to avoid unexpected behavior). Because 
+From above, we can notice that step (5) is done after setting physical output (the control value (Cv) should be calculated and updated as fast as possible), which means that the controller's parameters and variables can't be modified during Cv caluations (to avoid unexpected behavior). Because p-i-d parameters: Kp, Ti, Td, Tm, Td, Umax, Umin, dUlim and Ts (see      
 
 
 
