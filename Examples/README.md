@@ -191,6 +191,22 @@ In step (4) ussualy we set a PWM output as analog output, but it can be also PWM
 Part 1: P-I-D Class 
 
 
+```
+class pid_awm_controller(object):    __init__(self,Kp,Ti,Td,Tm,Tt,Umax=100,Umin =0 ,dUlim=100,Ts = 1.0) 
+    ├──                                  
+    ├── updatecontrol(self,sp,pv,ubias=0.,mv=0.)           
+    ├── tune()                                           
+    ├── set_Kp(value)   
+    ├── set_Ti(value)  
+    ├── set_Td(value)  
+    ├── set_Tm(value)
+    ├── set_Tt(value)      
+    ├── set_Umax(value)   
+    ├── set_Umin(value)   
+    ├── set_dUlim(value)       
+    └──  set_Ts(value)  
+```
+
 
 ```python 
 from pid_aw import *  
