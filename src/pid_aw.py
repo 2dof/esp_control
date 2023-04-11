@@ -1,6 +1,6 @@
 # MicroPython p-i-d-isa library
 #The MIT License (MIT), Copyright (c) 2022-2023 L.Szydlowski
-# __version__   = "1.0.0"
+# __version__   = "1.0.1"
 ##https://github.com/2dof/esp_control
 
 import uctypes
@@ -55,7 +55,8 @@ PID_REGS = {
 def pid_aw_updateControl(pid, sp,pv ,ubias = 0.):
     
     pid.ek = sp - pv           
-          
+    pid.u1  = pid.u
+    
     if pid.CFG.Modesel:
         pid.ek *= -1         
         
@@ -81,7 +82,7 @@ def pid_aw_updateControl(pid, sp,pv ,ubias = 0.):
     pid.Ik += pid.bi * (pid.u-pid.uk) # antiwindup  
         
     pid.ek1 = pid.ek
-    pid.u1  = pid.u
+
     
     return pid.u
 
@@ -89,7 +90,8 @@ def pid_aw_updateControl(pid, sp,pv ,ubias = 0.):
 def pid_awm_updateControl(pid,sp,pv,ubias = 0.,mv = 0.):
     
     pid.ek = sp - pv           
-          
+    pid.u1  = pid.u
+    
     if pid.CFG.Modesel:
         pid.ek *= -1         
         
@@ -118,7 +120,7 @@ def pid_awm_updateControl(pid,sp,pv,ubias = 0.,mv = 0.):
     pid.Ik += pid.bi * (pid.u-pid.uk)  
         
     pid.ek1 = pid.ek
-    pid.u1  = pid.u
+
     
     return pid.u
 
