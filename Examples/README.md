@@ -167,7 +167,7 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
 
 This tutorial will cover:
 - Part 1: implementing basic  p-i-d controller as class object  
-- Part2 : using timer interrupt as hardware implementation of controller (esp32) 
+- Part 2: using timer interrupt as hardware implementation of controller (esp32) 
 
 Tutorial will not cover how to implement fully application (fully functional controller) but some sugestions will be added) 
 
@@ -184,9 +184,116 @@ A basic sequence in digital (discrete) p-i-d implementation is ("PID Controllers
 (6) Go to 1 
 
 From above, we can notice that step (5) is done after setting physical output (the control value (Cv) should be calculated and updated as fast as possible), which means that the controller's parameters and variables can't be modified during Cv caluations (to avoid unexpected behavior). Because p-i-d parameters: Kp, Ti, Td, Tm, Td, Umax, Umin, dUlim and Ts (see  [2.2 PID with anti-windup](https://github.com/2dof/esp_control/#22-pid-with-anti-windup) for full structure description) can be change in any time by the user, so we need a copy of parameters.
-In step (2) some additional signal processing (at least unit conversion) are needed, also Setpoint (Sp) can be set by potentiometer so noise filtering may may be necessary. In hardware soltion, at least Sp, Pv, error , Cv  should be presented on display and for Sp value setting (user->Sp setting (with potentiometer)-display->user) frequency display update can differ from p-i-d samplint time (especially when we control a slow process a Cv can be calculated even every few seconds).
+In step (2) some additional signal processing (at least unit conversion) are needed, also Setpoint (Sp) can be set by potentiometer so noise filtering may may be necessary. In hardware soltion, at least Sp, Pv, error , Cv  should be presented on display and for Sp value setting (user->Sp setting (with potentiometer)-display->user) frequency display update can differ from p-i-d samplint time (especially when we control a slow process a Cv can be calculated even every few seconds)- in that case a user menu system (for keyboard and display) should take care of Sp noise filtration).
 In step (4) ussualy we set a PWM output as analog output, but it can be also PWM + DO (Digital Output) ( for DC motor control with direction), or just DO (On-off control).
 
--
+Part 1: P-I-D Class 
+
+```python 
+
+class pid_awm_controller(object):
+    def __init__(self,Kp,Ti,Td,Tm,Tt,Umax=100,Umin =0 ,dUlim=100,Ts = 1.0):
+        #[1] create pid structure
+        self.pid_buf=bytearray(101)  # size of PID_REGS is 101 bytes, 
+        self.pid = uctypes.struct(uctypes.addressof(self.pid_buf), PID_REGS, uctypes.LITTLE_ENDIAN)
+        
+        #[2] create local params ( our "menu system" can store params, and later we can recalculate variables)  
+        self.Kp = Kp      
+        self.Ti = Ti        
+        self.Td = Td        
+        self.Tm = Tm       
+        self.Tt = Tt           
+        self.Umax = Umax     
+        self.Umin = Umin       
+        self.dUlim = dUlim    
+        self.Ts    =  Ts  
+        
+        #[3] recalculate variables
+        self.tune()     # do not forget perform recalculation self.pid structure
+               
+        self.Fparam=False  # no parameter to update
+        # ----------
+        # select P-I config
+        self.pid.CFG.Psel = True
+        self.pid.CFG.Isel = True
+        self.pid.CFG.Dsel = False
+        
+
+        
+   # @timed_function    
+    def updatecontrol(self,sp,pv,ubias=0.,mv=0.):
+        
+        uk = pid_awm_updateControl(self.pid,sp,pv,ubias,mv)
+        
+        if self.pid.CFG.Rlimsel: 
+           
+           delta=self.pis.dUlim * PID.Ts
+           du=self.pid.u-self.pid.u1
+           
+           if (abs(du)>delta):    
+               if (du<0):
+                   delta *=-1
+               
+               du = delta 
+               self.pid.u=self.pid.u1+du
+               uk= self.pid.u
+        
+        return uk
+        
+
+    def tune(self): 
+        
+        self.pid.Kp = self.Kp
+        self.pid.Ti = self.Ti  
+        self.pid.Td = self.Td  
+        self.pid.Tm = self.Tm 
+        self.pid.Tt = self.Tt
+        self.pid.Ts = self.Ts    
+        self.pid.Umax = self.Umax 
+        self.pid.Umin = self.Umin   
+        self.pid.dUlim= self.dUlim
+        print(self.pid.Kp,self.pid.Ti) 
+        pid_tune(self.pid)
+        
+        self.Fparam =False
+            
+    def set_Kp(self,value):
+        self.Kp = value
+        self.Fparam =True
+ 
+    def set_Ti(self,value):  
+        self.Ti = value
+        self.Fparam =True
+        
+    def set_Td(self,value):
+        self.Td = value
+        self.Fparam =True
+        
+    def set_Tm(self,value):
+        self.Tm = value
+        self.Fparam =True
+        
+    def set_Ts(self,value):
+        self.Ts    = value
+        self.Fparam =True
+        
+    def set_Tm(self,value):
+        self.Tt = value
+        self.Fparam =True
+        
+    def set_Umax(self,value):
+        self.Umax  = value
+        self.Fparam =True
+        
+    def set_Umin(self,value):
+        self.Umin  = value
+        self.Fparam =True
+        
+    def set_dUlim(self,value):
+        self.dUlim = value
+        self.Fparam =True
+
+```
+ 
 
 
