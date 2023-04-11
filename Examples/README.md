@@ -163,4 +163,29 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
 
 
 
+**Example 2:Class controller example -  implementing OOP** 
+
+This tutorial will cover:
+- implementing basic  p-i-d controller as class object  
+- using timer interrupt as hardware implementation of controller (esp32)
+
+Tutorial will not cover how to implement fully application (fully functional controller) but some sugestions will be added) 
+
+In thos example a  ```  pid_aw_updateControl() ``` form pid_aw.py will be use as main p-i-d alghorithm and for simulation purpose a FOPDT_model ( from simple_models_esp.py
+
+**introduction**
+
+A basic sequence in digital (discrete) p-i-d implementation is ("PID Controllers - Theory Design and Tuning" by Karl J. Aström and Tore Hägglund, sec. 3.6 digital implementation):
+(1) Wait for clock interrupt
+(2) Read analog input  (Process value, Setpoint)    
+(3) Compute control signal
+(4) Set analog output 
+(5) Update controller variables
+(6) Go to 1 
+
+From above, we can notice that step (5) is done after setting physical output (the control value should be calculated and updated as fast as possible), which means that the controller's parameters and variables can't be modified during CV caluations (to avoid unexpected behavior). Because 
+
+
+
+
 
