@@ -169,7 +169,8 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
 
 
 
-*Example 2: Class controller example -  implementing OOP tutorial* 
+
+**Example 2: Class controller example -  implementing OOP tutorial**
 
 This tutorial will cover:
 - Part 1: Implementing basic  p-i-d controller as class object  
