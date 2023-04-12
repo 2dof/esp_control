@@ -2,8 +2,11 @@
 
 ## Contents
  1. [Example 1: PID-ISA with anti-windup](#1-pid-isa-with-anti-windup)  
- 2. [Example 2: Class controller example - implementing OOP tutorial](#2-class-controller-example-implementing-oop-tutorial)  
+ 2. [Example 2: Class controller example - implementing OOP tutorial](#2-class-controller-example )  
+ 
 
+
+ 
  
 
 # 1. PID-ISA with anti-windup 
@@ -174,7 +177,7 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
   
 
 
-# 2. Class controller example - implementing OOP tutorial 
+# 2. Class controller example 
 
 This tutorial will cover:
 - Part 1: Implementing basic  p-i-d controller as class object  
