@@ -332,9 +332,22 @@ class pid_awm_controller(object):
 
 **Simulation** 
 
+As simulation example we control a FOPDT (first order Process with delay time) as a very simple thermal process. Let's assume that we controll some boiler with SSR as actuator with continuous control (by PWM : 0% to 100 % ), and we measure proces value as °C.  
+As a basic PID configuration we use:
+- P-I controller
+- Control Mode: normal (controller.pid.CFG.Rlimsel = False  -> error = sp - pv)
+- Rate limiter off ( controller.pid.CFG.Rlimsel=False)
+- Control limit Umin =0.0  
 
+We change setpoint during simulation from 50 °C  do 30 °C and then to 60 °C. As a result of simulation we get signals presented on waveforms (during simulation result will be pinted): 
+
+<img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/pid_awm_class_p1_neg.png" width="700" height="300" />
+
+
+
+simlulation 'in the loop':
 ```
-... # 
+.... 
 if __name__ == '__main__':
 
     from simple_models_esp import FOPDT_model
@@ -386,7 +399,7 @@ if __name__ == '__main__':
         print(i,"sp:",sp,"pv:",pv,"uk:",uk)
 ```
 
-<img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/pid_awm_class_p1_neg.png" width="700" height="300" />
+
 
 
 
