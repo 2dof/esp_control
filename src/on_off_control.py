@@ -85,7 +85,7 @@ if __name__ == '__main__':
     Ns=int(Tstop/Ts)
 
     #[1] process model FOPDT
-    process_model = FOPDT_model(Kp=100.0,taup=100.0,delay=5.0, y0=0.0,Ts=Ts)
+    process_model = FOPDT_model(Kp=100.0,taup=100.0,delay=5.0, y0=21,Ts=Ts)
 
     #[2] On-Off Controller initialization
     hystL= -1
@@ -105,6 +105,10 @@ if __name__ == '__main__':
         #vn = uniform(-0.5,0.5)  # white noise , we model some measurment noise   
         pv = yk #+ vn
         
+       sp=50 #   
+       if k*Ts >=250:
+           sp = 40
+           
         uk = controller.updateControl(sp, pv)
         
         print("sp:",sp,"pv:",pv,"uk:",uk)
