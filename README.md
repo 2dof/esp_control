@@ -12,7 +12,8 @@ P-I-D control library for esp32 Micropython
  1. [Overview](#overview)  
  2. [Control Processing functions](#2-control-processing-functions)  
     2.1 [PID ISA](#21-pid-isa)    
-    2.2 [PID with anti-windup](#22-pid-with-anti-windup)    
+    2.2 [PID with anti-windup](#22-pid-with-anti-windup)  
+    2.3 [On-OFF controller](#23-on-off-controller)
  3. [Setpoint (SP) processing](#3-setpoint-processing) 
  4. [Process value(PV) processing](#4-process-value-processing)
  5. [Manual value (MV) processing](#5-manual-value-processing)
@@ -75,10 +76,11 @@ P-I-D control library for esp32 Micropython
 ├── [src]
 │   ├── pid_isa.py                 see  p. 2.1 PID-ISA  
 │   ├── pid_aw.py                  see  p. 2.2 PID with anti-windup  
+│   ├── on_off_control.py          see  p. 2.3 On-Off controller
 │   ├── sp_processing.py           see  p.3  Setpoint Processing 
 │   ├── pv_processing.py           see  p.4  Process Value Processing
-│   ├── mv_processing.py           see: p.5. Manual value processing 
-│   ├── curve_generator.py         
+│   ├── mv_processing.py           see: p.5 Manual value processing 
+│   ├── curve_generator.py         see: p.7 Sztpoint curve generation
 │   ├── utils_pid_esp32.py         see: (functional_description.md)
 │   |
 |   └── [thermocouples]
@@ -357,6 +359,37 @@ pid_aw.py
     ├── def pid_tune(pid)                                       - tune pid parameters   
     └── def pid_init0(pid)                                      - init pid parameters (function can be edited by user) 
  ``` 
+ 
+ 
+## 2.3 On-Off-controller
+
+A simple implementation of the on-off controller based on a relay with hysteresis. 
+
+in file ```on_off_control.py``` in section ``` '__main__': ```  a simple simmulation in the loop has beed added, delete if You will use our real applications (to safe memory space). 
+
+
+ 
+File/class description:
+ ```python
+on_off_control.py 
+    ├── class OnOff_controller(object)      __init__(hystL =-1 , hystH =1):                                    
+    |        ├──<fields>     
+    |        |    ├──.relay()   - (class of relay2h()) relay with hysteresis
+    |        |    ├──.uk        - control output (0/1)
+    |        |    ├──.ek        - control error (sp-pv)
+    |        |    ├──.Fstart    - start/stop flag (True/False), if True then allow relay switching otherwise stop: uk= 0  
+    |        |  
+    |        ├── .start()                 - command start (set Fstart )
+    |        ├── .stop()                  - command stop (reset Fstart)
+    |        ├── .tune(hystL,hystH)       - change width of hysteresis ( lower, upper limit)
+    |        ├── .reset()                 - reset relay to init position ( off) 
+    |        ├── .updateControl(sp,pv)    - update control value , return uk   
+    |           
+    └── class relay2h()                   - copy from  utils_pid_esp32.py                     
+ ``` 
+
+ **simulation**
+ 
 
 
 # 3. Setpoint processing 
