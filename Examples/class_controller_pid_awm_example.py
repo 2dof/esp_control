@@ -1,45 +1,12 @@
-
-from machine import Timer 
-import utime
-from machine import Pin, ADC
-import esp32
-import uasyncio as asyncio
-from benchmark import timed_function
+# MicroPython p-i-d-isa library
+#The MIT License (MIT), Copyright (c) 2022-2023 L.Szydlowski
+# __version__   = "1.0.1"
+##https://github.com/2dof/esp_control
 
 
 from pid_aw import *            # pid alghoruthm 
-#from mv_processing import *     
-
-def pid_init(pid):
-    # for step responce test
-    pid.Kp = 1 
-    pid.Ti = 1
-    pid.Td = 1
-    pid.Tm = pid.Td/10.
-    pid.Tt = 0.1 
-    pid.Umax = 100
-    pid.Umin = -100
-    pid.dUlim =100
-    pid.Ts    =.1
-    pid.Ik  = 0.
-    pid.Dk  = 0.
-    pid.u   = 0.
-    pid.uk  = 0.
-    pid.u1  = 0.
-    pid.ek1 = 0.0
-    pid.CFG_REG =0x07     # Psel,Isel,Dsel = True
-    pid_tune(pid)
-    
-# parameters can be load/safe from/to file     
-    def load_from_file(pid_controller,file_name=''):  
-        print(' load parameters from file')
-        pass
-
-    def save_to_file(pid_controller,file_name=''):  
-        print('safe parameters to file')
-        pass
-
-
+ 
+ 
 #------------------------------------------------------------
 class pid_awm_controller(object):
     def __init__(self,Kp,Ti,Td,Tm,Tt,Umax=100,Umin =0 ,dUlim=100,Ts = 1.0):
@@ -69,7 +36,7 @@ class pid_awm_controller(object):
         
 
         
-   # @timed_function    
+
     def updatecontrol(self,sp,pv,ubias=0.,mv=0.):
         
         uk = pid_awm_updateControl(self.pid,sp,pv,ubias,mv)
