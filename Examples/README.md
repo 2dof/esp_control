@@ -339,11 +339,14 @@ As a basic PID configuration we use:
 - Rate limiter off ( controller.pid.CFG.Rlimsel=False)
 - Control limit Umin =0.0  
 
-We change setpoint during simulation from 50 °C  do 30 °C and then to 60 °C. As a result of simulation we get signals presented on waveforms (during simulation result will be pinted): 
+We change setpoint during simulation from 50 °C  to 30 °C and then to 60 °C. As a result of simulation we get signals presented on waveforms (during simulation results will be printed): 
 
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/pid_awm_class_p1_neg.png" width="700" height="300" />
 
-
+The upper waveforms shows Setpoint (sp) and proces value pv), lower control value output (u) aand control value (uk) before limiting [Umin, Umax] 
+Let's notice that changing setpoint from 50 °C  do 30 °C the process temperature dynamics is much slower in comparing when we increase Sp.  
+Since the possible physical value for SSR PWM will be 0% (power off) then controller is unable to set Cv below physical limit in first seconds (30s)  
+the temperature will drop only with speed of process dynamics (cooling). 
 
 simlulation 'in the loop':
 ```
@@ -398,9 +401,6 @@ if __name__ == '__main__':
         
         print(i,"sp:",sp,"pv:",pv,"uk:",uk)
 ```
-
-
-
 
 
 *Part2: timer interrupt* 
