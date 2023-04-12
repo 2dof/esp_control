@@ -390,9 +390,11 @@ on_off_control.py
 
  **simulation**
  
- <p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/on_off_control_fopdt_example_neg.png" width="700" height="300" />
-<br> figure A0.</p>
- img:  
+ Example simulation of thermal process based on simple FOPDT model ('in the loop simulation'). 
+  
+ <p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/on_off_control_fopdt_example_neg.png" width="500" height="200" />
+<br> figure A 5.1</p>
+ 
 
 
 # 3. Setpoint processing 
