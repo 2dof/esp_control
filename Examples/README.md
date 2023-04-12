@@ -91,14 +91,20 @@ Because we simulate control in the loop we:
 - initialize other parameters.
 
 a) - read value yk from process model and simulate a measurement ```pv = yk + vn```,(vn- noise), for first test we do not add noise.
+
 b) - set sp value and change during simulation
+
 c) - update manual value processing ( we will just use to show tracking functionality)
+
 d) - update control value, because pid-isa (isa_updateControl()) has not implemented Man/Auto switch (but PID structure has selector) we 
       add selector Man/Auto
+
 e) in Manual mode (Mansel =True) we just overwrite output control value form ```isa_updateControl()```  with manual value mv (We will not use 
    switch Man/Auto in this example)
+
 f) - we call ```limit()``` function to limit control signal, and we feed-up output uk control signal to tracking input utr in ```isa_updateControl()``` function,
     when PID.CFG.Awsel = True the anti-windup (with back calculation) will be active.
+
 g) last step is just to print signals.
 
 ```python
@@ -166,31 +172,32 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
 *Example 2: Class controller example -  implementing OOP tutorial* 
 
 This tutorial will cover:
-- Part 1: implementing basic  p-i-d controller as class object  
-- Part 2: using timer interrupt as hardware implementation of controller (esp32) 
+- Part 1: Implementing basic  p-i-d controller as class object  
+- Part 2: Using timer interrupt as hardware implementation of controller (esp32) 
 
 Tutorial will not cover how to implement fully application (fully functional controller) but some sugestions will be added) 
 
-In this example a  ```  pid_awm_updateControl() ``` form pid_aw.py will be use as main p-i-d alghorithm and for simulation purpose a FOPDT_model ( from simple_models_esp.py
+In this example, a ```pid_awm_updateControl()``` function from pid_aw.py will be used as the main p-i-d algorithm, and a FOPDT_model (from simple_models_esp.py) will be used for simulation.
 
 **introduction**
 
-A basic sequence in digital (discrete) p-i-d implementation is ("PID Controllers - Theory Design and Tuning" by Karl J. Aström and Tore Hägglund, sec. 3.6 digital implementation):
-(1) Wait for clock interrupt
-(2) Read analog input  (Process value, (Setpoint)) 
-(3) Compute control signal
+A basic sequence in digital (discrete) p-i-d implementation is ("PID Controllers - Theory, Design and Tuning" by Karl J. Aström and Tore Hägglund, sec. 3.6 Digital Implementation).
+
+(1) Wait for clock interrupt.
+(2) Read analog input  (Process value, (Setpoint)). 
+(3) Compute control signal.
 (4) Set analog output ( before do some preprocessing) 
 (5) Update controller variables 
 (6) Go to 1 
 
-From above, we can notice that step (5) is done after setting physical output (the control value (Cv) should be calculated and updated as fast as possible), which means that the controller's parameters and variables can't be modified during Cv caluations (to avoid unexpected behavior). Because p-i-d parameters: Kp, Ti, Td, Tm, Td, Umax, Umin, dUlim and Ts (see  [2.2 PID with anti-windup](https://github.com/2dof/esp_control/#22-pid-with-anti-windup) for full structure description) can be change in any time by the user, so we need a copy of parameters, that functionality will be implemented in part 1 of tutorial. 
+From above, we can notice that step (5) is done after setting physical output (the control value (Cv) should be calculated and updated as fast as possible), which means that the controller's parameters and variables can't be modified during Cv calculations (to avoid unexpected behavior). Because p-i-d parameters: Kp, Ti, Td, Tm, Td, Umax, Umin, dUlim and Ts (see  [2.2 PID with anti-windup](https://github.com/2dof/esp_control/#22-pid-with-anti-windup) for full structure description) can be changed at any time by the user, we need a copy of parameters, and that functionality will be implemented in Part 1 of the tutorial. 
 
-In step (2) some additional signal processing (at least unit conversion) are needed, also Setpoint (Sp) can be set by potentiometer so noise filtering may may be necessary. In hardware soltion, at least Sp, Pv, error , Cv  should be presented on display and for Sp value setting (user->Sp setting (with potentiometer)-display->user) frequency display update can differ from p-i-d samplint time (especially when we control a slow process a Cv can be calculated even every few seconds)- in that case a user menu system (for keyboard and display) should take care of Sp noise filtration).
-In step (4) ussualy we set a PWM output as analog output, but it can be also PWM + DO (Digital Output) ( for DC motor control with direction), or just DO (On-off control).
+In step (2) some additional signal processing (at least unit conversion) is needed, and the setpoint (Sp) can be set by a potentiometer, so noise filtering may be necessary. In hardware solution, at least Sp, Pv, error, Cv  should be presented on display, and for Sp value setting (user->Sp setting (with potentiometer)-display->user), the frequency of the display update can differ from the p-i-d sampling time (especially when we control a slow process, a Cv can be calculated even every few seconds); in that case, a user menu system (for the keyboard and display) should take care of Sp noise filtration).
+In step (4), we usually set a PWM output as an analog output, but it can also be  PWM + DO (digital output) (ffor DC motor control with direction), or just DO (On-off control).
 
 Part 1: P-I-D Class 
 
-code of of class pid_awm_controller() is presented below. as a basic we have:
+The code for the pid_awm_controller() class is presented below. As a basic, we have:
 - pid structure, descibed in [2.2 PID with anti-windup](https://github.com/2dof/esp_control/#22-pid-with-anti-windup))
 - local copy of parameters Kp,Ti,Td,Tm, Td, Umax,Umin, dUlim, Ts 
 - flag ``` Fparam ``` for informing if parameters has been change and recalculation will be nedeed 
@@ -198,28 +205,28 @@ code of of class pid_awm_controller() is presented below. as a basic we have:
 As additional to Cv calculation a rate limiter has beed added in  updateControl() function. By setting parametes with function ```set_<parameter>(value)``` we set 
  local parameter and set ``` Fparam ``` flag, but only function ``` tune() ``` will recalculate all variables and will update p-i-d structure ```self.pid ```
  
-structe of class: 
+structure of class: 
 ```
 class pid_awm_controller(object):    __init__(self,Kp,Ti,Td,Tm,Tt,Umax=100,Umin =0 ,dUlim=100,Ts = 1.0) 
     ├──                                   
     ├── updateControl(self,sp,pv,ubias=0.,mv=0.)         
     ├── tune()                                   - recalculate p-i-d variables        
     ├── set_Kp(value)                            - set local Kp parameter.
-    ├── set_Ti(value)                            - set locak Ti parameter
-    ├── set_Td(value)  
+    ├── set_Ti(value)                            - set local Ti parameter
+    ├── set_Td(value)                                 
     ├── set_Tm(value)
     ├── set_Tt(value)      
     ├── set_Umax(value)   
     ├── set_Umin(value)   
     ├── set_dUlim(value)       
-    └──  set_Ts(value)  
+    └── set_Ts(value)                            - set local Ts paramwter
 ```
 
-this way we build a basic pid 'block' where we can set parameters in any time, but updste controller's variable later. 
-Note that in ```set_<parameter>(value)``` functions we do not added a value error checking, 
+This way we created a basic pid 'block' where we can set parameters in any time, and update controller's variable later. 
+Note that in ```set_<parameter>(value)``` functions  value error checking hasn't beed added. 
+ 
 
 class pid_awm_controller() implementation: 
-
 ```python 
 from pid_aw import *  
 
