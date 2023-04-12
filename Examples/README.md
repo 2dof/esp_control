@@ -195,7 +195,7 @@ From above, we can notice that step (5) is done after setting physical output (t
 In step (2) some additional signal processing (at least unit conversion) is needed, and the setpoint (Sp) can be set by a potentiometer, so noise filtering may be necessary. In hardware solution, at least Sp, Pv, error, Cv  should be presented on display, and for Sp value setting (user->Sp setting (with potentiometer)-display->user), the frequency of the display update can differ from the p-i-d sampling time (especially when we control a slow process, a Cv can be calculated even every few seconds); in that case, a user menu system (for the keyboard and display) should take care of Sp noise filtration).
 In step (4), we usually set a PWM output as an analog output, but it can also be  PWM + DO (digital output) (ffor DC motor control with direction), or just DO (On-off control).
 
-Part 1: P-I-D Class 
+**Part 1: P-I-D Class** 
 
 The code for the pid_awm_controller() class is presented below. As a basic, we have:
 - pid structure, descibed in [2.2 PID with anti-windup](https://github.com/2dof/esp_control/#22-pid-with-anti-windup))
@@ -223,8 +223,12 @@ class pid_awm_controller(object):    __init__(self,Kp,Ti,Td,Tm,Tt,Umax=100,Umin 
 ```
 
 This way we created a basic pid 'block' where we can set parameters in any time, and update controller's variable later. 
-Note that in ```set_<parameter>(value)``` functions  value error checking hasn't beed added. 
- 
+Note that:
+- in ```set_<parameter>(value)``` functions  value error checking hasn't beed added.  
+-  when we analyze source code of pid_awm_updateControl() function, we notice that computation are done with variables calculated in 
+  pid_tune(pid) function, and only parameter Kp is used directly in P-term calculation. tham mean a most of parameter (Ti,Td,..) apart from Kp 
+  can be changed directrly in struct without affecting Cv calculation, so class can be optimized (not need to keep coopy of (Ti,Td,..).
+  
 
 class pid_awm_controller() implementation: 
 ```python 
@@ -284,9 +288,8 @@ class pid_awm_controller(object):
         self.pid.Umax = self.Umax 
         self.pid.Umin = self.Umin   
         self.pid.dUlim= self.dUlim
-        print(self.pid.Kp,self.pid.Ti) 
-        pid_tune(self.pid)
         
+        pid_tune(self.pid)
         self.Fparam =False
             
     def set_Kp(self,value):
@@ -326,6 +329,67 @@ class pid_awm_controller(object):
         self.Fparam =True
 
 ```
+
+**Simulation** 
+
+
+```
+... # 
+if __name__ == '__main__':
+
+    from simple_models_esp import FOPDT_model
+ 
+    # simulation time amd sampling
+    Ts =.25
+    Tstop= 50
+    Ns   = int(Tstop/Ts)
+ 
+    #[1] process model FOPDT
+    y0=21      # Initial value 
+    To=200     # proces time constant 
+    Lo=1       # proces delay [s]
+    Ko=100     # process Gain [s]
+    process_model = FOPDT_model(Kp=Ko,taup=To,delay=Lo, y0=y0,Ts=Ts)
+
+    # P-I controller settings
+    Kp0 = 0.5 
+    Ti0 = 10 
+    Td0 =1.0 
+    Tm0 = 0.25
+    Tt0= Ts
+    
+    controller=pid_awm_controller(Kp=Kp0,Ti=Ti0,Td=Td0,Tm=Tm0,Tt=Tt0,Umax=100,Umin =0 ,dUlim=100,Ts =.25)
+    
+    controller.pid.CFG.Dsel = False 
+    
+    sp = 50
+    pv = 0.0
+    uk = 0.0
+    
+    for i in range(Ns):
+
+        #[a]changing Setpoint  
+        sp=50 #   
+        if k*Ts >=150:
+           sp = 30
+
+        if k*Ts >=300:
+           sp = 60
+           
+        #[a] Read process value (in real time wee read from ADC and do pv processing)
+        yk = process_model.update(uk)
+        #vn = uniform(-0.4,0.4)  # white noise  
+        pv = yk #+ vn
+    
+        uk = controller.updatecontrol(sp,pv)  # dafault ubias=0, mv = 0
+        
+        print(i,"sp:",sp,"pv:",pv,"uk:",uk)
+```
+
+
+
+
+*Part2: timer interrupt* 
 
 
          
