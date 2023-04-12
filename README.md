@@ -367,9 +367,10 @@ A simple implementation of the on-off controller based on a relay with hysteresi
 
 in file ```on_off_control.py``` in section ``` '__main__': ```  a simple simmulation in the loop has beed added, delete if You will use our real applications (to safe memory space). 
 
+A functionality 'start/stop' is used to turn it on and off controller without stoppind timer interrupt (or asynchio task). 
 
  
-File/class description:
+File/class description: 
  ```python
 on_off_control.py 
     ├── class OnOff_controller(object)      __init__(hystL =-1 , hystH =1):                                    
@@ -391,10 +392,14 @@ on_off_control.py
  **simulation**
  
  Example simulation of thermal process based on simple FOPDT model ('in the loop simulation'). 
-  
+ Hysteresis width 2 °C  ( ±1 °C around sp).  
+ 
  <p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/on_off_control_fopdt_example_neg.png" width="500" height="200" />
 <br> figure A 5.1</p>
- 
+
+
+Learn more:  [on-off-control-system](https://x-engineer.org/on-off-control-system/)
+
 
 
 # 3. Setpoint processing 
