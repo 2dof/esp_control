@@ -5,13 +5,10 @@
 
 #import array
 from lookup_search import bytes_search
-from benchmark import timed_function
 
-# -0....1370 , every 10 C 
+# -0....760 , every 40 C 
 _ITS90_EJB = b'\x0b\x08[\x10\xd8\x18r!\x1b*\xc82s;\x1aD\xbaLXU\xf9]\xa4fdoDxN\x81\x8e\x8a\x08\x94\xbe\x9d\xa7\xa7'
 
-
-@timed_function
 def its90_J_blookup(E,low=0, high=19):
     
     idx = bytes_search(_ITS90_EJB,low,high, E)
@@ -26,13 +23,12 @@ def its90_J_blookup(E,low=0, high=19):
         
     return y,idx
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
 # 
-    E   = [-2431,-501,0,507,1019,1537,2059,12445,13555,15773,16604,16881,22400,27673,29080,29307,29647,33102,42919,45494,51877,57953,69553] # [uV]
-    Tref= [-50,-10, 0, 10, 20, 30, 40,230,250,290,305,310,410,505, 530, 534,540 ,600,760,800,900, 1000, 1210]
+#    E   = [-2431,-501,0,507,1019,1537,2059,12445,13555,15773,16604,16881,22400,27673,29080,29307,29647,33102,42919,45494,51877,57953,69553] # [uV]
+#    Tref= [-50,-10, 0, 10, 20, 30, 40,230,250,290,305,310,410,505, 530, 534,540 ,600,760,800,900, 1000, 1210]
      
- 
-    for i in range(len(E)):
-        T,idx = its90_J_blookup(E[i])
-        print(Tref[i],T)
+#    for i in range(len(E)):
+#        T,idx = its90_J_blookup(E[i])
+#        print(Tref[i],T)
         
