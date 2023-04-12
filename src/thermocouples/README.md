@@ -119,7 +119,7 @@ Thermocouple Type J
   ├──model_J.py          # thermocoule type J model based on ITS-90 polynomials
   ├──its90_J.py          # caluclation Temperature [C] based on ITS-90 Polynomials from IEC 60584-1/2013. Caluclation temperature from -210 C to 1200 C    
   ├──its90_J_lookup.py   # lookup table based on array.  Caluclation temperature from 0C to 760 C 
-  ├──its90_J_blookup.py  # lookup table on  bytes. Caluclation temperature from 0.0 C to 1370 C       
+  ├──its90_J_blookup.py  # lookup table on  bytes. Caluclation temperature from 0.0 C to 760 C       
 
 ``` 
 
