@@ -6,7 +6,7 @@ In this example we show how to implement a anti-windup scheme for pid-isa contro
  we will use manual value (MV) processing  with Man/Auto switch to show how MV processing will be tracking a control value (CV). 
 
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/pid_isa_awm_1_neg.png" width="300" height="230" />
-
+ 
 Simulation will be done "in the loop" with First Order Process with Delay Time (FOPDT) as controlled process.
 
 Whole code: example_isa_awm_1.py
@@ -386,6 +386,7 @@ if __name__ == '__main__':
         print(i,"sp:",sp,"pv:",pv,"uk:",uk)
 ```
 
+<img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/pid_awm_class_p1_neg.png" width="700" height="300" />
 
 
 
