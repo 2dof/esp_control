@@ -176,7 +176,7 @@ This tutorial will cover:
 - Part 1: Implementing basic  p-i-d controller as class object  
 - Part 2: Using timer interrupt as hardware implementation of controller (esp32) 
 
-Tutorial will not cover how to implement fully application (fully functional controller) but some sugestions will be added) 
+Tutorial will not cover how to implement fully application (menu system, loading data from memory) but some sugestions will be added
 
 In this example, a ```pid_awm_updateControl()``` function from pid_aw.py will be used as the main p-i-d algorithm, and a FOPDT_model (from simple_models_esp.py) will be used for simulation.
 
@@ -206,7 +206,7 @@ The code for the pid_awm_controller() class is presented below. As a basic, we h
 As additional to Cv calculation a rate limiter has beed added in  updateControl() function. By setting parametes with function ```set_<parameter>(value)``` we set 
  local parameter and set ``` Fparam ``` flag, but only function ``` tune() ``` will recalculate all variables and will update p-i-d structure ```self.pid ```
  
-structure of class: 
+file class_controller_pid_awm_example.py: 
 ```
 class pid_awm_controller(object):    __init__(self,Kp,Ti,Td,Tm,Tt,Umax=100,Umin =0 ,dUlim=100,Ts = 1.0) 
     ├──                                   
@@ -344,10 +344,9 @@ We change setpoint during simulation from 50 °C  to 30 °C and then to 60 °C. 
 
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/pid_awm_class_p1_neg.png" width="700" height="300" />
 
-The upper waveforms shows Setpoint (sp) and proces value pv), lower control value output (u) aand control value (uk) before limiting [Umin, Umax] 
-Let's notice that changing setpoint from 50 °C  do 30 °C the process temperature dynamics is much slower in comparing when we increase Sp.  
-Since the possible physical value for SSR PWM will be 0% (power off) then controller is unable to set Cv below physical limit in first seconds (30s)  
-the temperature will drop only with speed of process dynamics (cooling). 
+The upper waveforms show the setpoint (sp) and process value (pv), the lower control value output (u), and the control value (uk) before limiting [Umin, Umax] 
+Let's notice that when changing the setpoint from 50 °C  do 30 °C the process temperature dynamics is much slower than when we increase Sp.  
+Since the possible physical value for SSR PWM will be 0% (power off) the controller is unable to set Cv below the physical limit in the first 30 seconds the temperature will drop only with the speed of process dynamics (cooling). 
 
 simlulation 'in the loop':
 ```
@@ -402,6 +401,7 @@ if __name__ == '__main__':
         
         print(i,"sp:",sp,"pv:",pv,"uk:",uk)
 ```
+
 
 
 *Part2: timer interrupt* 
