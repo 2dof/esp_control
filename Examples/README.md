@@ -181,7 +181,7 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
 
 This tutorial will cover:
 - Part 1: Implementing basic  p-i-d controller as class object  
-- Part 2: Using timer interrupt as hardware implementation of controller (esp32) 
+- Part 2: Using timer interrupt (esp32 micropython) 
 
 Tutorial will not cover how to implement fully application (menu system, loading data from memory) but some sugestions will be added
 
@@ -413,7 +413,12 @@ if __name__ == '__main__':
 
 *Part2: timer interrupt* 
 
-
+Before some examples solutions will be presented familiarize yourself with micropython timer interrupts in esp32 and 
+[Writing interrupts handlers](https://docs.micropython.org/en/latest/reference/isr_rules.html)
+Main conclusions:
+- esp32 timers interrups are implemented as soft interrupts
+- in general it is best to avoid using floats in ISR code 
+- ISR cannot pass a bound method to a function
          
 
 
