@@ -390,6 +390,9 @@ on_off_control.py
 
  **simulation**
  
+ <p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/drawnings/on_off_control_fopdt_example_neg.png" width="700" height="300" />
+<br> figure A0.</p>
+ img:  
 
 
 # 3. Setpoint processing 
