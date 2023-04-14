@@ -177,13 +177,13 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
   
 
 
-# 2. Class controller example 
+# 2. Class controller example  
 
 This tutorial will cover:
 - Part 1: Implementing basic  p-i-d controller as class object  
 - Part 2: Using timer interrupt (esp32 micropython) 
 
-Tutorial will not cover how to implement fully application (menu system, loading data from memory) but some sugestions will be added
+Tutorial will not cover how to implement fully application (menu system, loading data from memory) but some sugestions will be added in part 2
 
 In this example, a ```pid_awm_updateControl()``` function from pid_aw.py will be used as the main p-i-d algorithm, and a FOPDT_model (from simple_models_esp.py) will be used for simulation.
 
@@ -213,7 +213,7 @@ The code for the pid_awm_controller() class is presented below. As a basic, we h
 As additional to Cv calculation a rate limiter has beed added in  updateControl() function. By setting parametes with function ```set_<parameter>(value)``` we set 
  local parameter and set ``` Fparam ``` flag, but only function ``` tune() ``` will recalculate all variables and will update p-i-d structure ```self.pid ```
  
-file class_controller_pid_awm_example.py: 
+file class_controller_pid_awm_example.py (with simulation in ```__main__```): 
 ```
 class pid_awm_controller(object):    __init__(self,Kp,Ti,Td,Tm,Tt,Umax=100,Umin =0 ,dUlim=100,Ts = 1.0) 
     ├──                                   
@@ -232,11 +232,11 @@ class pid_awm_controller(object):    __init__(self,Kp,Ti,Td,Tm,Tt,Umax=100,Umin 
 
 This way we created a basic pid 'block' where we can set parameters in any time, and update controller's variable later. 
 Note that:
-- in ```set_<parameter>(value)``` functions  value error checking hasn't beed added.  
--  when we analyze source code of pid_awm_updateControl() function, we notice that computation are done with variables calculated in 
-  pid_tune(pid) function, and only parameter Kp is used directly in P-term calculation. tham mean a most of parameter (Ti,Td,..) apart from Kp 
-  can be changed directrly in struct without affecting Cv calculation, so class can be optimized (not need to keep coopy of (Ti,Td,..).
-  
+- in ```set_<parameter>(value)``` functions, value error checking hasn't beed added.  
+-  when we analyze source code of pid_awm_updateControl() function, we notice that computation of variables are done in 
+  pid_tune(pid) function, and only parameter Kp is used directly in P-term calculation in ```pid_awm_updateControl()```. That mean a most of parameter (Ti,Td,..) apart from Kp can be changed directrly in struct without affecting Cv calculation, so class can be optimized (not need to keep coopy of (Ti,Td,..), but for consistency we keep all parameters as auxiliary values.  
+ 
+ 
 
 class pid_awm_controller() implementation: 
 ```python 
