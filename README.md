@@ -269,6 +269,7 @@ functions: ```pid_aw_updateControl()```  and  ```pid_awm_updateControl()``` impl
 - no dead-band, no rate limit, no du/dt calculation, no SP and D-action weighting. 
 - structure of parameters is different (can't be used interchangeably). 
 
+ [Example of class implementation](https://github.com/2dof/esp_control/tree/main/Examples#2-class-controller-example)
  
 **Setting up P-I-D controller**
 
