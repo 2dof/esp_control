@@ -420,5 +420,6 @@ Main conclusions:
 - in general it is best to avoid using floats in ISR code 
 - ISR cannot pass a bound method to a function
          
+Also using ISR with uasyncio there are [some restrictions](https://github.com/peterhinch/micropython-async/blob/master/v3/docs/INTERRUPTS.md)
 
 
