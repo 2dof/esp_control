@@ -418,8 +418,10 @@ Before some examples solutions will be presented familiarize yourself with micro
 Main conclusions:
 - esp32 timers interrups are implemented as soft interrupts
 - in general it is best to avoid using floats in ISR code 
-- ISR cannot pass a bound method to a function
+- ISR cannot pass a bound method to a function.
          
-Also using ISR with uasyncio there are [some restrictions](https://github.com/peterhinch/micropython-async/blob/master/v3/docs/INTERRUPTS.md)
+Using ISR with uasyncio there are [some restrictions](https://github.com/peterhinch/micropython-async/blob/master/v3/docs/INTERRUPTS.md), aslo 
+[Linking uasyncio and other contexts](https://github.com/peterhinch/micropython-async/blob/master/v3/docs/THREADING.md#12-soft-interrupt-service-routines
+should be read if in Your App You will going to use uasyncio. 
 
 
