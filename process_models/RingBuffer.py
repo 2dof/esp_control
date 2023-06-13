@@ -1,5 +1,5 @@
 import array
-from benchmark import timed_function
+#from benchmark import timed_function
 
 # ring bufffer for float data
 class ring_buffer(object):
