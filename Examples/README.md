@@ -352,11 +352,11 @@ We change setpoint during simulation from 50 °C  to 30 °C and then to 60 °C. 
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/pid_awm_class_p1_neg.png" width="700" height="300" />
 
 The upper waveforms show the setpoint (sp) and process value (pv), the lower control value output (u), and the control value (uk) before limiting [Umin, Umax] 
-Let's notice that when changing the setpoint from 50 °C  do 30 °C the process temperature dynamics is much slower than when we increase Sp.  
+Let's notice that when changing the setpoint from 50 °C  do 30 °C the process control temperature dynamics is much slower than when we increase Sp.  
 Since the possible physical value for SSR PWM will be 0% (power off) the controller is unable to set Cv below the physical limit in the first 30 seconds the temperature will drop only with the speed of process dynamics (cooling). 
 
 simlulation 'in the loop':
-```
+```python
 .... 
 if __name__ == '__main__':
 
