@@ -368,7 +368,7 @@ A simple implementation of the on-off controller based on a relay with hysteresi
 
 in file ```on_off_control.py``` in section ``` '__main__': ```  a simple simmulation in the loop has beed added, delete if You will use our real applications (to safe memory space). 
 
-A functionality 'start/stop' is used to turn it on and off controller without stoppind timer interrupt (or asynchio task). 
+A functionality 'start/stop' is used to turn on and off controller without stoppind timer interrupt (or asynchio task) or reading measurments. 
 
  
 File/class description: 
@@ -381,10 +381,10 @@ on_off_control.py
     |        |    ├──.ek        - control error (sp-pv)
     |        |    ├──.Fstart    - start/stop flag (True/False), if True then allow relay switching otherwise stop: uk= 0  
     |        |  
-    |        ├── .start()                 - command start (set Fstart )
-    |        ├── .stop()                  - command stop (reset Fstart)
+    |        ├── .start()                 - command start (set Fstart ) , allow to compute control signal
+    |        ├── .stop()                  - command stop (reset Fstart) , set control value  uk = 0, 
     |        ├── .tune(hystL,hystH)       - change width of hysteresis ( lower, upper limit)
-    |        ├── .reset()                 - reset relay to init position ( off) 
+    |        ├── .reset()                 - reset relay to init position (off) 
     |        ├── .updateControl(sp,pv)    - update control value , return uk   
     |           
     └── class relay2h()                   - copy from  utils_pid_esp32.py                     
