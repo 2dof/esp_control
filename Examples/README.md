@@ -409,9 +409,7 @@ if __name__ == '__main__':
         print(i,"sp:",sp,"pv:",pv,"uk:",uk)
 ```
 
-
-
-*Part2: timer interrupt* 
+**Part2: timer interrupt** 
 
 Before some examples solutions will be presented familiarize yourself with micropython timer interrupts in esp32 and 
 [Writing interrupts handlers](https://docs.micropython.org/en/latest/reference/isr_rules.html)
