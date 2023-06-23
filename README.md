@@ -84,20 +84,25 @@ P-I-D control library for esp32 Micropython
 │   ├── utils_pid_esp32.py         see: (functional_description.md)
 │   |
 |   └── [thermocouples]
-|          ├──model_K.py 
-|          ├──its90_K.py          # caluclation Temperature (Celsius) based on ITS-90 from IEC 60584-1/2013    
-|          ├──its90_K_lookup.py   # lookup table on  array 
-|          ├──its90_K_lookupB.py  # lookup table on  bytes 
-|          ├──lookup_search.py 
+|          ├──model_K.py                # model based on based on ITS-90 from IEC 60584-1/2013   
+|          ├──its90_K.py                # caluclation Temperature (Celsius) based on ITS-90 from IEC 60584-1/2013    
+|          ├──its90_K_lookup.py         # lookup table on  array 
+|          ├──its90_K_blookup.py        # lookup table on  bytes array
+|          ├──its90_J.py                # caluclation Temperature (Celsius) based on ITS-90 from IEC 60584-1/2013    
+|          ├──its90_J_lookup.py         # lookup table on  array 
+|          ├──its90_J_blookup.py        # lookup table on  bytes  array
+|          ├──lookup_search.py          # lookup search functions
+|          |
+|          ├──test_its90_K_thermo.py             
 |
-├── [process_model]
-│   ├── simple_models_esp.py
-│   └── ....
+├── [process_model]                     
+│   ├── simple_models_esp.py            #  
+│   └── RingBuffer.py                   #  
 │ 
 ├── [Examples]
-│   ├── example_isa_awm_1.py           
+│   ├── example_isa_awm_1.py                  #
+│   ├── class_controller_pid_awm_example.py   #
 │    
-├── [unit_tests]
 └── ...
  
  ``` 
