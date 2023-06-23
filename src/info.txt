@@ -12,7 +12,8 @@ MicroPython esp32 p-i-d library
  ```python
 ├── [src]
 │   ├── pid_isa.py                  
-│   ├── pid_aw.py                  
+│   ├── pid_aw.py     
+│   ├──on_off_control.py
 │   ├── sp_processing.py           
 │   ├── pv_processing.py            
 │   ├── mv_processing.py            
@@ -20,19 +21,27 @@ MicroPython esp32 p-i-d library
 │   ├── utils_pid_esp32.py  
 |   |
 |   └── [thermocouples]
-|          ├──model_K.py 
-|          ├──its90_K.py          # caluclation Temperature (Celsius) based on ITS-90 from IEC 60584-1/2013    
-|          ├──its90_K_lookup.py   # lookup table on  array 
-|          ├──its90_K_lookupB.py  # lookup table on  bytes 
-|          ├──lookup_search.py 
+|          ├──model_K.py                # model based on based on ITS-90 from IEC 60584-1/2013   
+|          ├──its90_K.py                # caluclation Temperature (Celsius) based on ITS-90 from IEC 60584-1/2013    
+|          ├──its90_K_lookup.py         # lookup table on  array 
+|          ├──its90_K_blookup.py        # lookup table on  bytes array
+|          ├──its90_J.py                # caluclation Temperature (Celsius) based on ITS-90 from IEC 60584-1/2013    
+|          ├──its90_J_lookup.py         # lookup table on  array 
+|          ├──its90_J_blookup.py        # lookup table on  bytes  array
+|          ├──lookup_search.py          # 
+|          |
+|          ├──test_its90_K_thermo.py     
+|          ├──benchmark.txt             # 
 |
 ├── [process_model]
-│   ├── simple_models_esp.py
-│   └── ....
+│   ├── simple_models_esp.py            #  
+│   └── RingBuffer.py                   #  
 │ 
 ├── [Examples]
 │   ├── example_isa_awm_1.py           
-│    
+│   ├── class_controller_pid_awm_example.py
+│
+│
 └── ...
  
  
