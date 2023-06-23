@@ -182,8 +182,10 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
 This tutorial will cover:
 - Part 1: Implementing basic  p-i-d controller as class object  
 - Part 2: Using timer interrupt (esp32 micropython) 
+- Part 3: Using uasyncio instead of timer interrupt (esp micropython) 
 
-Tutorial will not cover how to implement fully application (menu system, loading data from memory) but some sugestions will be added in part 2
+
+Tutorial will not cover how to implement fully application (menu system, loading data from memory) but some sugestions will be added in part 2.
 
 In this example, a ```pid_awm_updateControl()``` function from pid_aw.py will be used as the main p-i-d algorithm, and a FOPDT_model (from simple_models_esp.py) will be used for simulation.
 
@@ -258,7 +260,7 @@ class pid_awm_controller(object):
         self.dUlim = dUlim    
         self.Ts    =  Ts  
         
-        self.tune()   
+        self.tune()         # recalculate controller variables and parameters.
          
         self.Fparam=False   
         
@@ -267,7 +269,7 @@ class pid_awm_controller(object):
         self.pid.CFG.Dsel = False
        
     def updateControl(self,sp,pv,ubias=0.,mv=0.):
-        
+        """ calculate control output; rate limiter implementes """
         uk = pid_awm_updateControl(self.pid,sp,pv,ubias,mv)
         
         if self.pid.CFG.Rlimsel: 
@@ -285,8 +287,8 @@ class pid_awm_controller(object):
         
         return uk
        
-    def tune(self): 
-        
+    def tune(self):         
+        """ update self.pid structure and recalculate controller variables and parameters."""
         self.pid.Kp = self.Kp
         self.pid.Ti = self.Ti  
         self.pid.Td = self.Td  
@@ -298,7 +300,7 @@ class pid_awm_controller(object):
         self.pid.dUlim= self.dUlim
         
         pid_tune(self.pid)
-        self.Fparam =False
+        self.Fparam =False    
             
     def set_Kp(self,value):
         self.Kp = value
@@ -390,7 +392,10 @@ if __name__ == '__main__':
     uk = 0.0
     
     for i in range(Ns):
-
+        #  ------------------------------------ (1) ------------------------------------ 
+          # in real time wee would wait for interrupt
+     
+        #  ------------------------------------ (2) ------------------------------------ 
         #[a]changing Setpoint  
         sp=50 #   
         if k*Ts >=150:
@@ -399,27 +404,43 @@ if __name__ == '__main__':
         if k*Ts >=300:
            sp = 60
            
-        #[a] Read process value (in real time wee read from ADC and do pv processing)
+        #[b] Read process value (in realtime we read from ADC and do pv processing)
         yk = process_model.update(uk)
-        #vn = uniform(-0.4,0.4)  # white noise  
+        #vn = uniform(-0.4,0.4)  # white noise 
         pv = yk #+ vn
-    
+        #  ------------------------------------ (3) ------------------------------------ 
+        #[c] calculate control value
         uk = controller.updatecontrol(sp,pv)  # dafault ubias=0, mv = 0
-        
+
+        #  ------------------------------------ (4) ------------------------------------ 
+        # [d] in real time we would perfomr some CV processing and set cotroller output ( PWM, On/Off GPIO in on/off control or other 
+        # GPIO operation , after that we can update controller parameters and variables.
+
+        #  ------------------------------------ (5) ------------------------------------  
+        if controller.Fparam:                    
+           controller.tune() 
+     
         print(i,"sp:",sp,"pv:",pv,"uk:",uk)
 ```
+
+
 
 **Part2: timer interrupt** 
 
 Before some examples solutions will be presented familiarize yourself with micropython timer interrupts in esp32 and 
-[Writing interrupts handlers](https://docs.micropython.org/en/latest/reference/isr_rules.html)
+[Writing interrupts handlers: isr_rules](https://docs.micropython.org/en/latest/reference/isr_rules.html)
 Main conclusions:
 - esp32 timers interrups are implemented as soft interrupts
 - in general it is best to avoid using floats in ISR code 
-- ISR cannot pass a bound method to a function.
+- ISR cannot pass a bound method to a function but:
+- section 'Creation of Python objects' in isr_rules desctribe how to deal with floating point operations during control value calculation by  "(...)creating a reference to the bound method in the class constructor and to pass that reference in the ISR.". This way we can pass all computation as a Task run by scheduler.
          
 Using ISR with uasyncio there are [some restrictions](https://github.com/peterhinch/micropython-async/blob/master/v3/docs/INTERRUPTS.md), aslo 
-[Linking uasyncio and other contexts](https://github.com/peterhinch/micropython-async/blob/master/v3/docs/THREADING.md#12-soft-interrupt-service-routines
+[Linking uasyncio and other contexts](https://github.com/peterhinch/micropython-async/blob/master/v3/docs/THREADING.md#12-soft-interrupt-service-routines)
 should be read if in Your App You will going to use uasyncio. 
+
+
+**Part3: timer interrupt** 
+
 
 
