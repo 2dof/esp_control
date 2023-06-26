@@ -182,7 +182,7 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
 This tutorial will cover:
 - Part 1: Implementing basic  p-i-d controller as class object  
 - Part 2: Using timer interrupt (esp32 micropython) 
-- Part 3: Using uasyncio instead of timer interrupt (esp micropython) 
+- Part 3: Using uasyncio instead of timer interrupt   
 
 
 Tutorial will not cover how to implement fully application (menu system, loading data from memory) but some sugestions will be added in part 2.
@@ -440,7 +440,9 @@ Using ISR with uasyncio there are [some restrictions](https://github.com/peterhi
 should be read if in Your App You will going to use uasyncio. 
 
 
-**Part3: timer interrupt** 
 
+**Part3: Using uasyncio instead of timer interrupt ** 
+
+# To-Do
 
 
