@@ -236,8 +236,9 @@ This way we created a basic pid 'block' where we can set parameters in any time,
 Note that:
 - in ```set_<parameter>(value)``` functions, value error checking hasn't beed added.  
 -  when we analyze source code of pid_awm_updateControl() function, we notice that computation of variables are done in 
-  pid_tune(pid) function, and only parameter Kp is used directly in P-term calculation in ```pid_awm_updateControl()```. That mean a most of parameter (Ti,Td,..) apart from Kp can be changed directrly in struct without affecting Cv calculation, so class can be optimized (not need to keep coopy of (Ti,Td,..), but for consistency we keep all parameters as auxiliary values.  
- 
+  pid_tune(pid) function, and only parameter Kp is used directly in P-term calculation in ```pid_awm_updateControl()```. That mean a most of parameter (Ti,Td,..) apart from Kp can be changed directrly in struct without affecting Cv calculation, so class can be optimized (not need to keep coopy of (Ti,Td,..), but for consistency we keep all parameters as auxiliary values.
+- Depending on your preferences a decorators: ```@setter, @property ``` can be used or even setattr() in setting class atribute value. 
+
  
 
 class pid_awm_controller() implementation: 
