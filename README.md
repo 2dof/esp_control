@@ -399,7 +399,11 @@ on_off_control.py
  
  Example simulation of thermal process based on simple FOPDT model ('in the loop simulation')  with Hysteresis width 2 °C  ( ±1 °C around sp). 
  Simulation code is in [on_off_control.py](https://github.com/2dof/esp_control/blob/main/src/on_off_control.py)  in  ``` if __name__ == '__main__' ``` section.
- ( delete simulation section and imorted models if You will use controller in Your control application)
+ ( delete simulation section and imorted models if You will use controller in Your control application), or in
+ [Examples: -> Example 3: ON-OFF controller: simulation](https://github.com/2dof/esp_control/blob/main/Examples/Examples.md, were You find find also Python simulation (on_off_control_python.py)  
+
+ 
+ 
  
  <p align="center"> <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/on_off_control_fopdt_example_neg.png" width="500" height="200" />
 <br> figure A 5.1 </p>
