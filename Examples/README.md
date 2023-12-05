@@ -449,5 +449,12 @@ should be read if in Your App You will going to use uasyncio.
 
 # 3. ON-OFF Controller
 
+ This is extension for [2.3 On-Off-controller](https://github.com/2dof/esp_control/blob/main/README.md#23-on-off-controller) description and implementation of on-of controler descibed in main topic.
+related files for this champer:
+ - on_off_control_example.py        - implementation and simulation in micropython (copy code from main src)
+ - Example_python_FOPDT_on_off.py   - imolementation and simulation in Python (that same on-off controller code - but matplotlib used in visualisation)
+
+ Example in python was modified in simulation part to show how constant change in time of Setpoint value affect follow-up regulation.
+
 
 
