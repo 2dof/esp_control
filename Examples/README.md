@@ -3,7 +3,7 @@
 ## Contents
  1. [Example 1: PID-ISA with anti-windup](#1-pid-isa-with-anti-windup)  
  2. [Example 2: Class controller example - implementing OOP tutorial](#2-class-controller-example )  
- 2. [Example 3: ON-OFF controller: simulation](#3-on-off)  
+ 2. [Example 3: ON-OFF controller: simulation](#3-on-off-controller)  
 
 
  
@@ -447,7 +447,7 @@ should be read if in Your App You will going to use uasyncio.
     # To-Do
 
 
-# 3. ON-OFF
+# 3. ON-OFF Controller
 
 
 
