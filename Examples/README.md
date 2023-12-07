@@ -451,12 +451,12 @@ should be read if in Your App You will going to use uasyncio.
  This is extension for [2.3 On-Off-controller](https://github.com/2dof/esp_control/blob/main/README.md#23-on-off-controller) description and implementation of on-of controler described in main topic.
 Related files for this champer:
  - on_off_control_example.py        - implementation and simulation in micropython (copy code from main src)
- - Example_python_FOPDT_on_off.py   - imolementation and simulation in Python (that same on-off controller code - but matplotlib is used in visualisation)
+ - Example_python_FOPDT_on_off.py   - implementation and simulation in Python (that same on-off controller code - but matplotlib is used in visualisation)
 
  Example in python was modified in simulation part to show how constant change in time of Setpoint value affect follow-up regulation.
 
-the simulation (simple model of some thermal process) result is presented below. Simulation setting of SP value change (0.16 C/sec) has been set to show how process dynamics (speed PV value change) reacts for follow-up regulation. 
-Between 760 sec and 880 sec of simulation we can notice that process dynamics slows down and change on SP value change overtakes of process dynamics (
+The simulation (simple model of some thermal process) result is presented below. Simulation setting of SP value change (0.16 C/sec) has been set to show how process dynamics (speed PV value change) reacts for follow-up regulation. 
+Between 760 sec and 880 sec of simulation we can notice that process dynamics (pv value) is unable to follow (fast) the setpoint.  
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/on_off_FOPDT_example2_neg.png" width="700" height="300" />
 
 
