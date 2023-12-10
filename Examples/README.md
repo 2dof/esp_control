@@ -455,9 +455,14 @@ Related files for this champer:
 
  Example in python was modified in simulation part to show how constant change in time of Setpoint value affect follow-up regulation.
 
-The simulation (simple model of some thermal process) result is presented below. during heating (control ON) the SP value change (0.16 C/sec) has been set to show how process dynamics (speed PV value change) reacts for follow-up regulation and between 660 sec and 780 sec of simulation we can notice that process dynamics (pv value) is unable to  "overtake" the setpoint ( we are near max value of PV ( proces gain Kp=120), and sice we use on-off control, then max control value uk = 1 then we can't inrease control signal.       
+The simulation (simple model of some thermal process) result is presented below. during heating (control ON) the SP value change (0.16 C/sec) has been set to show how process dynamics (speed PV value change) reacts for follow-up regulation and between 660 sec and 780 sec of simulation we can notice that process dynamics (pv value) is unable to  "overtake" the set point ( we are near max value of PV ( process gain Kp=120), and since we use on-off control, then max control value uk = 1 then we can't increase control signal.      
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/on_off_FOPDT_example2_neg.png" width="700" height="300" />
 
 
+First conclusion is that we can use on-off controller for follow-up set point and max error should not be greater than settings of hysteresis, but in real-live application 
+it may happen that overshooting will be bigger than expected.
+For example: let consider control of temperature in (small) electric pottery kiln, in that case on-off controller will on full power (ON) or zero power (Off), but since thermocouple will be measuring temperature near heating element (not on the his surface) then there will be some delay, when conntroller will turn-of power, heat form heating element (wire) will be still delivered to the system (simply temperature of electric fire will bi higher), and effect of control will be similar to waveforms 
 
+<img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/on_off_FOPDT_example2_1_neg.png" width="700" height="300" />
 
+Effect will be more noticeable when power source will be relatively greater in relation to the requirements of process demands. Then hysteresis adjustment is needed, or change of control strategy ( PI (PID) controller). In case of ceramic kiln (with electric heating) we will be working in range 800 - 1200 Celsius, then effect will not be significant (by design of kiln working condition and power calculation we will be in our control range), but for low temperatures (start-up, cooling) it will be more noticeable.   
