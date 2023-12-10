@@ -160,16 +160,16 @@ if __name__ == "__main__":
     from numpy import random
     
     # specify simulation time and number of steps 
-    Tstop=1500
-    Ts =  0.25            # sampling time 
+    Tstop=1500           # total time simulation
+    Ts =  0.25           # sampling time 
     Ns=int(Tstop/Ts)+1
-    t = np.linspace(0,Tstop,Ns)
+    t = np.linspace(0,Tstop,Ns)  # define time vector (for plotting)
  
    #[1] process model FOPDT 
-    yo=21
-    Lo=1
-    To=200
-    model = FOPDT_model(Kp=120.0,taup=To,delay=Lo, y0=yo,Ts=Ts)
+    yo=21     #  initial value (21 Celsjus)
+    Lo=1      #  proces delay
+    To=200    # process time constant 
+    model = FOPDT_model(Kp=12.0,taup=To,delay=Lo, y0=yo,Ts=Ts)
        
     # just for plotting
     xsp = np.zeros(Ns)
@@ -177,7 +177,6 @@ if __name__ == "__main__":
     xu  = np.zeros(Ns)
     y0 = np.zeros(Ns)
     xe  = np.zeros(Ns)
-    urv  = np.zeros(Ns)
     xupid  = np.zeros(Ns)
  
     # init simulation 
@@ -185,65 +184,66 @@ if __name__ == "__main__":
     yk  = 0.      # proces outpout value (measured)
     uk  = 0.      # control value 
     
-    #--------------------------------------------
+    # ON-OFF controller initializasion 
     controller = OnOf_controller(-1,1)
     controller.start()
     
+    # main simulation loop
+    # yk           : proces output 
+    # pv = yk +vk  : proces value measurement with measurement noise 
+    # sp           : setpoint             
+    # uk           : control output   
+    # controller.ek: ek = sp-pv controll error
+    
     for k in range(0,Ns):
        
-       # proces simulation
+       # proces simulation 
        yk=model.update(uk)
      
-       # pv measuring
+       # pv measuring (add measurement noise)
        vk =  random.uniform(0, 1) # 
-       pv = yk  #+vk
+       pv = yk +vk                  
        
-       # ------
-       
-       
+ 
+       # change SP during simulation 
           
-       if k*Ts >=250 and k*Ts<500:
-           sp = 40
+       if k*Ts >=250 and k*Ts<400:
+            sp = 40
        
-       if k*Ts >=500:  
-           sp+=0.04
+       if (k*Ts >=400) and (k*Ts <775):  
+            sp+=0.04
            
-       if sp >= 100.0:
-           sp=100.
-           
+       if (k*Ts >=1000) and (sp>40):  
+            sp-=0.04
            
        
+         
+           
+       # update control 
        uk = controller.updateControl(sp, pv)
      
-       
+       # save data
        xsp[k], y[k], xu[k],xe[k]= sp,pv,uk ,controller.ek             
    
  
        uk = uk*1   # gain = 0 
        
-
-      
        
+    # plot sumulation results   
     plt.close('all')
     fig, (ax1, ax2) = plt.subplots(2, sharex=True)
     ax1.plot(t,xsp,'r-',label=r'$sp$')
     ax1.plot(t,y,'b-',label=r'$pv$') 
-
+    ax1.set_xlabel('t[s]')
     ax1.grid(True); ax1.legend(fontsize=10)
          
     ax2.plot(t,xu,'r-',label=r'$uk$') 
     #ax2.plot(t,xe,'g-',label=r'$ek$') 
- 
+    ax2.set_xlabel('t[s]')
    #ax2.plot(t,xupid,'r--',label=r'$upidk$') 
     ax2.grid(True); ax2.legend(fontsize=10)
     
-    # just for testing 
-    # temperature_threshold = 22    #   SP
-    # indoor_temperature   = 20     #   PV 
-    # outdoor_temperature  = 20    #   
-    # control_signal = controller.updateControl(temperature_threshold , indoor_temperature) 
-    
-    
+ 
      
  
     
