@@ -455,8 +455,9 @@ Related files for this champer:
 
  Example in python was modified in simulation part to show how constant change in time of Setpoint value affect follow-up regulation.
 
-The simulation (simple model of some thermal process) result is presented below. during heating (control ON) the SP value change (0.16 C/sec) has been set to show how process dynamics (speed PV value change) reacts for follow-up regulation and between 760 sec and 880 sec of simulation we can notice that process dynamics (pv value) is unable to  "overtake" the setpoint.    
-
+The simulation (simple model of some thermal process) result is presented below. during heating (control ON) the SP value change (0.16 C/sec) has been set to show how process dynamics (speed PV value change) reacts for follow-up regulation and between 660 sec and 780 sec of simulation we can notice that process dynamics (pv value) is unable to  "overtake" the setpoint ( we are near max value of PV ( proces gain Kp=120), and sice we use on-off control, then max control value uk = 1 then we can't inrease control signal.       
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/on_off_FOPDT_example2_neg.png" width="700" height="300" />
+
+
 
 
