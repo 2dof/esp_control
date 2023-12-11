@@ -19,11 +19,12 @@ P-I-D control library for esp32 Micropython
  5. [Manual value (MV) processing](#5-manual-value-processing)
  6. [Control value (CV) processing](#6-control-value-processing )
  7. [Setpoint curve ceneration](#7-setpoint-curve-generation ) 
- 8. [Signal processing](#8-signal-processing )
- 9. [Benchmark](#9-benchmark )
- 10. [Examples](#10-examples )
- 11. [process models](#11-process-models )
- 12. [Project summary](#12-project-summary)
+ 8. [Signal processing](#8-signal-processing )  
+    8.1 [Thermocouples](#81-thermocouples)   
+ 10. [Benchmark](#9-benchmark )
+ 11. [Examples](#10-examples )
+ 12. [process models](#11-process-models )
+ 13. [Project summary](#12-project-summary)
 
  
 
@@ -734,6 +735,8 @@ curve_generator.py
  # 8. Signal processing
   
   Basic signal processing functions are described in [functional_description](functional_description.md)
+
+  ## 8.1 Thermocouples
   
   Thermocouples signal processing are descibed in [src/thermocouples](https://github.com/2dof/esp_control/tree/main/src/thermocouples)
 
