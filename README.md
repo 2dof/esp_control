@@ -24,7 +24,7 @@ P-I-D control library for esp32 Micropython
  9. [Benchmark](#9-benchmark )
  10. [Examples](#10-examples )
  11. [process models](#11-process-models )
- 12. [Hardware implementation- notes](#12-hardware-implementation) 
+ 12. [Hardware implementation- notes](#12-hardware-implementation-notes) 
  14. [Project summary](#13-project-summary)
 
  
@@ -784,7 +784,7 @@ An @timed_function() was used to time measure (see [Identifying the slowest sect
  ###### [Contents](./README.md#contents)
 
 
-# 12. Hardware implementation
+# 12. Hardware implementation-notes
 
 
  ###### [Contents](./README.md#contents)
