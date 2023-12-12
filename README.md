@@ -21,10 +21,11 @@ P-I-D control library for esp32 Micropython
  7. [Setpoint curve ceneration](#7-setpoint-curve-generation ) 
  8. [Signal processing](#8-signal-processing )  
     8.1 [Thermocouples](#81-thermocouples)   
- 10. [Benchmark](#9-benchmark )
- 11. [Examples](#10-examples )
- 12. [process models](#11-process-models )
- 13. [Project summary](#12-project-summary)
+ 9. [Benchmark](#9-benchmark )
+ 10. [Examples](#10-examples )
+ 11. [process models](#11-process-models )
+ 12. [Hardware implementation- notes](#12-hardware-implementation) 
+ 14. [Project summary](#13-project-summary)
 
  
 
@@ -782,7 +783,13 @@ An @timed_function() was used to time measure (see [Identifying the slowest sect
 
  ###### [Contents](./README.md#contents)
 
-# 12. Project Summary 
+
+# 12. Hardware implementation
+
+
+ ###### [Contents](./README.md#contents)
+
+# 13. Project Summary 
 
 *DOCUMENTATION*
   - [x] Project architecture and algorithms description (doc) - not public 
