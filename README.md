@@ -786,6 +786,38 @@ An @timed_function() was used to time measure (see [Identifying the slowest sect
 
 # 12. Hardware implementation-notes
 
+Here You will find some notes and comments how to avoid problems with hardware implementation:
+
+I You want implement a controller as a (fixed) driver (i.e for DC motor) choose simplest implementation (fixed PI/PID architecture, SP/PV processing nessesary for ADC scaling/normalization. If You want build some universal platform like industrial temperature controllers (Keyboard, LCD) then (in my opinion) design interface and user interaction will be more importnant part of project.
+
+Notes:
+ - Always choose safety as main goal during design i.e.  Alarm Indication ( screen/dione blinking, buzzer), sensor fault detection, emergency shut down etc.
+ - Proper Startu-up/shut-down of application (power-on/off controller) is half off succes (load configuration asnd settings/ save setting)
+ - list of functionality of Your automation project, and then just select best platform/MCU and perypherials/
+    
+ *HARDWARE REMARKS*
+ 
+ -some platforms during/after program reset/boot can have Hi level on GPIO  (for example in  esp32 some pins go [high on boot](https://espeasy.readthedocs.io/en/latest/Reference/GPIO.html)) 
+ 
+ - The ADC of the ESP32 issues 
+   - The V/ADC relation is not linear ( [see tests](https://github.com/bboser/IoT49/blob/master/doc/analog_io.md).
+   - ADC2 cannot be used with enabled WiFi also on most IoT platforms  ADC reading directly from AI and using WI-FI/BT simultaneously in most cases will  add lot of     high level noise in measurment
+   - noise and value fluctiation.  
+   - The ADC can only measure a voltage between 0 and 3.3V
+   - Other ADC Limitations (https://docs.espressif.com/projects/esp-idf/en/v4.4/esp32/api-reference/peripherals/adc.html)
+ - High PWM frequency may have an impact in i2C communication
+:exclamation: → some issue (adc nonlinearity) can be corrected, but I ussualy recommend use external converter ( i.e ADS1115 or other).
+
+  
+
+
+
+
+
+
+
+ 
+
 
  ###### [Contents](./README.md#contents)
 
