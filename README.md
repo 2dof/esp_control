@@ -558,7 +558,7 @@ Manual Value (MV) processing called by function:
 ```
 which perform basic manual value signal processig: incremental change from input dmv of manual value with tracking input (from control signal), limit
 min/max value.  
-#Tracking (of control value) ensure to bumples change during Auto/Manual control in control process  
+# Tracking (of control value) ensure to bumples change during Autoto Manual control.
 
 **Setting-up MV processing**
 
@@ -576,7 +576,7 @@ min/max value.
 
  MVR.MvLL = 0.0             # lets set new saturation parameter MvLL  
  mv_tune(MVR)               # Always tune parameter after changing 
- dx=0.0                     # incremental input      
+ dx=0.0                     # incremental input       
 
  for i in range(0,40):      # do some testing  
         
@@ -585,14 +585,14 @@ min/max value.
     y = mv_update(MVR,dx,ytr)
     print("ytr:",ytr,"mv:",y)
     
-    if i == 22: # check how increasing Tt affect mv output to track   
-        
+    if i == 22: # check how increasing Tt affect mv output to track
+
        MVR.Tt   =0.5  
        mv_tune(MVR)
  ``` 
  
-All tunable parameters need to be initialized, custom function ```MV_init0(MVR) ```(or by direct access) and recalculated by  ```MV_tune(MVR) ``` function.
- ```MV_init0(SPR) ``` is a custom function (edited by user) for setting-up parameters, also parameters are accessible directly from structure.
+All tunable parameters need to be initialized, by custom function ```MV_init0(MVR) ```(or by direct access) and recalculated by  ```MV_tune(MVR) ``` function.
+ ```MV_init0(MVR) ``` is a custom function (edited by user) for setting-up parameters, also parameters are accessible directly from structure.
  When reset of MV structure is required, then use ```mv_reset(MVR)``` .
  
 :exclamation: → ALWAYS CALL  ```MV_tune() ``` function after changing tunable parameters.
