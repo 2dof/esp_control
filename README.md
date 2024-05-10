@@ -554,11 +554,11 @@ All process value tunable parameters need to be initialized, and Configuration s
 
 Manual Value (MV) processing called by function: 
 ```python
- def mv_update(mvr,dmv,tr =0.0)    # mvr- mv structure , dmv - change in manual value input  ,tr - tracking input
+ def mv_update(mvr,dmv,tr =0.0)    # mvr- mv structure , dmv - "+/-" change in manual value input  ,tr - tracking input
 ```
 which perform basic manual value signal processig: incremental change from input dmv of manual value with tracking input (from control signal), limit
-min/max value. 
-#racking (of control value) ensure to bumples change during Auto/Manual control in control process  
+min/max value.  
+#Tracking (of control value) ensure to bumples change during Auto/Manual control in control process  
 
 **Setting-up MV processing**
 
@@ -575,8 +575,9 @@ min/max value.
  mv_init0(MVR)              # init 
 
  MVR.MvLL = 0.0             # lets set new saturation parameter MvLL  
- mv_tune(MVR)               # Alway tube parameter after changing 
- 
+ mv_tune(MVR)               # Always tune parameter after changing 
+ dx=0.0                     # incremental input      
+
  for i in range(0,40):      # do some testing  
         
     ytr = 2*sin(6.28*0.05*i)
@@ -585,12 +586,12 @@ min/max value.
     print("ytr:",ytr,"mv:",y)
     
     if i == 22: # check how increasing Tt affect mv output to track   
-       #dx = 1. 
+        
        MVR.Tt   =0.5  
        mv_tune(MVR)
  ``` 
  
-All manual value tunable parameters need to be initialized, custom function ```MV_init0(MVR) ```(or by direct access) and recalculated by  ```MV_tune(MVR) ``` function.
+All tunable parameters need to be initialized, custom function ```MV_init0(MVR) ```(or by direct access) and recalculated by  ```MV_tune(MVR) ``` function.
  ```MV_init0(SPR) ``` is a custom function (edited by user) for setting-up parameters, also parameters are accessible directly from structure.
  When reset of MV structure is required, then use ```mv_reset(MVR)``` .
  
@@ -606,8 +607,11 @@ Because we change ```MVR.MvLL = 0.0 ``` then manual value will be cut-off at bot
    
   Tracking dynamic - increasing value of Tt (in relation to sampling time (Ts))introduce more lag effect (see figure C1.), for fast response keep Tf<=0.1 Ts, 
   Incremental change of input dmv - both Tm and Tr acts as scaling factor ( ~ Tt/Tm)  for input dmv affecting output value.  
-   
-         
+
+**Changing value "+/-" in dmv input ** 
+Because dmv input is incremental input then the bigger dmv value then faster output will be changing, constant value of input dmv will accect constant increasing
+of output (interating). 
+        
 MV structure parameters:
  ```python
  MVR.
