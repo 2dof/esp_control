@@ -352,7 +352,7 @@ bit field names:
     Mansel  - bit:3  - Manual selection
     Modesel - bit:4  - Mode selection(0-direct, 1-indirect)
     Rlimsel - bit:5  - Rate limit selection
-    F6      - bit:6  - fro user use
+    F6      - bit:6  - for user use
     F7      - bit:7  - for user use   
 ```
 
@@ -558,7 +558,7 @@ Manual Value (MV) processing called by function:
 ```
 which perform basic manual value signal processig: incremental change from input dmv of manual value with tracking input (from control signal), limit
 min/max value.  
-# Tracking (of control value) ensure to bumples change during Autoto Manual control.
+
 
 **Setting-up MV processing**
 
@@ -643,6 +643,7 @@ mv_processing.py
 
 Basic control signal processing are based on methods provides by [Signal processing](#8-signal-processing).
 Depending on desired solution it is possible to implement, for example:
+- standard PWM generation out
 - 2 or 3 Step Controller ( with or without Position Feedback Signal)
  
      
@@ -813,15 +814,7 @@ Notes:
 :exclamation: → some issue (adc nonlinearity) can be corrected, but I ussualy recommend use external converter ( i.e ADS1115 or other).
 
   
-
-
-
-
-
-
-
  
-
 
  ###### [Contents](./README.md#contents)
 
@@ -834,7 +827,7 @@ Notes:
 **IMPLEMENTATION** 
   - [x] Micropython implementation (code based on structures)
   - [x] Python implementation (code based on classes), :exclamation: - not public 
-  - [ ] C implementation (code based on structures)   :exclamation: → IN PROGRESS (actually not public)
+  - [ ] C implementation (code based on structures)   :exclamation:  - not public 
 
 *Tools*
   - [x] serial protocol communication ( data exchange and controller configuration)-  in progress 
