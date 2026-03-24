@@ -638,7 +638,7 @@ mv_processing.py
  ``` 
 
 > [!NOTE]
-> Manual value processing described in thos section is more suitable for implementation with analog hardware (potentiometer)
+> Manual value processing described in this section is more suitable for implementation with analog hardware (potentiometer)
 > value manipulation with incremental (speed) controller.  For digital (keys) input hardware Manual value processing can be
 > implementes simpler, just with overvriting CV value to MV value during switching Man/Auto and performing value inrementing/decrementing.    
 
