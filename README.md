@@ -636,6 +636,12 @@ mv_processing.py
     ├── def mv_reset(mvr)               - reset internal state , manual value mv = 0 
     └── def mv_init0(mvr)               - edited by user, initialize  'mvr' structure.  
  ``` 
+
+> [!NOTE]
+> Manual value processing described in thos section is more suitable for implementation with analog hardware (potentiometer)
+> value manipulation with incremental (speed) controller.  For digital (keys) input hardware Manual value processing can be
+> implementes simpler, just with overvriting CV value to MV value during switching Man/Auto and performing value inrementing/decrementing.    
+
      
  ###### [Contents](./README.md#contents)
  
