@@ -449,13 +449,14 @@ should be read if in Your App You will going to use uasyncio.
 # 3. ON-OFF Controller
 
  This is extension for [2.3 On-Off-controller](https://github.com/2dof/esp_control/blob/main/README.md#23-on-off-controller) description and implementation of on-of controller described in main topic.
-Related files for this champter:
+Related files for this chapter:
  - on_off_control_example.py        - implementation and simulation in micropython (copy code from main src)
  - Example_python_FOPDT_on_off.py   - implementation and simulation in Python (that same on-off controller code - but matplotlib is used in visualisation)
-
+ - [process models](https://github.com/2dof/LTI_models/tree/main/proces_models)  used in examples ( need to copy to the examples folder)
+ - 
  Example in python was modified in simulation part to show how constant change in time of Setpoint value affect follow-up regulation.
 
-The simulation (simple model of some thermal process) result is presented below. during heating (control ON) the SP value change (0.16 C/sec) has been set to show how process dynamics (speed PV value change) reacts for follow-up regulation and between 660 sec and 780 sec of simulation we can notice that process dynamics (pv value) is unable to  "overtake" the set point ( we are near max value possible ot rate of PV change ( process gain Kp=120), and since we use on-off control, then max control value uk = 1 (100%) then we put max aviable power to the system.      
+The simulation (simple model of some thermal process) result is presented below. during heating (control ON) the SP value change (0.16 C/sec) has been set to show how process dynamics (speed PV value change) reacts for follow-up regulation and between 660 sec and 780 sec of simulation we can notice that process dynamics (pv value) is unable to  "overtake" the set point ( we are near max value possible ot rate of PV change ( process gain Kp=120), and since we use on-off control, then max control value uk = 1 (100%) then we put max available power to the system.      
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/on_off_FOPDT_example2_neg.png" width="700" height="300" />
 
 
