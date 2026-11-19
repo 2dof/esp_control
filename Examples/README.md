@@ -37,7 +37,7 @@ Ns=int(Tstop/Ts)
 ```
 
 We create FOPDT process model with delay 1 sec, proces time constant taup=3.0 sec, and process gain Kp=2, next 
-we initialize a P-I-D controller and (PID structure) and Manual Value MVR structure, We set 
+we initialise a P-I-D controller and (PID structure) and Manual Value MVR structure, We set 
 MvHL ,MvLL slightly smaller than control Umin/Umax.
 
 ``` Python
@@ -60,7 +60,7 @@ MVR.MvLL = 0.95* PID.Umin
 mv_tune(MVR)
 ```
 
-Next we perform a PID tuning, as example two method are presented: a standard step responce (Ziegler-Nichols method) and  
+Next we perform a PID tuning, as example two method are presented: a standard step response (Ziegler-Nichols method) and  
 tuning based on IMC (internal Model Control) , note that IMC is for 2-dof controller (i.e D-action is calculated not for
 error = sp - pv but for -y value - we use standard error = sp - pv for D-calculation). 
 After calling ```isa_tune(PID)``` we set selectors for anti-windup (Awsel) and PI/PID select control - We will change selectors
@@ -68,7 +68,7 @@ for testing our setup.
 
 ``` Python
 #4 - pid tuning 
-# we assume that we know process params calculated from proces step responce 
+# we assume that we know process params calculated from process step response 
 # see https://yilinmo.github.io/EE3011/Lec9.html#org2a34bd4
  
 Ko = 2  # -> Kp         
@@ -83,8 +83,8 @@ Lo = 1.   #  -> delay
 # PID.Tm = PID.Td/10.
 
   #Tuning based on IMC (internal Model Control) for 2-dof pid  
- #tauc = max(1*Ko, 8*Lo)      #  'moderate' tutning
-tauc = max(1*To, 1*Lo)  #  'agressive' tuning 
+ #tauc = max(1*Ko, 8*Lo)      #  'moderate' tuning
+tauc = max(1*To, 1*Lo)  #  'aggressive' tuning 
 PID.Kp   =((To+0.5*Lo)/(tauc+0.5*Lo))#/Ko. 
 PID.Ti   =(To+0.5*Lo)
 PID.Td   = To*Lo/(2*To+Lo)
@@ -96,8 +96,8 @@ PID.CFG.Awsel   = False  # True
 PID.CFG.Dsel   = True  # True
 ```
 Because we simulate control in the loop we:
-- initialize parameters, setpoint sp = 50 (we change in middle of the iteration to sp=-50 
-- initialize other parameters.
+- initialise parameters, setpoint sp = 50 (we change in middle of the iteration to sp=-50 
+- initialise other parameters.
 
 a) - read value yk from process model and simulate a measurement ```pv = yk + vn```,(vn- noise), for first test we do not add noise.
 
@@ -119,7 +119,7 @@ g) last step is just to print signals.
 ```python
 # init simulation 
 sp = 50.     # setpoint
-yk  = 0.      # proces outpout value (measured)
+yk  = 0.      # process output value (measured)
 uk  = 0.      # control value 
 dmv = 0.     # change in manual value
 mv  = 0.     # manual value 
@@ -157,8 +157,8 @@ for i in range(Ns):
      
 ```
 Below printed data are presented on plots for easier analysis. Figure 1. present process control without
-anti-windup, the second with antntiwindup active. 
-On the bottom chart we can see how manual value (mv) track a control signal to ensure bumpless swiching from Auto to Manual control mode.  
+anti-windup, the second with anti-windup active. 
+On the bottom chart we can see how manual value (mv) track a control signal to ensure bump-less switching from Auto to Manual control mode.  
 
   <table style="padding:4px">
   <tr>
@@ -172,8 +172,8 @@ On the bottom chart we can see how manual value (mv) track a control signal to e
  </p></td>
   </tr> </table> 
   
- In real time implementation all signal processing ( from reading process, value to control calcupation) shoud be implemented as 
- timer interrupt callback function, all parameters update and tuning shoud be done after end of control process update. 
+ In real time implementation all signal processing ( from reading process, value to control calculation) should be implemented as 
+ timer interrupt callback function, all parameters update and tuning should be done after end of control process update. 
   
 
 
@@ -194,25 +194,25 @@ In this example, a ```pid_awm_updateControl()``` function from pid_aw.py will be
 A basic sequence in digital (discrete) p-i-d implementation is ("PID Controllers - Theory, Design and Tuning" by Karl J. Aström and Tore Hägglund, sec. 3.6 Digital Implementation).
 
 (1) Wait for clock interrupt.
-(2) Read analog input  (Process value, (Setpoint)). 
+(2) Read analog input  (Process value, (Setpoint). 
 (3) Compute control signal.
-(4) Set analog output ( before do some preprocessing) 
+(4) Set analog output ( before do some p reprocessing) 
 (5) Update controller variables 
 (6) Go to 1 
 
 From above, we can notice that step (5) is done after setting physical output (the control value (Cv) should be calculated and updated as fast as possible), which means that the controller's parameters and variables can't be modified during Cv calculations (to avoid unexpected behavior). Because p-i-d parameters: Kp, Ti, Td, Tm, Td, Umax, Umin, dUlim and Ts (see  [2.2 PID with anti-windup](https://github.com/2dof/esp_control/#22-pid-with-anti-windup) for full structure description) can be changed at any time by the user, we need a copy of parameters, and that functionality will be implemented in Part 1 of the tutorial. 
 
 In step (2) some additional signal processing (at least unit conversion) is needed, and the setpoint (Sp) can be set by a potentiometer, so noise filtering may be necessary. In hardware solution, at least Sp, Pv, error, Cv  should be presented on display, and for Sp value setting (user->Sp setting (with potentiometer)-display->user), the frequency of the display update can differ from the p-i-d sampling time (especially when we control a slow process, a Cv can be calculated even every few seconds); in that case, a user menu system (for the keyboard and display) should take care of Sp noise filtration).
-In step (4), we usually set a PWM output as an analog output, but it can also be  PWM + DO (digital output) (ffor DC motor control with direction), or just DO (On-off control).
+In step (4), we usually set a PWM output as an analog output, but it can also be  PWM + DO (digital output) (for DC motor control with direction), or just DO (On-off control).
 
 **Part 1: P-I-D Class** 
 
 The code for the pid_awm_controller() class is presented below. As a basic, we have:
 - pid structure, descibed in [2.2 PID with anti-windup](https://github.com/2dof/esp_control/#22-pid-with-anti-windup))
 - local copy of parameters Kp,Ti,Td,Tm, Td, Umax,Umin, dUlim, Ts 
-- flag ``` Fparam ``` for informing if parameters has been change and recalculation will be nedeed 
+- flag ``` Fparam ``` for informing if parameters has been change and recalculation will be needed 
 
-As additional to Cv calculation a rate limiter has beed added in  updateControl() function. By setting parametes with function ```set_<parameter>(value)``` we set 
+As additional to Cv calculation a rate limiter has beed added in  updateControl() function. By setting parameters with function ```set_<parameter>(value)``` we set 
  local parameter and set ``` Fparam ``` flag, but only function ``` tune() ``` will recalculate all variables and will update p-i-d structure ```self.pid ```
  
 file class_controller_pid_awm_example.py (with simulation in ```__main__```): 
@@ -229,15 +229,15 @@ class pid_awm_controller(object):    __init__(self,Kp,Ti,Td,Tm,Tt,Umax=100,Umin 
     ├── set_Umax(value)   
     ├── set_Umin(value)   
     ├── set_dUlim(value)       
-    └── set_Ts(value)                            - set local Ts paramwter
+    └── set_Ts(value)                            - set local Ts parameter
 ```
 
 This way we created a basic pid 'block' where we can set parameters in any time, and update controller's variable later. 
 Note that:
 - in ```set_<parameter>(value)``` functions, value error checking hasn't beed added.  
--  when we analyze source code of pid_awm_updateControl() function, we notice that computation of variables are done in 
-  pid_tune(pid) function, and only parameter Kp is used directly in P-term calculation in ```pid_awm_updateControl()```. That mean a most of parameter (Ti,Td,..) apart from Kp can be changed directrly in struct without affecting Cv calculation, so class can be optimized (not need to keep coopy of (Ti,Td,..), but for consistency we keep all parameters as auxiliary values.
-- Depending on your preferences a decorators: ```@setter, @property ``` can be used or even setattr() in setting class atribute value. 
+-  when we analyse source code of pid_awm_updateControl() function, we notice that computation of variables are done in 
+  pid_tune(pid) function, and only parameter Kp is used directly in P-term calculation in ```pid_awm_updateControl()```. That mean a most of parameter (Ti,Td,..) apart from Kp can be changed directly in struct without affecting Cv calculation, so class can be optimised (not need to keep coopy of (Ti,Td,..), but for consistency we keep all parameters as auxiliary values.
+- Depending on your preferences a decorators: ```@setter, @property ``` can be used or even setattr() in setting class attribute value. 
 
  
 
@@ -249,7 +249,7 @@ class pid_awm_controller(object):
     def __init__(self,Kp,Ti,Td,Tm,Tt,Umax=100,Umin =0 ,dUlim=100,Ts = 1.0):
 
         self.pid_buf=bytearray(101)  # size of PID_REGS is 101 bytes, 
-        self.pid = uctypes.struct(uctypes.addressof(self.pid_buf), PID_REGS, uctypes.LITTLE_ENDIAN)
+        self.pid = uctypes.struct (uctypes.addressof(self.pid_buf), PID_REGS, uctypes.LITTLE_ENDIAN)
         
         self.Kp = Kp      
         self.Ti = Ti        
@@ -372,8 +372,8 @@ if __name__ == '__main__':
  
     #[1] process model FOPDT
     y0=21      # Initial value 
-    To=200     # proces time constant 
-    Lo=1       # proces delay [s]
+    To=200     # process time constant 
+    Lo=1       # process delay [s]
     Ko=100     # process Gain [s]
     process_model = FOPDT_model(Kp=Ko,taup=To,delay=Lo, y0=y0,Ts=Ts)
 
@@ -405,16 +405,16 @@ if __name__ == '__main__':
         if k*Ts >=300:
            sp = 60
            
-        #[b] Read process value (in realtime we read from ADC and do pv processing)
+        #[b] Read process value (in real time we read from ADC and do pv processing)
         yk = process_model.update(uk)
         #vn = uniform(-0.4,0.4)  # white noise 
         pv = yk #+ vn
         #  ------------------------------------ (3) ------------------------------------ 
         #[c] calculate control value
-        uk = controller.updatecontrol(sp,pv)  # dafault ubias=0, mv = 0
+        uk = controller.update control(sp,pv)  # default ubias=0, mv = 0
 
         #  ------------------------------------ (4) ------------------------------------ 
-        # [d] in real time we would perfomr some CV processing and set cotroller output ( PWM, On/Off GPIO in on/off control or other 
+        # [d] in real time we would perform some CV processing and set controller output ( PWM, On/Off GPIO in on/off control or other 
         # GPIO operation , after that we can update controller parameters and variables.
 
         #  ------------------------------------ (5) ------------------------------------  
@@ -428,13 +428,13 @@ if __name__ == '__main__':
 
 **Part2: timer interrupt** 
 
-Before some examples solutions will be presented familiarize yourself with micropython timer interrupts in esp32 and 
+Before some examples solutions will be presented familiarise yourself with micropython timer interrupts in esp32 and 
 [Writing interrupts handlers: isr_rules](https://docs.micropython.org/en/latest/reference/isr_rules.html)
 Main conclusions:
-- esp32 timers interrups are implemented as soft interrupts
+- esp32 timers interrupts are implemented as soft interrupts
 - in general it is best to avoid using floats in ISR code 
 - ISR cannot pass a bound method to a function but:
-- section 'Creation of Python objects' in isr_rules desctribe how to deal with floating point operations during control value calculation by  "(...)creating a reference to the bound method in the class constructor and to pass that reference in the ISR.". This way we can pass all computation as a Task run by scheduler.
+- section 'Creation of Python objects' in isr_rules describe how to deal with floating point operations during control value calculation by  "(...)creating a reference to the bound method in the class constructor and to pass that reference in the ISR.". This way we can pass all computation as a Task run by scheduler.
          
 Using ISR with uasyncio there are [some restrictions](https://github.com/peterhinch/micropython-async/blob/master/v3/docs/INTERRUPTS.md), aslo 
 [Linking uasyncio and other contexts](https://github.com/peterhinch/micropython-async/blob/master/v3/docs/THREADING.md#12-soft-interrupt-service-routines)
@@ -448,20 +448,20 @@ should be read if in Your App You will going to use uasyncio.
 
 # 3. ON-OFF Controller
 
- This is extension for [2.3 On-Off-controller](https://github.com/2dof/esp_control/blob/main/README.md#23-on-off-controller) description and implementation of on-of controler described in main topic.
-Related files for this champer:
+ This is extension for [2.3 On-Off-controller](https://github.com/2dof/esp_control/blob/main/README.md#23-on-off-controller) description and implementation of on-of controller described in main topic.
+Related files for this champter:
  - on_off_control_example.py        - implementation and simulation in micropython (copy code from main src)
  - Example_python_FOPDT_on_off.py   - implementation and simulation in Python (that same on-off controller code - but matplotlib is used in visualisation)
 
  Example in python was modified in simulation part to show how constant change in time of Setpoint value affect follow-up regulation.
 
-The simulation (simple model of some thermal process) result is presented below. during heating (control ON) the SP value change (0.16 C/sec) has been set to show how process dynamics (speed PV value change) reacts for follow-up regulation and between 660 sec and 780 sec of simulation we can notice that process dynamics (pv value) is unable to  "overtake" the set point ( we are near max value of PV ( process gain Kp=120), and since we use on-off control, then max control value uk = 1 then we can't increase control signal.      
+The simulation (simple model of some thermal process) result is presented below. during heating (control ON) the SP value change (0.16 C/sec) has been set to show how process dynamics (speed PV value change) reacts for follow-up regulation and between 660 sec and 780 sec of simulation we can notice that process dynamics (pv value) is unable to  "overtake" the set point ( we are near max value possible ot rate of PV change ( process gain Kp=120), and since we use on-off control, then max control value uk = 1 (100%) then we put max aviable power to the system.      
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/on_off_FOPDT_example2_neg.png" width="700" height="300" />
 
 
 First conclusion is that we can use on-off controller for follow-up set point and max error should not be greater than settings of hysteresis, but in real-live application 
 it may happen that overshooting will be bigger than expected.
-For example: let consider control of temperature in (small) electric pottery kiln, in that case on-off controller will on full power (ON) or zero power (Off), but since thermocouple will be measuring temperature near heating element (not on the his surface) then there will be some delay, when conntroller will turn-of power, heat form heating element (wire) will be still delivered to the system (simply temperature of electric fire will bi higher), and effect of control will be similar to waveforms 
+For example: let consider control of temperature in (small) electric pottery kiln, in that case on-off controller will on full power (ON) or zero power (Off), but since thermocouple will be measuring temperature near heating element (not on the his surface) then there will be some delay, when controller will turn-of power, heat form heating element (wire) will be still delivered to the system (simply temperature of electric fire will bi higher), and effect of control will be similar to waveforms 
 
 <img src="https://github.com/2dof/esp_control/blob/main/Examples/drawnings/on_off_FOPDT_example2_1_neg.png" width="700" height="300" />
 
